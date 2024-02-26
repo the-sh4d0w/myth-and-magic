@@ -1,0 +1,41 @@
+{
+	"schemaVersion": 1,
+	"id": "the-one-sword",
+	"version": "${version}",
+	"name": "The One Sword",
+	"description": "This mod adds a powerful sword only the mighty can wield. Potentially some other stuff.",
+	"authors": [
+		"Sh4d0w"
+	],
+	"contact": {
+		"homepage": "https://modrinth.com/project/the-one-sword",
+		"sources": "https://github.com/the-sh4d0w/the-one-sword"
+	},
+	"license": "MIT",
+	"icon": "assets/the-one-sword/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"sh4d0w.theonesword.TheOneSword"
+		],
+		"client": [
+			"sh4d0w.theonesword.TheOneSwordClient"
+		],
+		"fabric-datagen": [
+			"sh4d0w.theonesword.TheOneSwordDataGenerator"
+		]
+	},
+	"mixins": [
+		"the-one-sword.mixins.json",
+		{
+			"config": "the-one-sword.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.15.7",
+		"minecraft": "~1.20",
+		"java": ">=17",
+		"fabric-api": "*"
+	}
+}
