@@ -22,7 +22,7 @@ loom {
     splitEnvironmentSourceSets()
 
 	mods {
-		"the-one-sword" {
+		"myth_and_magic" {
 			sourceSet sourceSets.main
 			sourceSet sourceSets.client
 		}

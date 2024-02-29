@@ -1,36 +1,29 @@
 {
 	"schemaVersion": 1,
-	"id": "the-one-sword",
+	"id": "excalibur",
 	"version": "${version}",
-	"name": "The One Sword",
-	"description": "This mod adds a powerful sword only the mighty can wield. Potentially some other stuff.",
+	"name": "Excalibur",
+	"description": "This mod adds a powerful sword only the worthy can wield. Potentially some other stuff.",
 	"authors": [
 		"Sh4d0w"
 	],
 	"contact": {
-		"homepage": "https://modrinth.com/project/the-one-sword",
-		"sources": "https://github.com/the-sh4d0w/the-one-sword"
+		"homepage": "https://modrinth.com/project/excalibur-sword",
+		"sources": "https://github.com/the-sh4d0w/excalibur"
 	},
 	"license": "MIT",
-	"icon": "assets/the-one-sword/icon.png",
+	"icon": "assets/myth_and_magic/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"sh4d0w.theonesword.TheOneSword"
+			"myth_and_magic.MythAndMagic"
 		],
 		"client": [
-			"sh4d0w.theonesword.TheOneSwordClient"
-		],
-		"fabric-datagen": [
-			"sh4d0w.theonesword.TheOneSwordDataGenerator"
+			"myth_and_magic.MythAndMagicClient"
 		]
 	},
 	"mixins": [
-		"the-one-sword.mixins.json",
-		{
-			"config": "the-one-sword.client.mixins.json",
-			"environment": "client"
-		}
+		"myth_and_magic.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.15.7",
