@@ -2,7 +2,7 @@
 	"schemaVersion": 1,
 	"id": "excalibur",
 	"version": "${version}",
-	"name": "Excalibur",
+	"name": "Myth & Magic",
 	"description": "This mod adds a powerful sword only the worthy can wield. Potentially some other stuff.",
 	"authors": [
 		"Sh4d0w"

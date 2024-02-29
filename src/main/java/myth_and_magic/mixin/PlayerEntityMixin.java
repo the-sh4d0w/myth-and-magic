@@ -19,12 +19,12 @@ public class PlayerEntityMixin {
         if (player.getMainHandStack().isOf(MythAndMagic.EXCALIBUR)) {
             // check if player is owner
             if (!player.getMainHandStack().hasNbt()
-                    || !player.getMainHandStack().getOrCreateNbt().contains("owner")
-                    || !player.getMainHandStack().getOrCreateNbt().getUuid("owner").equals(player.getUuid())) {
+                    || !player.getMainHandStack().getOrCreateNbt().contains("myth_and_magic.owner")
+                    || !player.getMainHandStack().getOrCreateNbt().getUuid("myth_and_magic.owner").equals(player.getUuid())) {
                 // cancel attack method; makes sure that the attack does nothing
-                // TODO: figure out how to stop the animation and display text on screen
+                // TODO: figure out how to stop the animation
                 if (player.getWorld().isClient()) {
-                    ((PlayerEntity) player).sendMessage(Text.literal("You are not worthy."), true);
+                    ((PlayerEntity) player).sendMessage(Text.translatable("item.myth_and_magic.excalibur.not_worthy"), true);
                 }
                 info.cancel();
             }
