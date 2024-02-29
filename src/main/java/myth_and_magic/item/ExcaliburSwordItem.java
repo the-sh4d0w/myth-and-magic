@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
@@ -15,6 +16,8 @@ import java.util.List;
 
 public class ExcaliburSwordItem extends SwordItem {
     public static Identifier CALL_SWORD_PACKET_ID = new Identifier("myth_and_magic", "call_sword");
+    public static final int MIN_WORTHINESS = 0;
+    public static final int MAX_WORTHINESS = 10;
 
     public ExcaliburSwordItem(Settings settings) {
         super(new Argonium(), 5, -2f, settings.rarity(Rarity.EPIC));
@@ -26,7 +29,8 @@ public class ExcaliburSwordItem extends SwordItem {
         if (itemStack.hasNbt() && itemStack.getOrCreateNbt().contains("myth_and_magic.owner")) {
             PlayerEntity player = world.getPlayerByUuid(itemStack.getOrCreateNbt().getUuid("myth_and_magic.owner"));
             if (player != null) {
-                tooltip.add(Text.translatable("item.myth_and_magic.excalibur.bound_tooltip").append(player.getName()));
+                tooltip.add(Text.translatable("item.myth_and_magic.excalibur.bound_tooltip").append(
+                        ((MutableText) player.getName()).formatted(Formatting.GOLD)));
                 if (!player.getName().toString().equals(itemStack.getOrCreateNbt().getString("myth_and_magic.player_name"))) {
                     NbtCompound nbtData = itemStack.getOrCreateNbt();
                     nbtData.putString("myth_and_magic.player_name", player.getName().getString());
@@ -34,7 +38,7 @@ public class ExcaliburSwordItem extends SwordItem {
                 }
             } else {
                 tooltip.add(Text.translatable("item.myth_and_magic.excalibur.bound_tooltip").append(
-                        Text.literal(itemStack.getOrCreateNbt().getString("myth_and_magic.player_name"))));
+                        Text.literal(itemStack.getOrCreateNbt().getString("myth_and_magic.player_name")).formatted(Formatting.GOLD)));
             }
         }
     }

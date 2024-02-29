@@ -3,7 +3,10 @@
   "item.myth_and_magic.excalibur.tooltip": "Ein mächtiges Schwert das nur von den Würdigen geführt werden kann.",
   "item.myth_and_magic.excalibur.bound_tooltip": "Gebunden an: ",
   "item.myth_and_magic.excalibur.not_worthy": "Du bist nicht würdig.",
-  "item.myth_and_magic.argonium_ingot": "Argonium",
+  "item.myth_and_magic.argonium_ingot": "Argoniumbarren",
   "key.myth_and_magic.call": "Schwert rufen",
-  "key.myth_and_magic.category": "Excalibur"
+  "key.myth_and_magic.category": "Excalibur",
+  "command.myth_and_magic.value_exception": "Wert muss zwischen %s und %s liegen",
+  "command.myth_and_magic.worthiness_get_response": "Würdigkeit: %s",
+  "command.myth_and_magic.worthiness_set_response": "Würdigkeit wurde zu %s geändert"
 }

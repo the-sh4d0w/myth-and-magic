@@ -1,5 +1,6 @@
 package myth_and_magic;
 
+import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import myth_and_magic.item.ArgoniumIngotItem;
 import net.fabricmc.api.ModInitializer;
@@ -8,6 +9,7 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.command.CommandException;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.network.PacketByteBuf;
@@ -61,20 +63,31 @@ public class MythAndMagic implements ModInitializer {
         });
 
         // register commands for setting and getting worthiness
-        // TODO: improve commands; handle .getPlayer() returning null (command not executed by player)
         CommandRegistrationCallback.EVENT.register(
                 (dispatcher, registryAccess, environment) -> dispatcher.register(CommandManager.literal("worthiness")
+                        .requires(source -> source.hasPermissionLevel(2) && source.isExecutedByPlayer())
                         .then(CommandManager.literal("set")
                                 .then(CommandManager.argument("value", IntegerArgumentType.integer())
                                         .executes(context -> {
-                                            PlayerData playerState = StateSaverAndLoader.getPlayerState(context.getSource().getPlayer());
-                                            playerState.worthiness = IntegerArgumentType.getInteger(context, "value");;
-                                            return 1;
+                                            int value = IntegerArgumentType.getInteger(context, "value");
+                                            if (ExcaliburSwordItem.MIN_WORTHINESS <= value && value <= ExcaliburSwordItem.MAX_WORTHINESS) {
+                                                PlayerData playerState = StateSaverAndLoader.getPlayerState(context.getSource().getPlayer());
+                                                playerState.worthiness = value;
+                                                context.getSource().sendFeedback(() -> Text.translatable(
+                                                        "command.myth_and_magic.worthiness_set_response",
+                                                        playerState.worthiness), false);
+                                                return Command.SINGLE_SUCCESS;
+                                            } else {
+                                                throw new CommandException(Text.translatable("command.myth_and_magic.value_exception",
+                                                        ExcaliburSwordItem.MIN_WORTHINESS, ExcaliburSwordItem.MAX_WORTHINESS));
+                                            }
                                         })))
                         .then(CommandManager.literal("get")
                                 .executes(context -> {
                                     PlayerData playerState = StateSaverAndLoader.getPlayerState(context.getSource().getPlayer());
-                                    context.getSource().sendFeedback(() -> Text.literal("%s".formatted(playerState.worthiness)), false);
+                                    context.getSource().sendFeedback(() -> Text.translatable(
+                                            "command.myth_and_magic.worthiness_get_response",
+                                            playerState.worthiness), false);
                                     return playerState.worthiness;
                                 }))));
     }
