@@ -26,12 +26,18 @@ public class ExcaliburSwordItem extends SwordItem {
     }
 
     @Override
+    public boolean hasGlint(ItemStack stack) {
+        return true;
+    }
+
+    @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         tooltip.add(Text.translatable("item." + MythAndMagic.MOD_ID + ".excalibur.tooltip"));
+        // show who the sword is bound to
         if (itemStack.hasNbt() && itemStack.getOrCreateNbt().contains("myth_and_magic.owner")) {
             PlayerEntity player = world.getPlayerByUuid(itemStack.getOrCreateNbt().getUuid(MythAndMagic.MOD_ID + ".owner"));
             if (player != null) {
-                tooltip.add(Text.translatable("item." + MythAndMagic.MOD_ID + ".excalibur.bound_tooltip").append(
+                tooltip.add(Text.translatable("item." + MythAndMagic.MOD_ID + ".excalibur.tooltip_bound").append(
                         ((MutableText) player.getName()).formatted(Formatting.GOLD)));
                 if (!player.getName().toString().equals(itemStack.getOrCreateNbt().getString(MythAndMagic.MOD_ID + ".player_name"))) {
                     NbtCompound nbtData = itemStack.getOrCreateNbt();
@@ -39,7 +45,7 @@ public class ExcaliburSwordItem extends SwordItem {
                     itemStack.setNbt(nbtData);
                 }
             } else {
-                tooltip.add(Text.translatable("item." + MythAndMagic.MOD_ID + ".excalibur.bound_tooltip").append(
+                tooltip.add(Text.translatable("item." + MythAndMagic.MOD_ID + ".excalibur.tooltip_bound").append(
                         Text.literal(itemStack.getOrCreateNbt().getString(MythAndMagic.MOD_ID + ".player_name")).formatted(Formatting.GOLD)));
             }
         }
@@ -47,14 +53,11 @@ public class ExcaliburSwordItem extends SwordItem {
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
-        // TODO: give better feedback; maybe text on screen
         // TODO: figure out what makes someone worthy
         if (player.getStackInHand(hand).hasNbt()) {
             if (player.getStackInHand(hand).getOrCreateNbt().contains(MythAndMagic.MOD_ID + ".owner")
-                    && player.getStackInHand(hand).getOrCreateNbt().getUuid(MythAndMagic.MOD_ID + ".owner").equals(player.getUuid())) {
-                player.sendMessage(Text.literal("You are the owner."));
-            } else {
-                player.sendMessage(Text.literal("You are not the owner."));
+                    && !player.getStackInHand(hand).getOrCreateNbt().getUuid(MythAndMagic.MOD_ID + ".owner").equals(player.getUuid())) {
+                player.sendMessage(Text.translatable("item.myth_and_magic.excalibur.bound_other"), true);
             }
             return TypedActionResult.fail(player.getStackInHand(hand));
         } else {
@@ -62,7 +65,6 @@ public class ExcaliburSwordItem extends SwordItem {
             nbtData.putUuid(MythAndMagic.MOD_ID + ".owner", player.getUuid());
             nbtData.putString(MythAndMagic.MOD_ID + ".player_name", player.getName().getString());
             player.getStackInHand(hand).setNbt(nbtData);
-            player.sendMessage(Text.literal("You are now the owner."));
             player.playSound(SoundEvents.ENTITY_PLAYER_LEVELUP, 0.5f, 1f);
             if (!world.isClient()) {
                 MythAndMagic.EXCALIBUR_CLAIMED.trigger((ServerPlayerEntity) player);

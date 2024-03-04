@@ -18,13 +18,16 @@ public class PlayerEntityMixin {
         // check if using excalibur
         if (player.getMainHandStack().isOf(MythAndMagic.EXCALIBUR)) {
             // check if player is owner
-            if (!player.getMainHandStack().hasNbt()
-                    || !player.getMainHandStack().getOrCreateNbt().contains(MythAndMagic.MOD_ID + ".owner")
+            if (!player.getMainHandStack().hasNbt() || !player.getMainHandStack().getOrCreateNbt().contains(MythAndMagic.MOD_ID + ".owner")
                     || !player.getMainHandStack().getOrCreateNbt().getUuid(MythAndMagic.MOD_ID + ".owner").equals(player.getUuid())) {
-                // cancel attack method; makes sure that the attack does nothing
-                // TODO: figure out how to stop the animation
                 if (player.getWorld().isClient()) {
-                    ((PlayerEntity) player).sendMessage(Text.translatable("item.myth_and_magic.excalibur.not_worthy"), true);
+                    // cancel attack method; makes sure that the attack does nothing
+                    if (player.getMainHandStack().getOrCreateNbt().contains(MythAndMagic.MOD_ID + ".owner")
+                            && !player.getMainHandStack().getOrCreateNbt().getUuid(MythAndMagic.MOD_ID + ".owner").equals(player.getUuid())) {
+                        ((PlayerEntity) player).sendMessage(Text.translatable("item.myth_and_magic.excalibur.bound_other"), true);
+                    } else {
+                        ((PlayerEntity) player).sendMessage(Text.translatable("item.myth_and_magic.excalibur.bound_none"), true);
+                    }
                 }
                 info.cancel();
             }

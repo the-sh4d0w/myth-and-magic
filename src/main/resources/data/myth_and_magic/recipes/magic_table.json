@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PAP",
+    " S ",
+    "OOO"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:oak_planks"
+    },
+    "A": {
+      "item": "minecraft:amethyst_shard"
+    },
+    "S": {
+      "item": "minecraft:stone_bricks"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    }
+  },
+  "result": {
+    "item": "myth_and_magic:magic_table",
+    "count": 1
+  }
+}

@@ -2,15 +2,20 @@ package myth_and_magic;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
-import myth_and_magic.item.MagicIronIngot;
+import myth_and_magic.enchantment.TeleportEvasionEnchantment;
+import myth_and_magic.item.MagicItem;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.advancement.criterion.Criteria;
+import net.minecraft.block.Block;
 import net.minecraft.command.CommandException;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -32,22 +37,30 @@ import java.util.Set;
 public class MythAndMagic implements ModInitializer {
     public static final String MOD_ID = "myth_and_magic";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-    public static final Item EXCALIBUR = Registry.register(Registries.ITEM, new Identifier(MOD_ID, "excalibur"),
-            new ExcaliburSwordItem(new FabricItemSettings()));
-    public static final Item MAGIC_IRON_INGOT = Registry.register(Registries.ITEM, new Identifier(MOD_ID,
-            "magic_iron_ingot"), new MagicIronIngot(new FabricItemSettings()));
+    public static final Item EXCALIBUR = Registry.register(Registries.ITEM,
+            new Identifier(MOD_ID, "excalibur"), new ExcaliburSwordItem(new FabricItemSettings()));
+    public static final Item MAGIC_IRON_INGOT = Registry.register(Registries.ITEM,
+            new Identifier(MOD_ID, "magic_iron_ingot"), new MagicItem(new FabricItemSettings()));
+    public static final Item MAGIC_GOLD_INGOT = Registry.register(Registries.ITEM,
+            new Identifier(MOD_ID, "magic_gold_ingot"), new MagicItem(new FabricItemSettings()));
+    public static Enchantment TELEPORT = Registry.register(Registries.ENCHANTMENT,
+            new Identifier(MOD_ID, "teleport_evasion"), new TeleportEvasionEnchantment());
+    public static Block MAGIC_TABLE = Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "magic_table"),
+            new Block(FabricBlockSettings.create().strength(4.0f).luminance(50)));
+    public static BlockItem MAGIC_TABLE_ITEM = Registry.register(Registries.ITEM,
+            new Identifier(MOD_ID, "magic_table"), new BlockItem(MAGIC_TABLE, new FabricItemSettings().maxCount(1)));
     private static final ItemGroup ITEM_GROUP = FabricItemGroup.builder().icon(() -> new ItemStack((EXCALIBUR)))
             .displayName(Text.literal("Myth & Magic")).entries(((displayContext, entries) -> {
-                entries.add(EXCALIBUR);
+                entries.add(MAGIC_TABLE_ITEM);
                 entries.add(MAGIC_IRON_INGOT);
+                entries.add(MAGIC_GOLD_INGOT);
+                entries.add(EXCALIBUR);
             })).build();
     public static ExcaliburClaimedCriterion EXCALIBUR_CLAIMED = Criteria.register(new ExcaliburClaimedCriterion());
-    // TODO: replace mod id strings with variable
     // TODO: add enchantments
-    // - teleportation when hit (boots?)
     // - teleport to trident (orignal, I know; maybe)
+    // - movement
     // TODO: legendary items
-    // - Excalibur (obviously)
     // - Tarnkappe (or equivalent; full invisibility but half health)
     // TODO: more magic -> what? (spells, staffs, armor/clothing, magic table to create special items)
     // - staff with gems? that give specific powers (movement, attack)

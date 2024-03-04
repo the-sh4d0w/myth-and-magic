@@ -36,9 +36,7 @@ public class MythAndMagicAdvancementGenerator implements DataGeneratorEntrypoint
 
         @Override
         public void generateAdvancement(Consumer<Advancement> consumer) {
-
-            NbtCompound nbt = new NbtCompound();
-            nbt.putBoolean(MythAndMagic.MOD_ID + ".claimed", true);
+            // TODO: add translations
             Advancement rootAdvancement = Advancement.Builder.create()
                     .display(
                             MythAndMagic.EXCALIBUR,

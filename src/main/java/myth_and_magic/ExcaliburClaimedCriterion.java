@@ -8,8 +8,6 @@ import net.minecraft.predicate.entity.LootContextPredicate;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
-import java.util.Optional;
-
 public class ExcaliburClaimedCriterion extends AbstractCriterion<ExcaliburClaimedCriterion.Conditions> {
     private static Identifier ID = new Identifier(MythAndMagic.MOD_ID, "excalibur_claimed");
 
