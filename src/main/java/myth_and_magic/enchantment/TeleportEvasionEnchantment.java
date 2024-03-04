@@ -15,6 +15,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 
 public class TeleportEvasionEnchantment extends Enchantment {
+    // TODO: add damage reduction
     public TeleportEvasionEnchantment() {
         super(Rarity.UNCOMMON, EnchantmentTarget.ARMOR_CHEST, new EquipmentSlot[]{EquipmentSlot.CHEST});
     }
@@ -46,13 +47,15 @@ public class TeleportEvasionEnchantment extends Enchantment {
                 for (int i = 0; i < 16; ++i) {
                     double g = user.getX() + (user.getRandom().nextDouble() - 0.5) * level * 6;
                     double h = MathHelper.clamp(user.getY() + (double) (user.getRandom().nextInt(16) - 8),
-                            (double) world.getBottomY(), (double) (world.getBottomY() + ((ServerWorld) world).getLogicalHeight() - 1));
+                            world.getBottomY(), (world.getBottomY() + ((ServerWorld) world).getLogicalHeight() - 1));
                     double j = user.getZ() + (user.getRandom().nextDouble() - 0.5) * level * 6;
                     if (user.hasVehicle()) {
                         user.stopRiding();
                     }
                     Vec3d vec3d = user.getPos();
-                    if (!user.teleport(g, h, j, true)) continue;
+                    if (!user.teleport(g, h, j, true)) {
+                        continue;
+                    }
                     world.emitGameEvent(GameEvent.TELEPORT, vec3d, GameEvent.Emitter.of(user));
                     SoundEvent soundEvent = SoundEvents.ENTITY_ENDERMAN_TELEPORT;
                     world.playSound(null, d, e, f, soundEvent, SoundCategory.PLAYERS, 1.0f, 1.0f);

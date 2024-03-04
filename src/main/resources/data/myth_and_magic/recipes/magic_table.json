@@ -1,14 +1,11 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "PAP",
+    "OAO",
     " S ",
-    "OOO"
+    "SSS"
   ],
   "key": {
-    "P": {
-      "item": "minecraft:oak_planks"
-    },
     "A": {
       "item": "minecraft:amethyst_shard"
     },

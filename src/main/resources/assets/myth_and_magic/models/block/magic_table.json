@@ -4,8 +4,8 @@
 	"textures": {
 		"3": "myth_and_magic:block/magic_table_top",
 		"4": "myth_and_magic:block/magic_table_sides",
-		"6": "block/oak_planks",
-		"7": "block/obsidian",
+		"6": "block/obsidian",
+		"7": "block/stone_bricks",
 		"8": "block/stone_bricks",
 		"particle": "myth_and_magic:block/magic_table_top"
 	},

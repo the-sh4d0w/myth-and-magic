@@ -2,6 +2,8 @@ package myth_and_magic;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import myth_and_magic.block.MagicTableBlock;
+import myth_and_magic.block.entity.MagicTableBlockEntity;
 import myth_and_magic.enchantment.TeleportEvasionEnchantment;
 import myth_and_magic.item.MagicItem;
 import net.fabricmc.api.ModInitializer;
@@ -11,8 +13,10 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Block;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.command.CommandException;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.BlockItem;
@@ -43,12 +47,15 @@ public class MythAndMagic implements ModInitializer {
             new Identifier(MOD_ID, "magic_iron_ingot"), new MagicItem(new FabricItemSettings()));
     public static final Item MAGIC_GOLD_INGOT = Registry.register(Registries.ITEM,
             new Identifier(MOD_ID, "magic_gold_ingot"), new MagicItem(new FabricItemSettings()));
-    public static Enchantment TELEPORT = Registry.register(Registries.ENCHANTMENT,
+    public static final Enchantment TELEPORT = Registry.register(Registries.ENCHANTMENT,
             new Identifier(MOD_ID, "teleport_evasion"), new TeleportEvasionEnchantment());
-    public static Block MAGIC_TABLE = Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "magic_table"),
-            new Block(FabricBlockSettings.create().strength(4.0f).luminance(50)));
-    public static BlockItem MAGIC_TABLE_ITEM = Registry.register(Registries.ITEM,
-            new Identifier(MOD_ID, "magic_table"), new BlockItem(MAGIC_TABLE, new FabricItemSettings().maxCount(1)));
+    public static final Block MAGIC_TABLE_BLOCK = Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "magic_table"),
+            new MagicTableBlock(FabricBlockSettings.create().strength(4.0f).luminance(50)));
+    public static final BlockEntityType<MagicTableBlockEntity> MAGIC_TABLE_BLOCK_ENTITY = Registry.register(
+            Registries.BLOCK_ENTITY_TYPE, new Identifier(MOD_ID, "magic_table_entity"),
+            FabricBlockEntityTypeBuilder.create(MagicTableBlockEntity::new, MAGIC_TABLE_BLOCK).build());
+    public static final BlockItem MAGIC_TABLE_ITEM = Registry.register(Registries.ITEM,
+            new Identifier(MOD_ID, "magic_table"), new BlockItem(MAGIC_TABLE_BLOCK, new FabricItemSettings().maxCount(1)));
     private static final ItemGroup ITEM_GROUP = FabricItemGroup.builder().icon(() -> new ItemStack((EXCALIBUR)))
             .displayName(Text.literal("Myth & Magic")).entries(((displayContext, entries) -> {
                 entries.add(MAGIC_TABLE_ITEM);
