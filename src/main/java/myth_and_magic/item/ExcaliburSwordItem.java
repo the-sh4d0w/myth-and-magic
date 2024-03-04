@@ -1,11 +1,13 @@
 package myth_and_magic.item;
 
-import myth_and_magic.item.materials.Argonium;
+import myth_and_magic.MythAndMagic;
+import myth_and_magic.item.materials.MagicIron;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
@@ -15,30 +17,30 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class ExcaliburSwordItem extends SwordItem {
-    public static Identifier CALL_SWORD_PACKET_ID = new Identifier("myth_and_magic", "call_sword");
+    public static Identifier CALL_SWORD_PACKET_ID = new Identifier(MythAndMagic.MOD_ID, "call_sword");
     public static final int MIN_WORTHINESS = 0;
     public static final int MAX_WORTHINESS = 10;
 
     public ExcaliburSwordItem(Settings settings) {
-        super(new Argonium(), 5, -2f, settings.rarity(Rarity.EPIC));
+        super(new MagicIron(), 5, -2f, settings.rarity(Rarity.EPIC));
     }
 
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
-        tooltip.add(Text.translatable("item.myth_and_magic.excalibur.tooltip"));
+        tooltip.add(Text.translatable("item." + MythAndMagic.MOD_ID + ".excalibur.tooltip"));
         if (itemStack.hasNbt() && itemStack.getOrCreateNbt().contains("myth_and_magic.owner")) {
-            PlayerEntity player = world.getPlayerByUuid(itemStack.getOrCreateNbt().getUuid("myth_and_magic.owner"));
+            PlayerEntity player = world.getPlayerByUuid(itemStack.getOrCreateNbt().getUuid(MythAndMagic.MOD_ID + ".owner"));
             if (player != null) {
-                tooltip.add(Text.translatable("item.myth_and_magic.excalibur.bound_tooltip").append(
+                tooltip.add(Text.translatable("item." + MythAndMagic.MOD_ID + ".excalibur.bound_tooltip").append(
                         ((MutableText) player.getName()).formatted(Formatting.GOLD)));
-                if (!player.getName().toString().equals(itemStack.getOrCreateNbt().getString("myth_and_magic.player_name"))) {
+                if (!player.getName().toString().equals(itemStack.getOrCreateNbt().getString(MythAndMagic.MOD_ID + ".player_name"))) {
                     NbtCompound nbtData = itemStack.getOrCreateNbt();
-                    nbtData.putString("myth_and_magic.player_name", player.getName().getString());
+                    nbtData.putString(MythAndMagic.MOD_ID + ".player_name", player.getName().getString());
                     itemStack.setNbt(nbtData);
                 }
             } else {
-                tooltip.add(Text.translatable("item.myth_and_magic.excalibur.bound_tooltip").append(
-                        Text.literal(itemStack.getOrCreateNbt().getString("myth_and_magic.player_name")).formatted(Formatting.GOLD)));
+                tooltip.add(Text.translatable("item." + MythAndMagic.MOD_ID + ".excalibur.bound_tooltip").append(
+                        Text.literal(itemStack.getOrCreateNbt().getString(MythAndMagic.MOD_ID + ".player_name")).formatted(Formatting.GOLD)));
             }
         }
     }
@@ -48,8 +50,8 @@ public class ExcaliburSwordItem extends SwordItem {
         // TODO: give better feedback; maybe text on screen
         // TODO: figure out what makes someone worthy
         if (player.getStackInHand(hand).hasNbt()) {
-            if (player.getStackInHand(hand).getOrCreateNbt().contains("myth_and_magic.owner")
-                    && player.getStackInHand(hand).getOrCreateNbt().getUuid("myth_and_magic.owner").equals(player.getUuid())) {
+            if (player.getStackInHand(hand).getOrCreateNbt().contains(MythAndMagic.MOD_ID + ".owner")
+                    && player.getStackInHand(hand).getOrCreateNbt().getUuid(MythAndMagic.MOD_ID + ".owner").equals(player.getUuid())) {
                 player.sendMessage(Text.literal("You are the owner."));
             } else {
                 player.sendMessage(Text.literal("You are not the owner."));
@@ -57,11 +59,14 @@ public class ExcaliburSwordItem extends SwordItem {
             return TypedActionResult.fail(player.getStackInHand(hand));
         } else {
             NbtCompound nbtData = new NbtCompound();
-            nbtData.putUuid("myth_and_magic.owner", player.getUuid());
-            nbtData.putString("myth_and_magic.player_name", player.getName().getString());
+            nbtData.putUuid(MythAndMagic.MOD_ID + ".owner", player.getUuid());
+            nbtData.putString(MythAndMagic.MOD_ID + ".player_name", player.getName().getString());
             player.getStackInHand(hand).setNbt(nbtData);
             player.sendMessage(Text.literal("You are now the owner."));
             player.playSound(SoundEvents.ENTITY_PLAYER_LEVELUP, 0.5f, 1f);
+            if (!world.isClient()) {
+                MythAndMagic.EXCALIBUR_CLAIMED.trigger((ServerPlayerEntity) player);
+            }
             return TypedActionResult.success(player.getStackInHand(hand));
         }
     }

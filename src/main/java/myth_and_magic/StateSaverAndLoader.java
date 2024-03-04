@@ -18,21 +18,21 @@ public class StateSaverAndLoader extends PersistentState {
         NbtCompound playersNbt = new NbtCompound();
         players.forEach(((uuid, playerData) -> {
             NbtCompound playerNbt = new NbtCompound();
-            playerNbt.putInt("worthiness", playerData.worthiness);
-            playerNbt.putBoolean("boundSword", playerData.boundSword);
+            playerNbt.putInt(MythAndMagic.MOD_ID + ".worthiness", playerData.worthiness);
+            playerNbt.putBoolean(MythAndMagic.MOD_ID + ".boundSword", playerData.boundSword);
             playersNbt.put(uuid.toString(), playerNbt);
         }));
-        nbt.put("players", playersNbt);
+        nbt.put(MythAndMagic.MOD_ID + ".players", playersNbt);
         return nbt;
     }
 
     public static StateSaverAndLoader createFromNbt(NbtCompound tag) {
         StateSaverAndLoader state = new StateSaverAndLoader();
-        NbtCompound playersNbt = tag.getCompound("players");
+        NbtCompound playersNbt = tag.getCompound(MythAndMagic.MOD_ID + ".players");
         playersNbt.getKeys().forEach(key -> {
             PlayerData playerData = new PlayerData();
-            playerData.worthiness = playersNbt.getCompound(key).getInt("worthiness");
-            playerData.boundSword = playersNbt.getCompound(key).getBoolean("boundSword");
+            playerData.worthiness = playersNbt.getCompound(key).getInt(MythAndMagic.MOD_ID + ".worthiness");
+            playerData.boundSword = playersNbt.getCompound(key).getBoolean(MythAndMagic.MOD_ID + ".boundSword");
             UUID uuid = UUID.fromString(key);
             state.players.put(uuid, playerData);
         });
@@ -41,7 +41,7 @@ public class StateSaverAndLoader extends PersistentState {
 
     public static StateSaverAndLoader getServerState(MinecraftServer server) {
         PersistentStateManager persistentStateManager = server.getWorld(World.OVERWORLD).getPersistentStateManager();
-        StateSaverAndLoader state = persistentStateManager.getOrCreate(StateSaverAndLoader::createFromNbt, StateSaverAndLoader::new, "myth_and_magic");
+        StateSaverAndLoader state = persistentStateManager.getOrCreate(StateSaverAndLoader::createFromNbt, StateSaverAndLoader::new, MythAndMagic.MOD_ID);
         state.markDirty();
         return state;
     }

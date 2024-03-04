@@ -19,8 +19,8 @@ public class PlayerEntityMixin {
         if (player.getMainHandStack().isOf(MythAndMagic.EXCALIBUR)) {
             // check if player is owner
             if (!player.getMainHandStack().hasNbt()
-                    || !player.getMainHandStack().getOrCreateNbt().contains("myth_and_magic.owner")
-                    || !player.getMainHandStack().getOrCreateNbt().getUuid("myth_and_magic.owner").equals(player.getUuid())) {
+                    || !player.getMainHandStack().getOrCreateNbt().contains(MythAndMagic.MOD_ID + ".owner")
+                    || !player.getMainHandStack().getOrCreateNbt().getUuid(MythAndMagic.MOD_ID + ".owner").equals(player.getUuid())) {
                 // cancel attack method; makes sure that the attack does nothing
                 // TODO: figure out how to stop the animation
                 if (player.getWorld().isClient()) {

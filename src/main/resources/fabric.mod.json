@@ -1,6 +1,6 @@
 {
 	"schemaVersion": 1,
-	"id": "excalibur",
+	"id": "myth_and_magic",
 	"version": "${version}",
 	"name": "Myth & Magic",
 	"description": "This mod adds a powerful sword only the worthy can wield. Potentially some other stuff.",
@@ -20,6 +20,9 @@
 		],
 		"client": [
 			"myth_and_magic.MythAndMagicClient"
+		],
+		"fabric-datagen": [
+          "myth_and_magic.MythAndMagicAdvancementGenerator"
 		]
 	},
 	"mixins": [

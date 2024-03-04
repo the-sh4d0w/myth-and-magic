@@ -1,0 +1,32 @@
+{
+  "criteria": {
+    "got_excalibur": {
+      "conditions": {
+        "recipe_id": "myth_and_magic:excalibur"
+      },
+      "trigger": "minecraft:recipe_crafted"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png",
+    "description": {
+      "text": "Craft excalibur."
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "myth_and_magic:excalibur"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "Worthy?"
+    }
+  },
+  "requirements": [
+    [
+      "got_excalibur"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
