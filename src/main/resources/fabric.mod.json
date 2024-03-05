@@ -29,7 +29,7 @@
 		"myth_and_magic.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.14.20",
+		"fabricloader": ">=0.14.21",
 		"minecraft": "~1.20",
 		"java": ">=17",
 		"fabric-api": "*"
