@@ -7,9 +7,10 @@
   "item.myth_and_magic.excalibur.bound_none": "Not bound.",
   "item.myth_and_magic.magic_iron_ingot": "Magic Iron Ingot",
   "item.myth_and_magic.magic_gold_ingot": "Magic Gold Ingot",
+  "block.myth_and_magic.magic_table": "Magic Table",
   "enchantment.myth_and_magic.teleport_evasion": "Teleport Evasion",
   "key.myth_and_magic.call": "Call Sword",
-  "key.myth_and_magic.category": "Excalibur",
+  "category.myth_and_magic.name": "Myth & Magic",
   "command.myth_and_magic.value_exception": "Value has to be between %s and %s",
   "command.myth_and_magic.worthiness_get_response": "Worthiness: %s",
   "command.myth_and_magic.worthiness_set_response": "Set worthiness to %s"

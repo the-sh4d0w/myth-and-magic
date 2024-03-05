@@ -7,9 +7,10 @@
   "item.myth_and_magic.excalibur.bound_none": "Nicht gebunden.",
   "item.myth_and_magic.magic_iron_ingot": "Magischer Eisenbarren",
   "item.myth_and_magic.magic_gold_ingot": "Magischer Goldbarren",
+  "block.myth_and_magic.magic_table": "Magietisch",
   "enchantment.myth_and_magic.teleport_evasion": "Teleportausweichen",
   "key.myth_and_magic.call": "Schwert rufen",
-  "key.myth_and_magic.category": "Excalibur",
+  "category.myth_and_magic.name": "Myth & Magic",
   "command.myth_and_magic.value_exception": "Wert muss zwischen %s und %s liegen",
   "command.myth_and_magic.worthiness_get_response": "Würdigkeit: %s",
   "command.myth_and_magic.worthiness_set_response": "Würdigkeit wurde zu %s geändert"

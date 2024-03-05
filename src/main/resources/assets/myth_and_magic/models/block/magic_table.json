@@ -4,9 +4,8 @@
 	"textures": {
 		"3": "myth_and_magic:block/magic_table_top",
 		"4": "myth_and_magic:block/magic_table_sides",
-		"6": "block/obsidian",
-		"7": "block/stone_bricks",
-		"8": "block/stone_bricks",
+		"7": "block/obsidian",
+		"9": "block/stone_bricks",
 		"particle": "myth_and_magic:block/magic_table_top"
 	},
 	"elements": [
@@ -14,22 +13,22 @@
 			"from": [0, 0, 0],
 			"to": [16, 2, 16],
 			"faces": {
-				"north": {"uv": [0, 14, 16, 16], "rotation": 180, "texture": "#7", "cullface": "north"},
-				"east": {"uv": [10, 0, 12, 16], "rotation": 270, "texture": "#7", "cullface": "east"},
-				"south": {"uv": [0, 0, 16, 2], "rotation": 180, "texture": "#7", "cullface": "south"},
-				"west": {"uv": [16, 0, 14, 16], "rotation": 90, "texture": "#7", "cullface": "west"},
-				"up": {"uv": [0, 0, 16, 16], "rotation": 180, "texture": "#7"},
-				"down": {"uv": [0, 0, 16, 16], "texture": "#7", "cullface": "down"}
+				"north": {"uv": [0, 14, 16, 16], "rotation": 180, "texture": "#9", "cullface": "north"},
+				"east": {"uv": [10, 0, 12, 16], "rotation": 270, "texture": "#9", "cullface": "east"},
+				"south": {"uv": [0, 0, 16, 2], "rotation": 180, "texture": "#9", "cullface": "south"},
+				"west": {"uv": [16, 0, 14, 16], "rotation": 90, "texture": "#9", "cullface": "west"},
+				"up": {"uv": [0, 0, 16, 16], "rotation": 180, "texture": "#9"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#9", "cullface": "down"}
 			}
 		},
 		{
 			"from": [5, 2, 5],
 			"to": [11, 12, 11],
 			"faces": {
-				"north": {"uv": [0, 2, 7, 12], "texture": "#8"},
-				"east": {"uv": [10, 2, 3, 12], "texture": "#8"},
-				"south": {"uv": [9, 2, 16, 12], "texture": "#8"},
-				"west": {"uv": [4, 2, 11, 12], "texture": "#8"}
+				"north": {"uv": [0, 2, 6, 12], "texture": "#9"},
+				"east": {"uv": [10, 2, 4, 12], "texture": "#9"},
+				"south": {"uv": [10, 2, 16, 12], "texture": "#9"},
+				"west": {"uv": [4, 2, 10, 12], "texture": "#9"}
 			}
 		},
 		{
@@ -42,7 +41,7 @@
 				"south": {"uv": [0, 12, 16, 16], "texture": "#4"},
 				"west": {"uv": [12, 0, 16, 16], "rotation": 90, "texture": "#4"},
 				"up": {"uv": [16, 0, 0, 16], "rotation": 180, "texture": "#3"},
-				"down": {"uv": [0, 0, 16, 16], "texture": "#6"}
+				"down": {"uv": [0, 0, 16, 16], "texture": "#7"}
 			}
 		}
 	],

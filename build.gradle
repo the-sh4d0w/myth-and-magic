@@ -18,18 +18,6 @@ repositories {
 	// for more information about repositories.
 }
 
-loom {
-    splitEnvironmentSourceSets()
-
-	mods {
-		"myth_and_magic" {
-			sourceSet sourceSets.main
-			sourceSet sourceSets.client
-		}
-	}
-
-}
-
 fabricApi {
 	configureDataGeneration()
 }

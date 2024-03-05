@@ -2,18 +2,21 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "OAO",
-    " S ",
+    " B ",
     "SSS"
   ],
   "key": {
     "A": {
       "item": "minecraft:amethyst_shard"
     },
-    "S": {
+    "B": {
       "item": "minecraft:stone_bricks"
     },
     "O": {
       "item": "minecraft:obsidian"
+    },
+    "S": {
+      "item": "minecraft:stone_brick_slab"
     }
   },
   "result": {
