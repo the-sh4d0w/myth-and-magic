@@ -1,6 +1,7 @@
 package myth_and_magic.block.entity;
 
 import myth_and_magic.MythAndMagic;
+import myth_and_magic.recipe.MagicTableRecipe;
 import myth_and_magic.screen.MagicTableScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
@@ -9,6 +10,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SidedInventory;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -23,6 +25,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 public class MagicTableBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, SidedInventory {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(3, ItemStack.EMPTY);
@@ -212,11 +216,17 @@ public class MagicTableBlockEntity extends BlockEntity implements ExtendedScreen
     }
 
     private boolean hasRecipe() {
-        // TODO: replace with actual recipes
-        ItemStack result = new ItemStack(MythAndMagic.MAGIC_IRON_INGOT);
-        boolean hasInput = getStack(INPUT_SLOT).getItem() == Items.IRON_INGOT
-                && getStack(ADDITION_SLOT).getItem() == Items.AMETHYST_SHARD;
-        return hasInput && canInsertAmountIntoOutputSlot(result) && canInsertItemIntoOutputSlot(result.getItem());
+        Optional<MagicTableRecipe> match = getCurrentRecipe();
+        return match.isPresent() && canInsertAmountIntoOutputSlot(match.get().getOutput(null))
+                && canInsertItemIntoOutputSlot(match.get().getOutput(null).getItem());
+    }
+
+    private Optional<MagicTableRecipe> getCurrentRecipe() {
+        SimpleInventory inv = new SimpleInventory(this.size());
+        for (int i = 0; i < this.size(); i++) {
+            inv.setStack(i, this.getStack(i));
+        }
+        return getWorld().getRecipeManager().getFirstMatch(MagicTableRecipe.Type.INSTANCE, inv, getWorld());
     }
 
     private boolean canInsertItemIntoOutputSlot(Item item) {

@@ -6,6 +6,7 @@ import myth_and_magic.block.MagicTableBlock;
 import myth_and_magic.block.entity.MagicTableBlockEntity;
 import myth_and_magic.enchantment.TeleportEvasionEnchantment;
 import myth_and_magic.item.MagicItem;
+import myth_and_magic.recipe.MagicTableRecipe;
 import myth_and_magic.screen.MagicTableScreenHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -57,7 +58,7 @@ public class MythAndMagic implements ModInitializer {
             new Identifier(MOD_ID, "teleport_evasion"), new TeleportEvasionEnchantment());
     // magic table block
     public static final Block MAGIC_TABLE_BLOCK = Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "magic_table"),
-            new MagicTableBlock(FabricBlockSettings.create().strength(4.0f).requiresTool().luminance(50)));
+            new MagicTableBlock(FabricBlockSettings.create().strength(4.0f).requiresTool().luminance(5)));
     public static final BlockEntityType<MagicTableBlockEntity> MAGIC_TABLE_BLOCK_ENTITY = Registry.register(
             Registries.BLOCK_ENTITY_TYPE, new Identifier(MOD_ID, "magic_table_entity"),
             FabricBlockEntityTypeBuilder.create(MagicTableBlockEntity::new, MAGIC_TABLE_BLOCK).build());
@@ -65,6 +66,11 @@ public class MythAndMagic implements ModInitializer {
             new Identifier(MOD_ID, "magic_table"), new BlockItem(MAGIC_TABLE_BLOCK, new FabricItemSettings().maxCount(1)));
     public static final ScreenHandlerType<MagicTableScreenHandler> MAGIC_TABLE_SCREEN_HANDLER = Registry.register(Registries.SCREEN_HANDLER,
             new Identifier(MOD_ID, "magic_table"), new ExtendedScreenHandlerType<>(MagicTableScreenHandler::new));
+    // magic table recipes
+    public static final MagicTableRecipe.Serializer SERIALIZER = Registry.register(Registries.RECIPE_SERIALIZER,
+            MagicTableRecipe.Serializer.ID, MagicTableRecipe.Serializer.INSTANCE);
+    public static final MagicTableRecipe.Type MAGIC_TABLE_RECIPE = Registry.register(Registries.RECIPE_TYPE,
+            new Identifier(MOD_ID, MagicTableRecipe.Type.ID), MagicTableRecipe.Type.INSTANCE);
     // item group
     private static final ItemGroup ITEM_GROUP = FabricItemGroup.builder().icon(() -> new ItemStack(MAGIC_TABLE_ITEM))
             .displayName(Text.literal("Myth & Magic")).entries(((displayContext, entries) -> {
@@ -82,6 +88,7 @@ public class MythAndMagic implements ModInitializer {
     // TODO: more magic -> what? (spells, staffs, armor/clothing, magic table to create special items)
     // - staff with gems? that give specific powers (movement, attack)
     // - magic table to upgrade vanilla items (argonium -> magic iron?)
+    // TODO: restructure registering
 
     @Override
     public void onInitialize() {
