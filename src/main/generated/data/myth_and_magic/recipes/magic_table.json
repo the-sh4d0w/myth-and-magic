@@ -1,26 +1,27 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "OAO",
-    " B ",
-    "SSS"
-  ],
+  "category": "misc",
   "key": {
-    "A": {
+    "a": {
       "item": "minecraft:amethyst_shard"
     },
-    "B": {
+    "b": {
       "item": "minecraft:stone_bricks"
     },
-    "O": {
+    "o": {
       "item": "minecraft:obsidian"
     },
-    "S": {
+    "s": {
       "item": "minecraft:stone_brick_slab"
     }
   },
+  "pattern": [
+    "oao",
+    " b ",
+    "sss"
+  ],
   "result": {
-    "item": "myth_and_magic:magic_table",
-    "count": 1
-  }
+    "item": "myth_and_magic:magic_table"
+  },
+  "show_notification": true
 }

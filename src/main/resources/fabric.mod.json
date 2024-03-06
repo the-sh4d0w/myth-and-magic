@@ -22,7 +22,7 @@
 			"myth_and_magic.MythAndMagicClient"
 		],
 		"fabric-datagen": [
-          "myth_and_magic.MythAndMagicAdvancementGenerator"
+          "myth_and_magic.MythAndMagicDataGenerator"
 		]
 	},
 	"mixins": [
