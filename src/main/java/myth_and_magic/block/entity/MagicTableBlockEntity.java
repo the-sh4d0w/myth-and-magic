@@ -201,9 +201,10 @@ public class MagicTableBlockEntity extends BlockEntity implements ExtendedScreen
     }
 
     private void craftItem() {
+        Optional<MagicTableRecipe> match = getCurrentRecipe();
         this.removeStack(INPUT_SLOT, 1);
         this.removeStack(ADDITION_SLOT, 1);
-        ItemStack result = new ItemStack(MythAndMagic.MAGIC_IRON_INGOT);
+        ItemStack result = match.get().getOutput(null);
         this.setStack(OUTPUT_SLOT, new ItemStack(result.getItem(), getStack(OUTPUT_SLOT).getCount() + result.getCount()));
     }
 

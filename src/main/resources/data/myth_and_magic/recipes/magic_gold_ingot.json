@@ -1,0 +1,11 @@
+{
+  "type": "myth_and_magic:magic_table_recipe",
+  "input": {
+    "item": "minecraft:gold_ingot"
+  },
+  "addition": {
+    "item": "minecraft:amethyst_shard"
+  },
+  "outputItem": "myth_and_magic:magic_gold_ingot",
+  "outputAmount": "1"
+}

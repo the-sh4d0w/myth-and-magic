@@ -81,7 +81,7 @@ public class MythAndMagic implements ModInitializer {
             })).build();
     public static ExcaliburClaimedCriterion EXCALIBUR_CLAIMED = Criteria.register(new ExcaliburClaimedCriterion());
     // TODO: add enchantments
-    // - teleport to trident (orignal, I know; maybe)
+    // - teleport to trident (original, I know; maybe)
     // - movement
     // TODO: legendary items
     // - Tarnkappe (or equivalent; full invisibility but half health)
@@ -89,6 +89,7 @@ public class MythAndMagic implements ModInitializer {
     // - staff with gems? that give specific powers (movement, attack)
     // - magic table to upgrade vanilla items (argonium -> magic iron?)
     // TODO: restructure registering
+    // TODO: add REI/JEI compatibility
 
     @Override
     public void onInitialize() {
