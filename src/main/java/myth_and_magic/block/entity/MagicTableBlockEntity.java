@@ -1,6 +1,6 @@
 package myth_and_magic.block.entity;
 
-import myth_and_magic.MythAndMagic;
+import myth_and_magic.block.MythAndMagicBlocks;
 import myth_and_magic.recipe.MagicTableRecipe;
 import myth_and_magic.screen.MagicTableScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -13,7 +13,6 @@ import net.minecraft.inventory.SidedInventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.PropertyDelegate;
@@ -38,7 +37,7 @@ public class MagicTableBlockEntity extends BlockEntity implements ExtendedScreen
     private int maxProgress = 100;
 
     public MagicTableBlockEntity(BlockPos pos, BlockState state) {
-        super(MythAndMagic.MAGIC_TABLE_BLOCK_ENTITY, pos, state);
+        super(MythAndMagicBlocks.MAGIC_TABLE_BLOCK_ENTITY, pos, state);
         this.propertyDelegate = new PropertyDelegate() {
             @Override
             public int get(int index) {

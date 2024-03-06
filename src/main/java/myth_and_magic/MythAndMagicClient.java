@@ -2,6 +2,7 @@ package myth_and_magic;
 
 import myth_and_magic.item.ExcaliburSwordItem;
 import myth_and_magic.screen.MagicTableScreen;
+import myth_and_magic.screen.MythAndMagicScreenHandlers;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -17,7 +18,7 @@ public class MythAndMagicClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		HandledScreens.register(MythAndMagic.MAGIC_TABLE_SCREEN_HANDLER, MagicTableScreen::new);
+		HandledScreens.register(MythAndMagicScreenHandlers.MAGIC_TABLE_SCREEN_HANDLER, MagicTableScreen::new);
 		keyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
 				"key.myth_and_magic.call", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_LEFT_ALT,
 				"category.myth_and_magic.name"));

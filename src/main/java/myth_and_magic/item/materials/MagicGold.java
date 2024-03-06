@@ -1,6 +1,7 @@
 package myth_and_magic.item.materials;
 
 import myth_and_magic.MythAndMagic;
+import myth_and_magic.item.MythAndMagicItems;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
 
@@ -33,6 +34,6 @@ public class MagicGold implements ToolMaterial {
 
     @Override
     public Ingredient getRepairIngredient() {
-        return Ingredient.ofItems(MythAndMagic.MAGIC_GOLD_INGOT);
+        return Ingredient.ofItems(MythAndMagicItems.MAGIC_GOLD_INGOT);
     }
 }

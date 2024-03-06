@@ -3,11 +3,16 @@ package myth_and_magic;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import myth_and_magic.block.MagicTableBlock;
+import myth_and_magic.block.MythAndMagicBlocks;
 import myth_and_magic.block.entity.MagicTableBlockEntity;
+import myth_and_magic.enchantment.MythAndMagicEnchantments;
 import myth_and_magic.enchantment.TeleportEvasionEnchantment;
 import myth_and_magic.item.MagicItem;
+import myth_and_magic.item.MythAndMagicItems;
 import myth_and_magic.recipe.MagicTableRecipe;
+import myth_and_magic.recipe.MythAndMagicRecipes;
 import myth_and_magic.screen.MagicTableScreenHandler;
+import myth_and_magic.screen.MythAndMagicScreenHandlers;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -46,39 +51,6 @@ import java.util.Set;
 public class MythAndMagic implements ModInitializer {
     public static final String MOD_ID = "myth_and_magic";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-    // items
-    public static final Item EXCALIBUR = Registry.register(Registries.ITEM,
-            new Identifier(MOD_ID, "excalibur"), new ExcaliburSwordItem(new FabricItemSettings()));
-    public static final Item MAGIC_IRON_INGOT = Registry.register(Registries.ITEM,
-            new Identifier(MOD_ID, "magic_iron_ingot"), new MagicItem(new FabricItemSettings()));
-    public static final Item MAGIC_GOLD_INGOT = Registry.register(Registries.ITEM,
-            new Identifier(MOD_ID, "magic_gold_ingot"), new MagicItem(new FabricItemSettings()));
-    // enchantments
-    public static final Enchantment TELEPORT = Registry.register(Registries.ENCHANTMENT,
-            new Identifier(MOD_ID, "teleport_evasion"), new TeleportEvasionEnchantment());
-    // magic table block
-    public static final Block MAGIC_TABLE_BLOCK = Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "magic_table"),
-            new MagicTableBlock(FabricBlockSettings.create().strength(4.0f).requiresTool().luminance(5)));
-    public static final BlockEntityType<MagicTableBlockEntity> MAGIC_TABLE_BLOCK_ENTITY = Registry.register(
-            Registries.BLOCK_ENTITY_TYPE, new Identifier(MOD_ID, "magic_table_entity"),
-            FabricBlockEntityTypeBuilder.create(MagicTableBlockEntity::new, MAGIC_TABLE_BLOCK).build());
-    public static final BlockItem MAGIC_TABLE_ITEM = Registry.register(Registries.ITEM,
-            new Identifier(MOD_ID, "magic_table"), new BlockItem(MAGIC_TABLE_BLOCK, new FabricItemSettings().maxCount(1)));
-    public static final ScreenHandlerType<MagicTableScreenHandler> MAGIC_TABLE_SCREEN_HANDLER = Registry.register(Registries.SCREEN_HANDLER,
-            new Identifier(MOD_ID, "magic_table"), new ExtendedScreenHandlerType<>(MagicTableScreenHandler::new));
-    // magic table recipes
-    public static final MagicTableRecipe.Serializer SERIALIZER = Registry.register(Registries.RECIPE_SERIALIZER,
-            MagicTableRecipe.Serializer.ID, MagicTableRecipe.Serializer.INSTANCE);
-    public static final MagicTableRecipe.Type MAGIC_TABLE_RECIPE = Registry.register(Registries.RECIPE_TYPE,
-            new Identifier(MOD_ID, MagicTableRecipe.Type.ID), MagicTableRecipe.Type.INSTANCE);
-    // item group
-    private static final ItemGroup ITEM_GROUP = FabricItemGroup.builder().icon(() -> new ItemStack(MAGIC_TABLE_ITEM))
-            .displayName(Text.literal("Myth & Magic")).entries(((displayContext, entries) -> {
-                entries.add(MAGIC_TABLE_ITEM);
-                entries.add(MAGIC_IRON_INGOT);
-                entries.add(MAGIC_GOLD_INGOT);
-                entries.add(EXCALIBUR);
-            })).build();
     public static ExcaliburClaimedCriterion EXCALIBUR_CLAIMED = Criteria.register(new ExcaliburClaimedCriterion());
     // TODO: add enchantments
     // - teleport to trident (original, I know; maybe)
@@ -88,12 +60,25 @@ public class MythAndMagic implements ModInitializer {
     // TODO: more magic -> what? (spells, staffs, armor/clothing, magic table to create special items)
     // - staff with gems? that give specific powers (movement, attack)
     // - magic table to upgrade vanilla items (argonium -> magic iron?)
-    // TODO: restructure registering
     // TODO: add REI/JEI compatibility
 
     @Override
     public void onInitialize() {
+        // register custom content
+        MythAndMagicItems.registerItems();
+        MythAndMagicEnchantments.registerEnchantments();
+        MythAndMagicScreenHandlers.registerScreenHandlers();
+        MythAndMagicBlocks.registerBlocks();
+        MythAndMagicRecipes.registerRecipes();
+
         // register item group
+        ItemGroup ITEM_GROUP = FabricItemGroup.builder().icon(() -> new ItemStack(MythAndMagicBlocks.MAGIC_TABLE_BLOCK))
+                .displayName(Text.literal("Myth & Magic")).entries(((displayContext, entries) -> {
+                    entries.add(MythAndMagicBlocks.MAGIC_TABLE_ITEM);
+                    entries.add(MythAndMagicItems.MAGIC_IRON_INGOT);
+                    entries.add(MythAndMagicItems.MAGIC_GOLD_INGOT);
+                    entries.add(MythAndMagicItems.EXCALIBUR);
+                })).build();
         Registry.register(Registries.ITEM_GROUP, new Identifier(MOD_ID, "item_group"), ITEM_GROUP);
 
         // handle packet to get call sword key press
@@ -102,7 +87,7 @@ public class MythAndMagic implements ModInitializer {
                  PacketSender responseSender) -> {
                     PlayerData playerState = StateSaverAndLoader.getPlayerState(player);
                     if (playerState.boundSword) {
-                        if (player.getInventory().containsAny(Set.of(EXCALIBUR)) && player.getInventory().containsAny(stack ->
+                        if (player.getInventory().containsAny(Set.of(MythAndMagicItems.EXCALIBUR)) && player.getInventory().containsAny(stack ->
                                 stack.getOrCreateNbt().contains(MOD_ID + ".owner") && stack.getOrCreateNbt().getUuid(
                                         MOD_ID + ".owner").equals(player.getUuid()))) {
                             player.sendMessage(Text.literal("Sword is already in inventory."));

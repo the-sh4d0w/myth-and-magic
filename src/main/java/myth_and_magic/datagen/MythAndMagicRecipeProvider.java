@@ -1,6 +1,7 @@
 package myth_and_magic.datagen;
 
-import myth_and_magic.MythAndMagic;
+import myth_and_magic.block.MythAndMagicBlocks;
+import myth_and_magic.item.MythAndMagicItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
@@ -17,13 +18,13 @@ public class MythAndMagicRecipeProvider extends FabricRecipeProvider {
 
     @Override
     public void generate(Consumer<RecipeJsonProvider> exporter) {
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, MythAndMagic.EXCALIBUR).pattern("m")
-                .pattern("m").pattern("s").input('m', MythAndMagic.MAGIC_IRON_INGOT)
-                .input('s', Items.STICK).criterion(FabricRecipeProvider.hasItem(MythAndMagic.MAGIC_IRON_INGOT),
-                        FabricRecipeProvider.conditionsFromItem(MythAndMagic.MAGIC_IRON_INGOT)).criterion(
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, MythAndMagicItems.EXCALIBUR).pattern("m")
+                .pattern("m").pattern("s").input('m', MythAndMagicItems.MAGIC_IRON_INGOT)
+                .input('s', Items.STICK).criterion(FabricRecipeProvider.hasItem(MythAndMagicItems.MAGIC_IRON_INGOT),
+                        FabricRecipeProvider.conditionsFromItem(MythAndMagicItems.MAGIC_IRON_INGOT)).criterion(
                         FabricRecipeProvider.hasItem(Items.STICK), FabricRecipeProvider.conditionsFromItem(Items.STICK)
                 ).offerTo(exporter);
-        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, MythAndMagic.MAGIC_TABLE_BLOCK).pattern("oao")
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, MythAndMagicBlocks.MAGIC_TABLE_BLOCK).pattern("oao")
                 .pattern(" b ").pattern("sss").input('o', Items.OBSIDIAN).input('a', Items.AMETHYST_SHARD)
                 .input('b', Items.STONE_BRICKS).input('s', Items.STONE_BRICK_SLAB)
                 .criterion(FabricRecipeProvider.hasItem(Items.OBSIDIAN), FabricRecipeProvider.conditionsFromItem(Items.OBSIDIAN))

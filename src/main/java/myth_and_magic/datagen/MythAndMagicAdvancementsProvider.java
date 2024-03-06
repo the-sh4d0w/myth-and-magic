@@ -2,6 +2,7 @@ package myth_and_magic.datagen;
 
 import myth_and_magic.ExcaliburClaimedCriterion;
 import myth_and_magic.MythAndMagic;
+import myth_and_magic.item.MythAndMagicItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancement.Advancement;
@@ -29,7 +30,7 @@ public class MythAndMagicAdvancementsProvider extends FabricAdvancementProvider 
         // TODO: add translations
         Advancement rootAdvancement = Advancement.Builder.create()
                 .display(
-                        MythAndMagic.EXCALIBUR,
+                        MythAndMagicItems.EXCALIBUR,
                         Text.literal("Worthy?"),
                         Text.literal("Craft excalibur."),
                         new Identifier("textures/gui/advancements/backgrounds/adventure.png"),
@@ -42,7 +43,7 @@ public class MythAndMagicAdvancementsProvider extends FabricAdvancementProvider 
                 ).build(consumer, MythAndMagic.MOD_ID + "/got_excalibur");
         Advancement.Builder.create().parent(rootAdvancement)
                 .display(
-                        MythAndMagic.EXCALIBUR,
+                        MythAndMagicItems.EXCALIBUR,
                         Text.literal("You are worthy!"),
                         Text.literal("Claim excalibur."),
                         null,
