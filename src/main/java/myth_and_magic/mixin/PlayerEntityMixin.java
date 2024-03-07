@@ -1,6 +1,7 @@
 package myth_and_magic.mixin;
 
 import myth_and_magic.MythAndMagic;
+import myth_and_magic.enchantment.MovementEnchantment;
 import myth_and_magic.item.MythAndMagicItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -32,6 +33,13 @@ public class PlayerEntityMixin {
                 }
                 info.cancel();
             }
+        }
+    }
+
+    @Inject(at = @At("HEAD"), method = "tick")
+    public void tick(CallbackInfo info) {
+        if (MovementEnchantment.cooldown > 0) {
+            MovementEnchantment.cooldown--;
         }
     }
 }

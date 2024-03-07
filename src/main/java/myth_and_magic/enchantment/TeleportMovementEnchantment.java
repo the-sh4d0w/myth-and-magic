@@ -20,24 +20,32 @@ public class TeleportMovementEnchantment extends MovementEnchantment {
         return 3;
     }
 
+    @Override
+    public int getMinPower(int level) {
+        return 15 + 20 * (level - 1);
+    }
+
+    @Override
+    public int getMaxPower(int level) {
+        return super.getMinPower(level) + 55;
+    }
+
     public static boolean move(ServerPlayerEntity player, ItemStack armor, int level) {
-        if (!player.hasVehicle() && player.getHungerManager().getFoodLevel() > 6) {
+        if (!player.hasVehicle() && !player.isTouchingWaterOrRain() && player.getHungerManager().getFoodLevel() > 12) {
             World world = player.getWorld();
-            if (!world.isClient()) {
-                for (float i = 0; i <= 3; i++) {
-                    Vec3d vec3d = player.getRotationVector().normalize().multiply(2f * level).add(player.getPos()).add(0f, i, 0f);
-                    if (!player.teleport(vec3d.x, vec3d.y, vec3d.z, false)) {
-                        continue;
-                    }
-                    world.emitGameEvent(GameEvent.TELEPORT, vec3d, GameEvent.Emitter.of(player));
-                    SoundEvent soundEvent = SoundEvents.ENTITY_ENDERMAN_TELEPORT;
-                    world.playSound(null, player.getX(), player.getY(), player.getZ(), soundEvent,
-                            SoundCategory.PLAYERS, 1.0f, 1.0f);
-                    player.playSound(soundEvent, 1.0f, 1.0f);
-                    // cost of using
-                    player.addExhaustion(8);
-                    return armor.damage(3, Random.create(), player);
+            for (float i = 0; i <= 3; i++) {
+                Vec3d vec3d = player.getRotationVector().normalize().multiply(2f * level).add(player.getPos()).add(0f, i, 0f);
+                if (!player.teleport(vec3d.x, vec3d.y, vec3d.z, false)) {
+                    continue;
                 }
+                world.emitGameEvent(GameEvent.TELEPORT, vec3d, GameEvent.Emitter.of(player));
+                SoundEvent soundEvent = SoundEvents.ENTITY_ENDERMAN_TELEPORT;
+                world.playSound(null, player.getX(), player.getY(), player.getZ(), soundEvent,
+                        SoundCategory.PLAYERS, 1.0f, 1.0f);
+                player.playSound(soundEvent, 1.0f, 1.0f);
+                // cost of using
+                player.addExhaustion(8);
+                return armor.damage(3, Random.create(), player);
             }
         }
         return false;
