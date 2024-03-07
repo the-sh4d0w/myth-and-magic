@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:myth_and_magic/got_excalibur",
+  "parent": "minecraft:myth_and_magic/craft_excalibur",
   "criteria": {
     "claimed_excalibur": {
       "conditions": {},
@@ -18,7 +18,7 @@
     },
     "show_toast": true,
     "title": {
-      "text": "You are worthy!"
+      "text": "The True King"
     }
   },
   "requirements": [

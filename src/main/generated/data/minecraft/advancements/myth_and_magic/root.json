@@ -1,31 +1,37 @@
 {
   "criteria": {
-    "got_excalibur": {
+    "root": {
       "conditions": {
-        "recipe_id": "myth_and_magic:excalibur"
+        "items": [
+          {
+            "items": [
+              "minecraft:amethyst_shard"
+            ]
+          }
+        ]
       },
-      "trigger": "minecraft:recipe_crafted"
+      "trigger": "minecraft:inventory_changed"
     }
   },
   "display": {
     "announce_to_chat": true,
     "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png",
     "description": {
-      "text": "Craft excalibur."
+      "translate": "advancements.myth_and_magic.root.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "myth_and_magic:excalibur"
+      "item": "minecraft:amethyst_shard"
     },
     "show_toast": true,
     "title": {
-      "text": "Worthy?"
+      "translate": "advancements.myth_and_magic.root"
     }
   },
   "requirements": [
     [
-      "got_excalibur"
+      "root"
     ]
   ],
   "sends_telemetry_event": true

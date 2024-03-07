@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:myth_and_magic/got_magic_iron",
+  "criteria": {
+    "craft_excalibur": {
+      "conditions": {
+        "recipe_id": "myth_and_magic:excalibur"
+      },
+      "trigger": "minecraft:recipe_crafted"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.myth_and_magic.craft_excalibur.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "myth_and_magic:excalibur"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.myth_and_magic.craft_excalibur"
+    }
+  },
+  "requirements": [
+    [
+      "craft_excalibur"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

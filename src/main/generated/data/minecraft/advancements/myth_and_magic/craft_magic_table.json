@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:myth_and_magic/root",
+  "criteria": {
+    "craft_magic_table": {
+      "conditions": {
+        "recipe_id": "myth_and_magic:magic_table"
+      },
+      "trigger": "minecraft:recipe_crafted"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.myth_and_magic.craft_magic_table.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "myth_and_magic:magic_table"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.myth_and_magic.craft_magic_table"
+    }
+  },
+  "requirements": [
+    [
+      "craft_magic_table"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

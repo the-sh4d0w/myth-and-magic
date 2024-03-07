@@ -49,6 +49,7 @@ public class MythAndMagic implements ModInitializer {
     // - staff with gems? that give specific powers (movement, attack)
     // - magic table to upgrade vanilla items (argonium -> magic iron?)
     // TODO: add REI/JEI compatibility
+    // TODO: translate advancements
 
     @Override
     public void onInitialize() {
