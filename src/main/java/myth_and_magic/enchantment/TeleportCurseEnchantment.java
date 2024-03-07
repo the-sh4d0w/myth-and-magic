@@ -14,41 +14,35 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 
-public class TeleportEvasionEnchantment extends Enchantment {
-    // TODO: add damage reduction
-    public TeleportEvasionEnchantment() {
+public class TeleportCurseEnchantment extends Enchantment {
+    public TeleportCurseEnchantment() {
         super(Rarity.UNCOMMON, EnchantmentTarget.ARMOR_CHEST, new EquipmentSlot[]{EquipmentSlot.CHEST});
     }
 
     @Override
-    public int getMaxLevel() {
-        return 3;
+    public boolean isTreasure() {
+        return true;
     }
 
     @Override
-    public int getMinPower(int level) {
-        return 1 + (level - 1) * 11;
-    }
-
-    @Override
-    public int getMaxPower(int level) {
-        return getMinPower(level) + 11;
+    public boolean isCursed() {
+        return true;
     }
 
     @Override
     public void onUserDamaged(LivingEntity user, Entity target, int level) {
         // s̶t̶o̶l̶e̶n̶ copied from chorus fruit
-        if ((user.getRandom().nextInt(level + 1) > 0)) {
+        if ((user.getRandom().nextInt(7) == 0)) {
             World world = user.getWorld();
             if (!world.isClient) {
                 double d = user.getX();
                 double e = user.getY();
                 double f = user.getZ();
                 for (int i = 0; i < 16; ++i) {
-                    double g = user.getX() + (user.getRandom().nextDouble() - 0.5) * level * 6;
+                    double g = user.getX() + (user.getRandom().nextDouble() - 0.5) * 10;
                     double h = MathHelper.clamp(user.getY() + (double) (user.getRandom().nextInt(16) - 8),
                             world.getBottomY(), (world.getBottomY() + ((ServerWorld) world).getLogicalHeight() - 1));
-                    double j = user.getZ() + (user.getRandom().nextDouble() - 0.5) * level * 6;
+                    double j = user.getZ() + (user.getRandom().nextDouble() - 0.5) * 10;
                     if (user.hasVehicle()) {
                         user.stopRiding();
                     }

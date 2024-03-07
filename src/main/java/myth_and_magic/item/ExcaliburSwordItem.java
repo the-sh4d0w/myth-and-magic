@@ -17,7 +17,6 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class ExcaliburSwordItem extends SwordItem {
-    public static Identifier CALL_SWORD_PACKET_ID = new Identifier(MythAndMagic.MOD_ID, "call_sword");
     public static final int MIN_WORTHINESS = 0;
     public static final int MAX_WORTHINESS = 10;
 

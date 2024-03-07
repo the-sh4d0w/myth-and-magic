@@ -7,7 +7,10 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class MythAndMagicEnchantments {
-    public static final Enchantment TELEPORT = register("teleport_evasion", new TeleportEvasionEnchantment());
+    // TODO: set power levels
+    public static final Enchantment TELEPORT_CURSE = register("teleport_curse", new TeleportCurseEnchantment());
+    public static final Enchantment TELEPORT_ENCHANTMENT = register("teleport_enchantment", new TeleportMovementEnchantment());
+    public static final Enchantment DASH_ENCHANTMENT = register("dash_enchantment", new DashMovementEnchantment());
 
     private static Enchantment register(String name, Enchantment enchantment) {
         return Registry.register(Registries.ENCHANTMENT, new Identifier(MythAndMagic.MOD_ID, name), enchantment);

@@ -1,6 +1,5 @@
 package myth_and_magic;
 
-import myth_and_magic.item.ExcaliburSwordItem;
 import myth_and_magic.screen.MagicTableScreen;
 import myth_and_magic.screen.MythAndMagicScreenHandlers;
 import net.fabricmc.api.ClientModInitializer;
@@ -14,18 +13,21 @@ import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 
 public class MythAndMagicClient implements ClientModInitializer {
-	private static KeyBinding keyBinding;
+    private static final KeyBinding CALL_EXCALIBUR_KEYBINDING = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+            "key.myth_and_magic.call", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_I, "category.myth_and_magic.name"));
+    private static final KeyBinding DASH_KEYBINDING = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+            "key.myth_and_magic.move", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_LEFT_ALT, "category.myth_and_magic.name"));
 
-	@Override
-	public void onInitializeClient() {
-		HandledScreens.register(MythAndMagicScreenHandlers.MAGIC_TABLE_SCREEN_HANDLER, MagicTableScreen::new);
-		keyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-				"key.myth_and_magic.call", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_LEFT_ALT,
-				"category.myth_and_magic.name"));
-		ClientTickEvents.END_CLIENT_TICK.register(client -> {
-			while (keyBinding.wasPressed()) {
-				ClientPlayNetworking.send(ExcaliburSwordItem.CALL_SWORD_PACKET_ID, PacketByteBufs.empty());
-			}
-		});
-	}
+    @Override
+    public void onInitializeClient() {
+        HandledScreens.register(MythAndMagicScreenHandlers.MAGIC_TABLE_SCREEN_HANDLER, MagicTableScreen::new);
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            while (CALL_EXCALIBUR_KEYBINDING.wasPressed()) {
+                ClientPlayNetworking.send(MythAndMagic.CALL_SWORD_PACKET_ID, PacketByteBufs.empty());
+            }
+            while (DASH_KEYBINDING.wasPressed()) {
+                ClientPlayNetworking.send(MythAndMagic.MOVE_PACKET_ID, PacketByteBufs.empty());
+            }
+        });
+    }
 }

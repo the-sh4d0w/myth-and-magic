@@ -2,40 +2,24 @@ package myth_and_magic;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
-import myth_and_magic.block.MagicTableBlock;
 import myth_and_magic.block.MythAndMagicBlocks;
-import myth_and_magic.block.entity.MagicTableBlockEntity;
+import myth_and_magic.enchantment.MovementEnchantment;
 import myth_and_magic.enchantment.MythAndMagicEnchantments;
-import myth_and_magic.enchantment.TeleportEvasionEnchantment;
-import myth_and_magic.item.MagicItem;
 import myth_and_magic.item.MythAndMagicItems;
-import myth_and_magic.recipe.MagicTableRecipe;
 import myth_and_magic.recipe.MythAndMagicRecipes;
-import myth_and_magic.screen.MagicTableScreenHandler;
 import myth_and_magic.screen.MythAndMagicScreenHandlers;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.minecraft.advancement.criterion.Criteria;
-import net.minecraft.block.Block;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.command.CommandException;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
@@ -51,7 +35,11 @@ import java.util.Set;
 public class MythAndMagic implements ModInitializer {
     public static final String MOD_ID = "myth_and_magic";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+    // criteria
     public static ExcaliburClaimedCriterion EXCALIBUR_CLAIMED = Criteria.register(new ExcaliburClaimedCriterion());
+    // network packet ids
+    public static final Identifier CALL_SWORD_PACKET_ID = new Identifier(MythAndMagic.MOD_ID, "call_sword");
+    public static Identifier MOVE_PACKET_ID = new Identifier(MythAndMagic.MOD_ID, "move");
     // TODO: add enchantments
     // - teleport to trident (original, I know; maybe)
     // - movement
@@ -81,8 +69,8 @@ public class MythAndMagic implements ModInitializer {
                 })).build();
         Registry.register(Registries.ITEM_GROUP, new Identifier(MOD_ID, "item_group"), ITEM_GROUP);
 
-        // handle packet to get call sword key press
-        ServerPlayNetworking.registerGlobalReceiver(ExcaliburSwordItem.CALL_SWORD_PACKET_ID,
+        // handle packet to get key press
+        ServerPlayNetworking.registerGlobalReceiver(CALL_SWORD_PACKET_ID,
                 (MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf buf,
                  PacketSender responseSender) -> {
                     PlayerData playerState = StateSaverAndLoader.getPlayerState(player);
@@ -97,6 +85,11 @@ public class MythAndMagic implements ModInitializer {
                     } else {
                         player.sendMessage(Text.literal("No sword is bound to you."));
                     }
+                });
+        ServerPlayNetworking.registerGlobalReceiver(MOVE_PACKET_ID,
+                (MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf buf,
+                 PacketSender responseSender) -> {
+                    MovementEnchantment.move(player);
                 });
 
         // register commands for setting and getting worthiness
