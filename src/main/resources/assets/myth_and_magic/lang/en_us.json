@@ -31,5 +31,6 @@
   "category.myth_and_magic.name": "Myth & Magic",
   "command.myth_and_magic.value_exception": "Value has to be between %s and %s",
   "command.myth_and_magic.worthiness_get_response": "Worthiness: %s",
-  "command.myth_and_magic.worthiness_set_response": "Set worthiness to %s"
+  "command.myth_and_magic.worthiness_set_response": "Set worthiness to %s",
+  "emi.category.myth_and_magic.magic_table": "Magic"
 }
