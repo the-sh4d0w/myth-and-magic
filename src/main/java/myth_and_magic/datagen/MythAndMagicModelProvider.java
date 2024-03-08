@@ -21,6 +21,7 @@ public class MythAndMagicModelProvider extends FabricModelProvider {
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         itemModelGenerator.register(MythAndMagicItems.EXCALIBUR, Models.HANDHELD);
+        itemModelGenerator.register(MythAndMagicItems.TARNKAPPE, Models.GENERATED);
         itemModelGenerator.register(MythAndMagicItems.MAGIC_IRON_INGOT, Models.GENERATED);
         itemModelGenerator.register(MythAndMagicItems.MAGIC_GOLD_INGOT, Models.GENERATED);
     }

@@ -9,6 +9,7 @@ import net.minecraft.util.Identifier;
 
 public class MythAndMagicItems {
     public static final Item EXCALIBUR = register("excalibur", new ExcaliburSwordItem(new FabricItemSettings()));
+    public static final Item TARNKAPPE = register("tarnkappe", new TarnkappeArmorItem(new FabricItemSettings()));
     public static final Item MAGIC_IRON_INGOT = register("magic_iron_ingot", new MagicItem(new FabricItemSettings()));
     public static final Item MAGIC_GOLD_INGOT = register("magic_gold_ingot", new MagicItem(new FabricItemSettings()));
 

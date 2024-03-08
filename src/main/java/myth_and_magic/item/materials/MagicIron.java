@@ -29,7 +29,7 @@ public class MagicIron implements ToolMaterial {
 
     @Override
     public int getEnchantability() {
-        return 25;
+        return 0;
     }
 
     @Override

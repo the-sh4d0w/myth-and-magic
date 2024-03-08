@@ -6,15 +6,23 @@ import myth_and_magic.block.MythAndMagicBlocks;
 import myth_and_magic.enchantment.MovementEnchantment;
 import myth_and_magic.enchantment.MythAndMagicEnchantments;
 import myth_and_magic.item.MythAndMagicItems;
+import myth_and_magic.item.TarnkappeArmorItem;
 import myth_and_magic.recipe.MythAndMagicRecipes;
 import myth_and_magic.screen.MythAndMagicScreenHandlers;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.command.CommandException;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
@@ -48,8 +56,10 @@ public class MythAndMagic implements ModInitializer {
     // TODO: more magic -> what? (spells, staffs, armor/clothing, magic table to create special items)
     // - staff with gems? that give specific powers (movement, attack)
     // - magic table to upgrade vanilla items (argonium -> magic iron?)
+    // TODO: translate everything
     // TODO: translate advancements
     // TODO: add JEI support
+    // TODO: add xp cost to magic table (improve EMI support)
 
     @Override
     public void onInitialize() {
@@ -67,6 +77,7 @@ public class MythAndMagic implements ModInitializer {
                     entries.add(MythAndMagicItems.MAGIC_IRON_INGOT);
                     entries.add(MythAndMagicItems.MAGIC_GOLD_INGOT);
                     entries.add(MythAndMagicItems.EXCALIBUR);
+                    entries.add(MythAndMagicItems.TARNKAPPE);
                 })).build();
         Registry.register(Registries.ITEM_GROUP, new Identifier(MOD_ID, "item_group"), ITEM_GROUP);
 
@@ -92,6 +103,22 @@ public class MythAndMagic implements ModInitializer {
                  PacketSender responseSender) -> {
                     MovementEnchantment.move(player);
                 });
+
+        // change health on (un)equip of Tarnkappe
+        ServerEntityEvents.EQUIPMENT_CHANGE.register((LivingEntity user, EquipmentSlot slot, ItemStack previous, ItemStack current) -> {
+            if (slot.isArmorSlot() && user.isAlive() && !previous.getItem().equals(current.getItem())) {
+                EntityAttributeInstance attribute = user.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
+                if (current.getItem().equals(MythAndMagicItems.TARNKAPPE)) {
+                    attribute.setBaseValue(TarnkappeArmorItem.REDUCED_HEALTH);
+                    user.setHealth(TarnkappeArmorItem.REDUCED_HEALTH);
+                    user.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, -1, 0, false, false));
+                } else if (previous.getItem().equals(MythAndMagicItems.TARNKAPPE)) {
+                    attribute.setBaseValue(TarnkappeArmorItem.NORMAL_HEALTH);
+                    user.setHealth(TarnkappeArmorItem.NORMAL_HEALTH);
+                    user.removeStatusEffect(StatusEffects.INVISIBILITY);
+                }
+            }
+        });
 
         // register commands for setting and getting worthiness
         CommandRegistrationCallback.EVENT.register(
