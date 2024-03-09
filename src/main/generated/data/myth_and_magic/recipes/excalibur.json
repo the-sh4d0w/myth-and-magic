@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "m": {
-      "item": "myth_and_magic:magic_iron_ingot"
+      "item": "myth_and_magic:magic_alloy_ingot"
     },
     "s": {
       "item": "minecraft:stick"

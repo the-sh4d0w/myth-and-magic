@@ -6,6 +6,8 @@
     "defaultRequire": 1
   },
   "mixins": [
-    "PlayerEntityMixin"
+    "PlayerEntityMixin",
+    "AnvilScreenHandlerMixin",
+    "ForgingScreenHandlerMixin"
   ]
 }

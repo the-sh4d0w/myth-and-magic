@@ -24,5 +24,6 @@ public class MythAndMagicModelProvider extends FabricModelProvider {
         itemModelGenerator.register(MythAndMagicItems.TARNKAPPE, Models.GENERATED);
         itemModelGenerator.register(MythAndMagicItems.MAGIC_IRON_INGOT, Models.GENERATED);
         itemModelGenerator.register(MythAndMagicItems.MAGIC_GOLD_INGOT, Models.GENERATED);
+        itemModelGenerator.register(MythAndMagicItems.MAGIC_ALLOY_INGOT, Models.GENERATED);
     }
 }

@@ -77,6 +77,7 @@ public class MythAndMagic implements ModInitializer {
                     entries.add(MythAndMagicBlocks.MAGIC_TABLE_ITEM);
                     entries.add(MythAndMagicItems.MAGIC_IRON_INGOT);
                     entries.add(MythAndMagicItems.MAGIC_GOLD_INGOT);
+                    entries.add(MythAndMagicItems.MAGIC_ALLOY_INGOT);
                     entries.add(MythAndMagicItems.EXCALIBUR);
                     entries.add(MythAndMagicItems.TARNKAPPE);
                 })).build();

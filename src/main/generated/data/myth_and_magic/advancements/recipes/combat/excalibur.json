@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_magic_iron_ingot": {
+    "has_magic_alloy_ingot": {
       "conditions": {
         "items": [
           {
             "items": [
-              "myth_and_magic:magic_iron_ingot"
+              "myth_and_magic:magic_alloy_ingot"
             ]
           }
         ]
@@ -34,7 +34,7 @@
   },
   "requirements": [
     [
-      "has_magic_iron_ingot",
+      "has_magic_alloy_ingot",
       "has_stick",
       "has_the_recipe"
     ]

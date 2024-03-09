@@ -1,15 +1,13 @@
 package myth_and_magic.item.materials;
 
-import myth_and_magic.MythAndMagic;
 import myth_and_magic.item.MythAndMagicItems;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 
-public class MagicGold implements ArmorMaterial {
+public class MagicAlloyArmorMaterial implements ArmorMaterial {
     @Override
     public int getDurability(ArmorItem.Type type) {
         return 250;
@@ -32,12 +30,12 @@ public class MagicGold implements ArmorMaterial {
 
     @Override
     public Ingredient getRepairIngredient() {
-        return Ingredient.ofItems(MythAndMagicItems.MAGIC_GOLD_INGOT);
+        return Ingredient.ofItems(MythAndMagicItems.MAGIC_ALLOY_INGOT);
     }
 
     @Override
     public String getName() {
-        return "magic_gold";
+        return "magic_alloy";
     }
 
     @Override

@@ -12,6 +12,7 @@ public class MythAndMagicItems {
     public static final Item TARNKAPPE = register("tarnkappe", new TarnkappeArmorItem(new FabricItemSettings()));
     public static final Item MAGIC_IRON_INGOT = register("magic_iron_ingot", new MagicItem(new FabricItemSettings()));
     public static final Item MAGIC_GOLD_INGOT = register("magic_gold_ingot", new MagicItem(new FabricItemSettings()));
+    public static final Item MAGIC_ALLOY_INGOT = register("magic_alloy_ingot", new MagicItem(new FabricItemSettings()));
 
     private static Item register(String name, Item item) {
         return Registry.register(Registries.ITEM, new Identifier(MythAndMagic.MOD_ID, name), item);

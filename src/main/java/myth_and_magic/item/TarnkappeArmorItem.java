@@ -1,14 +1,13 @@
 package myth_and_magic.item;
 
 import myth_and_magic.MythAndMagic;
-import myth_and_magic.item.materials.MagicGold;
+import myth_and_magic.item.materials.MagicAlloyArmorMaterial;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Rarity;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -18,7 +17,12 @@ public class TarnkappeArmorItem extends ArmorItem {
     public static final float NORMAL_HEALTH = 18.0f;
 
     public TarnkappeArmorItem(Settings settings) {
-        super(new MagicGold(), Type.HELMET, settings.rarity(Rarity.EPIC));
+        super(new MagicAlloyArmorMaterial(), Type.HELMET, settings.rarity(Rarity.EPIC));
+    }
+
+    @Override
+    public boolean hasGlint(ItemStack stack) {
+        return true;
     }
 
     @Override

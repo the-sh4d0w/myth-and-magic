@@ -1,11 +1,10 @@
 package myth_and_magic.item.materials;
 
-import myth_and_magic.MythAndMagic;
 import myth_and_magic.item.MythAndMagicItems;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
 
-public class MagicIron implements ToolMaterial {
+public class MagicAlloyToolMaterial implements ToolMaterial {
     // yes, this is kinda OP, that's the point
     @Override
     public int getDurability() {
@@ -34,6 +33,6 @@ public class MagicIron implements ToolMaterial {
 
     @Override
     public Ingredient getRepairIngredient() {
-        return Ingredient.ofItems(MythAndMagicItems.MAGIC_IRON_INGOT);
+        return Ingredient.ofItems(MythAndMagicItems.MAGIC_ALLOY_INGOT);
     }
 }

@@ -1,7 +1,7 @@
 package myth_and_magic.item;
 
 import myth_and_magic.MythAndMagic;
-import myth_and_magic.item.materials.MagicIron;
+import myth_and_magic.item.materials.MagicAlloyToolMaterial;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -21,7 +21,7 @@ public class ExcaliburSwordItem extends SwordItem {
     public static final int MAX_WORTHINESS = 10;
 
     public ExcaliburSwordItem(Settings settings) {
-        super(new MagicIron(), 5, -2f, settings.rarity(Rarity.EPIC));
+        super(new MagicAlloyToolMaterial(), 5, -2f, settings.rarity(Rarity.EPIC));
     }
 
     @Override
