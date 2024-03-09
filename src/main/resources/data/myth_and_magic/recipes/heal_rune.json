@@ -1,11 +1,11 @@
 {
   "type": "myth_and_magic:rune_table_recipe",
   "input": {
-    "item": "minecraft:blaze_powder"
+    "item": "minecraft:glistering_melon_slice"
   },
   "addition": {
     "item": "myth_and_magic:rune"
   },
-  "outputItem": "myth_and_magic:fire_rune",
+  "outputItem": "myth_and_magic:heal_rune",
   "outputAmount": "1"
 }

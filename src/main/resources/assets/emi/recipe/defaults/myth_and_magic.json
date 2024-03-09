@@ -1,8 +1,10 @@
 {
   "added": [
-    "myth_and_magic:excalibur",
     "myth_and_magic:rune_table",
-    "myth_and_magic:magic_iron_ingot",
-    "myth_and_magic:magic_gold_ingot"
+    "myth_and_magic:rune",
+    "myth_and_magic:fire_rune",
+    "myth_and_magic:ice_rune",
+    "myth_and_magic:heal_rune",
+    "myth_and_magic:mage_staff"
   ]
 }

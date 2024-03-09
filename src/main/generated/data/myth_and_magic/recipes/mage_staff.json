@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "a": {
+      "item": "minecraft:amethyst_shard"
+    },
+    "s": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "  a",
+    " s ",
+    "s  "
+  ],
+  "result": {
+    "item": "myth_and_magic:mage_staff"
+  },
+  "show_notification": true
+}

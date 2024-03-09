@@ -1,6 +1,7 @@
 package myth_and_magic.screen;
 
 import myth_and_magic.block.entity.RuneTableBlockEntity;
+import myth_and_magic.item.MythAndMagicItems;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -11,6 +12,8 @@ import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
 
 public class RuneTableScreenHandler extends ScreenHandler {
     private final Inventory inventory;
@@ -59,7 +62,11 @@ public class RuneTableScreenHandler extends ScreenHandler {
                 if (!this.insertItem(originalStack, this.inventory.size(), this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.insertItem(originalStack, 0, this.inventory.size(), false)) {
+            } else if (originalStack.isOf(MythAndMagicItems.RUNE)) {
+                if (!this.insertItem(originalStack, 1, 2, true)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if (!this.insertItem(originalStack, 0,1, false)) {
                 return ItemStack.EMPTY;
             }
             if (originalStack.isEmpty()) {

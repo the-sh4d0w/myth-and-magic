@@ -13,7 +13,8 @@ public class MythAndMagicItems {
     public static final Item TARNKAPPE = register("tarnkappe", new TarnkappeArmorItem(new FabricItemSettings()));
     public static final Item RUNE = register("rune", new Item(new FabricItemSettings()));
     public static final Item FIRE_RUNE = register("fire_rune", new Item(new FabricItemSettings()));
-
+    public static final Item ICE_RUNE = register("ice_rune", new Item(new FabricItemSettings()));
+    public static final Item HEAL_RUNE = register("heal_rune", new Item(new FabricItemSettings()));
     public static final Item MAGIC_ALLOY_INGOT = register("magic_alloy_ingot", new Item(new FabricItemSettings()));
 
     private static Item register(String name, Item item) {

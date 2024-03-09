@@ -30,5 +30,10 @@ public class MythAndMagicRecipeProvider extends FabricRecipeProvider {
                 .pattern("sss").pattern(" s ").input('s', Items.STONE)
                 .criterion(FabricRecipeProvider.hasItem(Items.STONE), FabricRecipeProvider.conditionsFromItem(Items.STONE))
                 .offerTo(exporter);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, MythAndMagicItems.MAGE_STAFF).pattern("  a")
+                .pattern(" s ").pattern("s  ").input('a', Items.AMETHYST_SHARD).input('s', Items.STICK)
+                .criterion(FabricRecipeProvider.hasItem(Items.AMETHYST_SHARD), FabricRecipeProvider.conditionsFromItem(Items.AMETHYST_SHARD))
+                .criterion(FabricRecipeProvider.hasItem(Items.STICK), FabricRecipeProvider.conditionsFromItem(Items.STICK))
+                .offerTo(exporter);
     }
 }
