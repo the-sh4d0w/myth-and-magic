@@ -9,9 +9,9 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-public class MagicTableScreen extends HandledScreen<MagicTableScreenHandler> {
-    public static final Identifier TEXTURE = new Identifier(MythAndMagic.MOD_ID, "textures/gui/magic_table_gui.png");
-    public MagicTableScreen(MagicTableScreenHandler handler, PlayerInventory inventory, Text title) {
+public class RuneTableScreen extends HandledScreen<RuneTableScreenHandler> {
+    public static final Identifier TEXTURE = new Identifier(MythAndMagic.MOD_ID, "textures/gui/rune_table_gui.png");
+    public RuneTableScreen(RuneTableScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
     }
 

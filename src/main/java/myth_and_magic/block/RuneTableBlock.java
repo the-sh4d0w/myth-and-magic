@@ -1,7 +1,6 @@
 package myth_and_magic.block;
 
-import myth_and_magic.MythAndMagic;
-import myth_and_magic.block.entity.MagicTableBlockEntity;
+import myth_and_magic.block.entity.RuneTableBlockEntity;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -19,13 +18,13 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class MagicTableBlock extends BlockWithEntity implements BlockEntityProvider {
+public class RuneTableBlock extends BlockWithEntity implements BlockEntityProvider {
     public static final VoxelShape BOTTOM_SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 2.0, 16.0);
     public static final VoxelShape MIDDLE_SHAPE = Block.createCuboidShape(5.0, 2.0, 5.0, 11.0, 12.0, 11.0);
     public static final VoxelShape TOP_SHAPE = Block.createCuboidShape(0.0, 12.0, 0.0, 16.0, 16.0, 16.0);
     public static final VoxelShape SHAPE = VoxelShapes.union(BOTTOM_SHAPE, MIDDLE_SHAPE, TOP_SHAPE);
 
-    public MagicTableBlock(Settings settings) {
+    public RuneTableBlock(Settings settings) {
         super(settings);
     }
 
@@ -56,13 +55,13 @@ public class MagicTableBlock extends BlockWithEntity implements BlockEntityProvi
 
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new MagicTableBlockEntity(pos, state);
+        return new RuneTableBlockEntity(pos, state);
     }
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient) {
-            NamedScreenHandlerFactory screenHandlerFactory = ((MagicTableBlockEntity) world.getBlockEntity(pos));
+            NamedScreenHandlerFactory screenHandlerFactory = ((RuneTableBlockEntity) world.getBlockEntity(pos));
             if (screenHandlerFactory != null) {
                 player.openHandledScreen(screenHandlerFactory);
             }
@@ -74,8 +73,8 @@ public class MagicTableBlock extends BlockWithEntity implements BlockEntityProvi
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         if (state.getBlock() != newState.getBlock()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof MagicTableBlockEntity) {
-                ItemScatterer.spawn(world, pos, ((MagicTableBlockEntity) blockEntity));
+            if (blockEntity instanceof RuneTableBlockEntity) {
+                ItemScatterer.spawn(world, pos, ((RuneTableBlockEntity) blockEntity));
             }
             super.onStateReplaced(state, world, pos, newState, moved);
         }
@@ -84,7 +83,7 @@ public class MagicTableBlock extends BlockWithEntity implements BlockEntityProvi
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, MythAndMagicBlocks.MAGIC_TABLE_BLOCK_ENTITY,
+        return checkType(type, MythAndMagicBlocks.RUNE_TABLE_BLOCK_ENTITY,
                 (world1, pos, state1, blockEntity) -> blockEntity.tick(world1, pos, state1));
     }
 }

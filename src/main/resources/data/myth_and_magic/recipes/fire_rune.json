@@ -1,0 +1,11 @@
+{
+  "type": "myth_and_magic:rune_table_recipe",
+  "input": {
+    "item": "minecraft:coal"
+  },
+  "addition": {
+    "item": "myth_and_magic:rune"
+  },
+  "outputItem": "myth_and_magic:fire_rune",
+  "outputAmount": "1"
+}

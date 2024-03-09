@@ -1,6 +1,6 @@
 package myth_and_magic;
 
-import myth_and_magic.screen.MagicTableScreen;
+import myth_and_magic.screen.RuneTableScreen;
 import myth_and_magic.screen.MythAndMagicScreenHandlers;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -20,7 +20,7 @@ public class MythAndMagicClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        HandledScreens.register(MythAndMagicScreenHandlers.MAGIC_TABLE_SCREEN_HANDLER, MagicTableScreen::new);
+        HandledScreens.register(MythAndMagicScreenHandlers.MAGIC_TABLE_SCREEN_HANDLER, RuneTableScreen::new);
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (CALL_EXCALIBUR_KEYBINDING.wasPressed()) {
                 ClientPlayNetworking.send(MythAndMagic.CALL_SWORD_PACKET_ID, PacketByteBufs.empty());

@@ -6,18 +6,18 @@ import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
-import myth_and_magic.recipe.MagicTableRecipe;
+import myth_and_magic.recipe.RuneTableRecipe;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
 
-public class MagicTableEmiRecipe implements EmiRecipe {
+public class RuneTableEmiRecipe implements EmiRecipe {
     private final Identifier id;
     private final List<EmiIngredient> input;
     private final List<EmiIngredient> addition;
     private final List<EmiStack> output;
 
-    public MagicTableEmiRecipe(MagicTableRecipe recipe) {
+    public RuneTableEmiRecipe(RuneTableRecipe recipe) {
         this.id = recipe.getId();
         this.input = List.of(EmiIngredient.of(recipe.getInput()));
         this.addition = List.of(EmiIngredient.of(recipe.getAddition()));
@@ -31,7 +31,7 @@ public class MagicTableEmiRecipe implements EmiRecipe {
 
     @Override
     public EmiRecipeCategory getCategory() {
-        return MythAndMagicEmiPlugin.MAGIC_TABLE_CATEGORY;
+        return MythAndMagicEmiPlugin.RUNE_TABLE_CATEGORY;
     }
 
     @Override

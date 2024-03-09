@@ -43,46 +43,21 @@ public class MythAndMagicAdvancementsProvider extends FabricAdvancementProvider 
                         false
                 ).criterion("root", InventoryChangedCriterion.Conditions.items(Items.AMETHYST_SHARD))
                 .build(consumer, MythAndMagic.MOD_ID + "/root");
-        Advancement craftMagicTable = Advancement.Builder.create().parent(root)
+        Advancement.Builder.create().parent(root)
                 .display(
-                        MythAndMagicBlocks.MAGIC_TABLE_ITEM,
-                        Text.translatable("advancements.myth_and_magic.craft_magic_table"),
-                        Text.translatable("advancements.myth_and_magic.craft_magic_table.desc"),
+                        MythAndMagicBlocks.RUNE_TABLE_ITEM,
+                        Text.translatable("advancements.myth_and_magic.craft_rune_table"),
+                        Text.translatable("advancements.myth_and_magic.craft_rune_table.desc"),
                         null,
                         AdvancementFrame.TASK,
                         true,
                         true,
                         false
                 )
-                .criterion("craft_magic_table", RecipeCraftedCriterion.Conditions.create(
-                        new Identifier(MythAndMagic.MOD_ID, "magic_table")))
-                .build(consumer, MythAndMagic.MOD_ID + "/craft_magic_table");
-        Advancement getMagicIron = Advancement.Builder.create().parent(craftMagicTable)
-                .display(
-                        MythAndMagicItems.MAGIC_IRON_INGOT,
-                        Text.translatable("advancements.myth_and_magic.got_magic_iron"),
-                        Text.translatable("advancements.myth_and_magic.got_magic_iron.desc"),
-                        null,
-                        AdvancementFrame.TASK,
-                        true,
-                        true,
-                        false
-                ).criterion("got_magic_iron", InventoryChangedCriterion.Conditions.items(MythAndMagicItems.MAGIC_IRON_INGOT))
-                .build(consumer, MythAndMagic.MOD_ID + "/got_magic_iron");
-        Advancement craftExcalibur = Advancement.Builder.create().parent(getMagicIron)
-                .display(
-                        MythAndMagicItems.EXCALIBUR,
-                        Text.translatable("advancements.myth_and_magic.craft_excalibur"),
-                        Text.translatable("advancements.myth_and_magic.craft_excalibur.desc"),
-                        null,
-                        AdvancementFrame.TASK,
-                        true,
-                        true,
-                        false
-                ).criterion("craft_excalibur", RecipeCraftedCriterion.Conditions.create(
-                        new Identifier(MythAndMagic.MOD_ID, "excalibur"))
-                ).build(consumer, MythAndMagic.MOD_ID + "/craft_excalibur");
-        Advancement.Builder.create().parent(craftExcalibur)
+                .criterion("craft_rune_table", RecipeCraftedCriterion.Conditions.create(
+                        new Identifier(MythAndMagic.MOD_ID, "rune_table")))
+                .build(consumer, MythAndMagic.MOD_ID + "/craft_rune_table");
+        Advancement.Builder.create().parent(root)
                 .display(
                         MythAndMagicItems.EXCALIBUR,
                         Text.literal("The True King"),
@@ -94,17 +69,5 @@ public class MythAndMagicAdvancementsProvider extends FabricAdvancementProvider 
                         false
                 ).criterion("claimed_excalibur", ExcaliburClaimedCriterion.Conditions.create()
                 ).build(consumer, MythAndMagic.MOD_ID + "/claimed_excalibur");
-        Advancement getMagicGold = Advancement.Builder.create().parent(craftMagicTable)
-                .display(
-                        MythAndMagicItems.MAGIC_GOLD_INGOT,
-                        Text.translatable("advancements.myth_and_magic.got_magic_gold"),
-                        Text.translatable("advancements.myth_and_magic.got_magic_gold.desc"),
-                        null,
-                        AdvancementFrame.TASK,
-                        true,
-                        true,
-                        false
-                ).criterion("got_magic_gold", InventoryChangedCriterion.Conditions.items(MythAndMagicItems.MAGIC_GOLD_INGOT))
-                .build(consumer, MythAndMagic.MOD_ID + "/got_magic_gold");
     }
 }

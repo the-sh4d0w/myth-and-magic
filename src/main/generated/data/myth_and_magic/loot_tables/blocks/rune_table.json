@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "myth_and_magic:magic_table"
+          "name": "myth_and_magic:rune_table"
         }
       ],
       "rolls": 1.0

@@ -10,7 +10,7 @@
   "item.myth_and_magic.magic_iron_ingot": "Magic Iron Ingot",
   "item.myth_and_magic.magic_gold_ingot": "Magic Gold Ingot",
   "item.myth_and_magic.magic_alloy_ingot": "Magic Alloy Ingot",
-  "block.myth_and_magic.magic_table": "Magic Table",
+  "block.myth_and_magic.rune_table": "Rune Table",
   "enchantment.myth_and_magic.teleport_curse": "Curse of Teleportation",
   "enchantment.myth_and_magic.teleport_curse.desc": "Teleports when hit.",
   "enchantment.myth_and_magic.teleport_enchantment": "Teleportation",
@@ -19,8 +19,8 @@
   "enchantment.myth_and_magic.dash_enchantment.desc": "Allows use of dash when in the air.",
   "advancements.myth_and_magic.root": "Myth & Magic",
   "advancements.myth_and_magic.root.desc": "The start of a magical adventure",
-  "advancements.myth_and_magic.craft_magic_table": "First Steps [replace]",
-  "advancements.myth_and_magic.craft_magic_table.desc": "Craft a Magic Table",
+  "advancements.myth_and_magic.craft_rune_table": "First Steps [replace]",
+  "advancements.myth_and_magic.craft_rune_table.desc": "Craft a Rune Table",
   "advancements.myth_and_magic.got_magic_iron": "Alchemy 101",
   "advancements.myth_and_magic.got_magic_iron.desc": "Make Magic Iron",
   "advancements.myth_and_magic.got_magic_gold": "Alchemy 102",
@@ -35,5 +35,5 @@
   "command.myth_and_magic.value_exception": "Value has to be between %s and %s",
   "command.myth_and_magic.worthiness_get_response": "Worthiness: %s",
   "command.myth_and_magic.worthiness_set_response": "Set worthiness to %s",
-  "emi.category.myth_and_magic.magic_table": "Magic"
+  "emi.category.myth_and_magic.rune_table": "Rune Making"
 }

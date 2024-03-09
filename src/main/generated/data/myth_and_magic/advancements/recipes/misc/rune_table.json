@@ -51,7 +51,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "myth_and_magic:magic_table"
+        "recipe": "myth_and_magic:rune_table"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -67,7 +67,7 @@
   ],
   "rewards": {
     "recipes": [
-      "myth_and_magic:magic_table"
+      "myth_and_magic:rune_table"
     ]
   },
   "sends_telemetry_event": false

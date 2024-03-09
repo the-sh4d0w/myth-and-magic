@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "s": {
+      "item": "minecraft:stone"
+    }
+  },
+  "pattern": [
+    " s ",
+    "sss",
+    " s "
+  ],
+  "result": {
+    "item": "myth_and_magic:rune"
+  },
+  "show_notification": true
+}

@@ -16,13 +16,13 @@ import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
-public class MagicTableRecipe implements Recipe<SimpleInventory> {
+public class RuneTableRecipe implements Recipe<SimpleInventory> {
     private final Ingredient input;
     private final Ingredient addition;
     private final ItemStack output;
     private final Identifier id;
 
-    public MagicTableRecipe(Identifier id, ItemStack output, Ingredient input, Ingredient addition) {
+    public RuneTableRecipe(Identifier id, ItemStack output, Ingredient input, Ingredient addition) {
         this.id = id;
         this.output = output;
         this.input = input;
@@ -75,39 +75,39 @@ public class MagicTableRecipe implements Recipe<SimpleInventory> {
         return Type.INSTANCE;
     }
 
-    public static class Type implements RecipeType<MagicTableRecipe> {
+    public static class Type implements RecipeType<RuneTableRecipe> {
         public static final Type INSTANCE = new Type();
-        public static final String ID = "magic_table";
+        public static final String ID = "rune_table";
     }
 
-    public static class Serializer implements RecipeSerializer<MagicTableRecipe> {
+    public static class Serializer implements RecipeSerializer<RuneTableRecipe> {
         // this should probably throw an error, but I'm too lazy to do that
         private Serializer() {
         }
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final Identifier ID = new Identifier(MythAndMagic.MOD_ID, "magic_table_recipe");
+        public static final Identifier ID = new Identifier(MythAndMagic.MOD_ID, "rune_table_recipe");
 
         @Override
-        public MagicTableRecipe read(Identifier id, JsonObject json) {
+        public RuneTableRecipe read(Identifier id, JsonObject json) {
             MagicTableRecipeJsonFormat recipeJson = new Gson().fromJson(json, MagicTableRecipeJsonFormat.class);
             Ingredient input = Ingredient.fromJson(recipeJson.input);
             Ingredient addition = Ingredient.fromJson(recipeJson.addition);
             Item outputItem = Registries.ITEM.getOrEmpty(new Identifier(recipeJson.outputItem)).get();
             ItemStack output = new ItemStack(outputItem, recipeJson.outputAmount);
-            return new MagicTableRecipe(id, output, input, addition);
+            return new RuneTableRecipe(id, output, input, addition);
         }
 
         @Override
-        public MagicTableRecipe read(Identifier id, PacketByteBuf buf) {
+        public RuneTableRecipe read(Identifier id, PacketByteBuf buf) {
             Ingredient input = Ingredient.fromPacket(buf);
             Ingredient addition = Ingredient.fromPacket(buf);
             ItemStack output = buf.readItemStack();
-            return new MagicTableRecipe(id, output, input, addition);
+            return new RuneTableRecipe(id, output, input, addition);
         }
 
         @Override
-        public void write(PacketByteBuf buf, MagicTableRecipe recipe) {
+        public void write(PacketByteBuf buf, RuneTableRecipe recipe) {
             recipe.getInput().write(buf);
             recipe.getAddition().write(buf);
             // passing null because I don't do anything with that

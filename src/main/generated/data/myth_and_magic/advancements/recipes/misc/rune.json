@@ -1,24 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_magic_alloy_ingot": {
+    "has_stone": {
       "conditions": {
         "items": [
           {
             "items": [
-              "myth_and_magic:magic_alloy_ingot"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_stick": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "minecraft:stick"
+              "minecraft:stone"
             ]
           }
         ]
@@ -27,21 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "myth_and_magic:excalibur"
+        "recipe": "myth_and_magic:rune"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_magic_alloy_ingot",
-      "has_stick",
+      "has_stone",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "myth_and_magic:excalibur"
+      "myth_and_magic:rune"
     ]
   },
   "sends_telemetry_event": false

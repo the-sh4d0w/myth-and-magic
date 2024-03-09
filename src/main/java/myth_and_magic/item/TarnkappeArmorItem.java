@@ -22,7 +22,7 @@ public class TarnkappeArmorItem extends ArmorItem {
 
     @Override
     public boolean hasGlint(ItemStack stack) {
-        return true;
+        return false;
     }
 
     @Override

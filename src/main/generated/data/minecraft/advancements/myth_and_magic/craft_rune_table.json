@@ -1,9 +1,9 @@
 {
   "parent": "minecraft:myth_and_magic/root",
   "criteria": {
-    "craft_magic_table": {
+    "craft_rune_table": {
       "conditions": {
-        "recipe_id": "myth_and_magic:magic_table"
+        "recipe_id": "myth_and_magic:rune_table"
       },
       "trigger": "minecraft:recipe_crafted"
     }
@@ -11,21 +11,21 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.myth_and_magic.craft_magic_table.desc"
+      "translate": "advancements.myth_and_magic.craft_rune_table.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "myth_and_magic:magic_table"
+      "item": "myth_and_magic:rune_table"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.myth_and_magic.craft_magic_table"
+      "translate": "advancements.myth_and_magic.craft_rune_table"
     }
   },
   "requirements": [
     [
-      "craft_magic_table"
+      "craft_rune_table"
     ]
   ],
   "sends_telemetry_event": true

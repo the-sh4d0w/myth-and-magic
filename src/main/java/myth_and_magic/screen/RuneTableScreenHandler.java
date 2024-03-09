@@ -1,6 +1,6 @@
 package myth_and_magic.screen;
 
-import myth_and_magic.block.entity.MagicTableBlockEntity;
+import myth_and_magic.block.entity.RuneTableBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -12,23 +12,23 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 
-public class MagicTableScreenHandler extends ScreenHandler {
+public class RuneTableScreenHandler extends ScreenHandler {
     private final Inventory inventory;
     private final PropertyDelegate propertyDelegate;
-    public final MagicTableBlockEntity blockEntity;
+    public final RuneTableBlockEntity blockEntity;
 
-    public MagicTableScreenHandler(int syncId, PlayerInventory inventory, PacketByteBuf buf) {
+    public RuneTableScreenHandler(int syncId, PlayerInventory inventory, PacketByteBuf buf) {
         this(syncId, inventory, inventory.player.getWorld().getBlockEntity(buf.readBlockPos()),
                 new ArrayPropertyDelegate(3));
     }
 
-    public MagicTableScreenHandler(int syncId, PlayerInventory playerInventory, BlockEntity blockEntity, PropertyDelegate propertyDelegate) {
+    public RuneTableScreenHandler(int syncId, PlayerInventory playerInventory, BlockEntity blockEntity, PropertyDelegate propertyDelegate) {
         super(MythAndMagicScreenHandlers.MAGIC_TABLE_SCREEN_HANDLER, syncId);
         checkSize((Inventory) blockEntity, 3);
         this.inventory = (Inventory) blockEntity;
         playerInventory.onOpen(playerInventory.player);
         this.propertyDelegate = propertyDelegate;
-        this.blockEntity = (MagicTableBlockEntity) blockEntity;
+        this.blockEntity = (RuneTableBlockEntity) blockEntity;
         this.addSlot(new Slot(inventory, 0, 80, 11));
         this.addSlot(new Slot(inventory, 1, 44, 35));
         this.addSlot(new Slot(inventory, 2, 80, 59));

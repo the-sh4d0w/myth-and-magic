@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "myth_and_magic:item/magic_iron_ingot"
+    "layer0": "myth_and_magic:item/rune"
   }
 }

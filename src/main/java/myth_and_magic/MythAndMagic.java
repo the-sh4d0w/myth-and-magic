@@ -59,7 +59,7 @@ public class MythAndMagic implements ModInitializer {
     // TODO: translate everything
     // TODO: translate advancements
     // TODO: add JEI support
-    // TODO: add xp cost to magic table (improve EMI support)
+    // TODO: add EMI support for anvil combining
     // TODO: add power providers to magic table (like enchantment table)
 
     @Override
@@ -72,13 +72,15 @@ public class MythAndMagic implements ModInitializer {
         MythAndMagicRecipes.registerRecipes();
 
         // register item group
-        ItemGroup ITEM_GROUP = FabricItemGroup.builder().icon(() -> new ItemStack(MythAndMagicBlocks.MAGIC_TABLE_BLOCK))
+        ItemGroup ITEM_GROUP = FabricItemGroup.builder().icon(() -> new ItemStack(MythAndMagicBlocks.RUNE_TABLE_BLOCK))
                 .displayName(Text.literal("Myth & Magic")).entries(((displayContext, entries) -> {
-                    entries.add(MythAndMagicBlocks.MAGIC_TABLE_ITEM);
-                    entries.add(MythAndMagicItems.MAGIC_IRON_INGOT);
-                    entries.add(MythAndMagicItems.MAGIC_GOLD_INGOT);
+                    entries.add(MythAndMagicBlocks.EXCALIBUR_BLOCK_ITEM);
+                    entries.add(MythAndMagicBlocks.RUNE_TABLE_ITEM);
+                    entries.add(MythAndMagicItems.RUNE);
+                    entries.add(MythAndMagicItems.FIRE_RUNE);
                     entries.add(MythAndMagicItems.MAGIC_ALLOY_INGOT);
                     entries.add(MythAndMagicItems.EXCALIBUR);
+                    entries.add(MythAndMagicItems.MAGE_STAFF);
                     entries.add(MythAndMagicItems.TARNKAPPE);
                 })).build();
         Registry.register(Registries.ITEM_GROUP, new Identifier(MOD_ID, "item_group"), ITEM_GROUP);

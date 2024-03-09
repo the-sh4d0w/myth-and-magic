@@ -1,7 +1,7 @@
 package myth_and_magic.block;
 
 import myth_and_magic.MythAndMagic;
-import myth_and_magic.block.entity.MagicTableBlockEntity;
+import myth_and_magic.block.entity.RuneTableBlockEntity;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
@@ -15,12 +15,15 @@ import net.minecraft.util.Identifier;
 
 public class MythAndMagicBlocks {
     // maybe improve later
-    public static final Block MAGIC_TABLE_BLOCK = register("magic_table",
-            new MagicTableBlock(FabricBlockSettings.create().strength(4.0f).requiresTool().luminance(10)));
-    public static final BlockEntityType<MagicTableBlockEntity> MAGIC_TABLE_BLOCK_ENTITY = register("magic_table_entity",
-            FabricBlockEntityTypeBuilder.create(MagicTableBlockEntity::new, MAGIC_TABLE_BLOCK).build());
-    public static final BlockItem MAGIC_TABLE_ITEM = register("magic_table", new BlockItem(MAGIC_TABLE_BLOCK,
+    public static final Block RUNE_TABLE_BLOCK = register("rune_table",
+            new RuneTableBlock(FabricBlockSettings.create().strength(4.0f).requiresTool().luminance(10)));
+    public static final BlockEntityType<RuneTableBlockEntity> RUNE_TABLE_BLOCK_ENTITY = register("rune_table_entity",
+            FabricBlockEntityTypeBuilder.create(RuneTableBlockEntity::new, RUNE_TABLE_BLOCK).build());
+    public static final BlockItem RUNE_TABLE_ITEM = register("rune_table", new BlockItem(RUNE_TABLE_BLOCK,
             new FabricItemSettings().maxCount(1)));
+    public static final Block EXCALIBUR_BLOCK = register("excalibur_block", new ExcaliburBlock(FabricBlockSettings.create()));
+    public static final BlockItem EXCALIBUR_BLOCK_ITEM = register("excalibur_block", new BlockItem(EXCALIBUR_BLOCK,
+            new FabricItemSettings()));
 
     private static Block register(String name, Block block) {
         return Registry.register(Registries.BLOCK, new Identifier(MythAndMagic.MOD_ID, name), block);

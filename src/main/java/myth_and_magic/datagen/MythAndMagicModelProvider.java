@@ -15,15 +15,17 @@ public class MythAndMagicModelProvider extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
-        blockStateModelGenerator.registerSimpleState(MythAndMagicBlocks.MAGIC_TABLE_BLOCK);
+        blockStateModelGenerator.registerSimpleState(MythAndMagicBlocks.RUNE_TABLE_BLOCK);
+        blockStateModelGenerator.registerSimpleState(MythAndMagicBlocks.EXCALIBUR_BLOCK);
     }
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         itemModelGenerator.register(MythAndMagicItems.EXCALIBUR, Models.HANDHELD);
+        itemModelGenerator.register(MythAndMagicItems.MAGE_STAFF, Models.HANDHELD);
         itemModelGenerator.register(MythAndMagicItems.TARNKAPPE, Models.GENERATED);
-        itemModelGenerator.register(MythAndMagicItems.MAGIC_IRON_INGOT, Models.GENERATED);
-        itemModelGenerator.register(MythAndMagicItems.MAGIC_GOLD_INGOT, Models.GENERATED);
+        itemModelGenerator.register(MythAndMagicItems.RUNE, Models.GENERATED);
+        itemModelGenerator.register(MythAndMagicItems.FIRE_RUNE, Models.GENERATED);
         itemModelGenerator.register(MythAndMagicItems.MAGIC_ALLOY_INGOT, Models.GENERATED);
     }
 }

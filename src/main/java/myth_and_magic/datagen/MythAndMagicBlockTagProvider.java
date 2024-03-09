@@ -1,6 +1,5 @@
 package myth_and_magic.datagen;
 
-import myth_and_magic.MythAndMagic;
 import myth_and_magic.block.MythAndMagicBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
@@ -17,7 +16,7 @@ public class MythAndMagicBlockTagProvider extends FabricTagProvider.BlockTagProv
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
-        getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE).add(MythAndMagicBlocks.MAGIC_TABLE_BLOCK);
-        getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL).add(MythAndMagicBlocks.MAGIC_TABLE_BLOCK);
+        getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE).add(MythAndMagicBlocks.RUNE_TABLE_BLOCK);
+        getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL).add(MythAndMagicBlocks.RUNE_TABLE_BLOCK);
     }
 }

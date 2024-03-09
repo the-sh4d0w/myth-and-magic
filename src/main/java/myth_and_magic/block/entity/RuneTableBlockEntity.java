@@ -1,8 +1,8 @@
 package myth_and_magic.block.entity;
 
 import myth_and_magic.block.MythAndMagicBlocks;
-import myth_and_magic.recipe.MagicTableRecipe;
-import myth_and_magic.screen.MagicTableScreenHandler;
+import myth_and_magic.recipe.RuneTableRecipe;
+import myth_and_magic.screen.RuneTableScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -27,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class MagicTableBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, SidedInventory {
+public class RuneTableBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, SidedInventory {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(3, ItemStack.EMPTY);
     private static final int INPUT_SLOT = 0;
     private static final int ADDITION_SLOT = 1;
@@ -36,14 +36,14 @@ public class MagicTableBlockEntity extends BlockEntity implements ExtendedScreen
     private int progress = 0;
     private int maxProgress = 100;
 
-    public MagicTableBlockEntity(BlockPos pos, BlockState state) {
-        super(MythAndMagicBlocks.MAGIC_TABLE_BLOCK_ENTITY, pos, state);
+    public RuneTableBlockEntity(BlockPos pos, BlockState state) {
+        super(MythAndMagicBlocks.RUNE_TABLE_BLOCK_ENTITY, pos, state);
         this.propertyDelegate = new PropertyDelegate() {
             @Override
             public int get(int index) {
                 return switch (index) {
-                    case 0 -> MagicTableBlockEntity.this.progress;
-                    case 1 -> MagicTableBlockEntity.this.maxProgress;
+                    case 0 -> RuneTableBlockEntity.this.progress;
+                    case 1 -> RuneTableBlockEntity.this.maxProgress;
                     default -> 0;
                 };
             }
@@ -51,8 +51,8 @@ public class MagicTableBlockEntity extends BlockEntity implements ExtendedScreen
             @Override
             public void set(int index, int value) {
                 switch (index) {
-                    case 0 -> MagicTableBlockEntity.this.progress = value;
-                    case 1 -> MagicTableBlockEntity.this.maxProgress = value;
+                    case 0 -> RuneTableBlockEntity.this.progress = value;
+                    case 1 -> RuneTableBlockEntity.this.maxProgress = value;
                 }
             }
 
@@ -69,13 +69,13 @@ public class MagicTableBlockEntity extends BlockEntity implements ExtendedScreen
 
     @Override
     public Text getDisplayName() {
-        return Text.translatable("block.myth_and_magic.magic_table");
+        return Text.translatable("block.myth_and_magic.rune_table");
     }
 
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new MagicTableScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
+        return new RuneTableScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
     }
 
     @Override
@@ -87,14 +87,14 @@ public class MagicTableBlockEntity extends BlockEntity implements ExtendedScreen
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
         Inventories.readNbt(nbt, inventory);
-        progress = nbt.getInt("magic_table.progress");
+        progress = nbt.getInt("rune_table.progress");
     }
 
     @Override
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
         Inventories.writeNbt(nbt, inventory);
-        nbt.putInt("magic_table.progress", progress);
+        nbt.putInt("rune_table.progress", progress);
     }
 
     @Override
@@ -200,7 +200,7 @@ public class MagicTableBlockEntity extends BlockEntity implements ExtendedScreen
     }
 
     private void craftItem() {
-        Optional<MagicTableRecipe> match = getCurrentRecipe();
+        Optional<RuneTableRecipe> match = getCurrentRecipe();
         this.removeStack(INPUT_SLOT, 1);
         this.removeStack(ADDITION_SLOT, 1);
         ItemStack result = match.get().getOutput(null);
@@ -216,17 +216,17 @@ public class MagicTableBlockEntity extends BlockEntity implements ExtendedScreen
     }
 
     private boolean hasRecipe() {
-        Optional<MagicTableRecipe> match = getCurrentRecipe();
+        Optional<RuneTableRecipe> match = getCurrentRecipe();
         return match.isPresent() && canInsertAmountIntoOutputSlot(match.get().getOutput(null))
                 && canInsertItemIntoOutputSlot(match.get().getOutput(null).getItem());
     }
 
-    private Optional<MagicTableRecipe> getCurrentRecipe() {
+    private Optional<RuneTableRecipe> getCurrentRecipe() {
         SimpleInventory inv = new SimpleInventory(this.size());
         for (int i = 0; i < this.size(); i++) {
             inv.setStack(i, this.getStack(i));
         }
-        return getWorld().getRecipeManager().getFirstMatch(MagicTableRecipe.Type.INSTANCE, inv, getWorld());
+        return getWorld().getRecipeManager().getFirstMatch(RuneTableRecipe.Type.INSTANCE, inv, getWorld());
     }
 
     private boolean canInsertItemIntoOutputSlot(Item item) {
