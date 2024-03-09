@@ -60,6 +60,7 @@ public class MythAndMagic implements ModInitializer {
     // TODO: translate advancements
     // TODO: add JEI support
     // TODO: add xp cost to magic table (improve EMI support)
+    // TODO: add power providers to magic table (like enchantment table)
 
     @Override
     public void onInitialize() {
