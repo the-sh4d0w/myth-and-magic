@@ -1,14 +1,17 @@
 package myth_and_magic;
 
+import myth_and_magic.entity.MythAndMagicEntities;
 import myth_and_magic.screen.RuneTableScreen;
 import myth_and_magic.screen.MythAndMagicScreenHandlers;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 
@@ -29,5 +32,6 @@ public class MythAndMagicClient implements ClientModInitializer {
                 ClientPlayNetworking.send(MythAndMagic.MOVE_PACKET_ID, PacketByteBufs.empty());
             }
         });
+        EntityRendererRegistry.register(MythAndMagicEntities.RUNE_PROJECTILE, FlyingItemEntityRenderer::new);
     }
 }

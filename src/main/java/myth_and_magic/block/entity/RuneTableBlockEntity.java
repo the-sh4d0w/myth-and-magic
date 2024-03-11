@@ -1,6 +1,7 @@
 package myth_and_magic.block.entity;
 
 import myth_and_magic.block.MythAndMagicBlocks;
+import myth_and_magic.item.MythAndMagicItems;
 import myth_and_magic.recipe.RuneTableRecipe;
 import myth_and_magic.screen.RuneTableScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -107,13 +108,13 @@ public class RuneTableBlockEntity extends BlockEntity implements ExtendedScreenH
     }
 
     @Override
-    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction side) {
-        return true;
+    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
+        return false;
     }
 
     @Override
-    public boolean canExtract(int slot, ItemStack stack, Direction side) {
-        return true;
+    public boolean canExtract(int slot, ItemStack stack, Direction dir) {
+        return false;
     }
 
     @Override

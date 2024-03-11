@@ -11,6 +11,7 @@ public class MythAndMagicDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(MythAndMagicAdvancementsProvider::new);
         pack.addProvider(MythAndMagicBlockLootTableProvider::new);
         pack.addProvider(MythAndMagicBlockTagProvider::new);
+        pack.addProvider(MythAndMagicItemTagProvider::new);
         pack.addProvider(MythAndMagicModelProvider::new);
         pack.addProvider(MythAndMagicRecipeProvider::new);
     }

@@ -1,5 +1,6 @@
 package myth_and_magic.screen;
 
+import myth_and_magic.MythAndMagic;
 import myth_and_magic.block.entity.RuneTableBlockEntity;
 import myth_and_magic.item.MythAndMagicItems;
 import net.minecraft.block.entity.BlockEntity;
@@ -33,7 +34,7 @@ public class RuneTableScreenHandler extends ScreenHandler {
         this.propertyDelegate = propertyDelegate;
         this.blockEntity = (RuneTableBlockEntity) blockEntity;
         this.addSlot(new Slot(inventory, 0, 80, 11));
-        this.addSlot(new Slot(inventory, 1, 44, 35));
+        this.addSlot(new RuneSlot(inventory, 1, 44, 35));
         this.addSlot(new Slot(inventory, 2, 80, 59));
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
@@ -55,7 +56,7 @@ public class RuneTableScreenHandler extends ScreenHandler {
     public ItemStack quickMove(PlayerEntity player, int invSlot) {
         ItemStack newStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(invSlot);
-        if (slot != null && slot.hasStack()) {
+        if (slot.hasStack()) {
             ItemStack originalStack = slot.getStack();
             newStack = originalStack.copy();
             if (invSlot < this.inventory.size()) {
@@ -66,7 +67,7 @@ public class RuneTableScreenHandler extends ScreenHandler {
                 if (!this.insertItem(originalStack, 1, 2, true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.insertItem(originalStack, 0,1, false)) {
+            } else if (!this.insertItem(originalStack, 0, 1, false)) {
                 return ItemStack.EMPTY;
             }
             if (originalStack.isEmpty()) {
@@ -94,6 +95,18 @@ public class RuneTableScreenHandler extends ScreenHandler {
     private void addPlayerHotbar(PlayerInventory playerInventory) {
         for (int i = 0; i < 9; ++i) {
             this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
+        }
+    }
+
+    class RuneSlot extends Slot {
+
+        public RuneSlot(Inventory inventory, int index, int x, int y) {
+            super(inventory, index, x, y);
+        }
+
+        @Override
+        public boolean canInsert(ItemStack stack) {
+            return stack.isOf(MythAndMagicItems.RUNE);
         }
     }
 }

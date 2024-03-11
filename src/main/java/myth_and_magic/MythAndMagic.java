@@ -5,6 +5,7 @@ import com.mojang.brigadier.arguments.IntegerArgumentType;
 import myth_and_magic.block.MythAndMagicBlocks;
 import myth_and_magic.enchantment.MovementEnchantment;
 import myth_and_magic.enchantment.MythAndMagicEnchantments;
+import myth_and_magic.entity.MythAndMagicEntities;
 import myth_and_magic.item.MythAndMagicItems;
 import myth_and_magic.item.TarnkappeArmorItem;
 import myth_and_magic.recipe.MythAndMagicRecipes;
@@ -48,19 +49,9 @@ public class MythAndMagic implements ModInitializer {
     // network packet ids
     public static final Identifier CALL_SWORD_PACKET_ID = new Identifier(MythAndMagic.MOD_ID, "call_sword");
     public static Identifier MOVE_PACKET_ID = new Identifier(MythAndMagic.MOD_ID, "move");
-    // TODO: add enchantments
-    // - teleport to trident (original, I know; maybe)
-    // - movement
-    // TODO: legendary items
-    // - Tarnkappe (or equivalent; full invisibility but half health)
-    // TODO: more magic -> what? (spells, staffs, armor/clothing, magic table to create special items)
-    // - staff with gems? that give specific powers (movement, attack)
-    // - magic table to upgrade vanilla items (argonium -> magic iron?)
     // TODO: translate everything
     // TODO: translate advancements
     // TODO: add JEI support
-    // TODO: add EMI support for anvil combining
-    // TODO: add power providers to magic table (like enchantment table)
 
     @Override
     public void onInitialize() {
@@ -70,6 +61,7 @@ public class MythAndMagic implements ModInitializer {
         MythAndMagicScreenHandlers.registerScreenHandlers();
         MythAndMagicBlocks.registerBlocks();
         MythAndMagicRecipes.registerRecipes();
+        MythAndMagicEntities.registerEntities();
 
         // register item group
         ItemGroup ITEM_GROUP = FabricItemGroup.builder().icon(() -> new ItemStack(MythAndMagicBlocks.RUNE_TABLE_BLOCK))
@@ -106,9 +98,7 @@ public class MythAndMagic implements ModInitializer {
                 });
         ServerPlayNetworking.registerGlobalReceiver(MOVE_PACKET_ID,
                 (MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf buf,
-                 PacketSender responseSender) -> {
-                    MovementEnchantment.move(player);
-                });
+                 PacketSender responseSender) -> MovementEnchantment.move(player));
 
         // change health on (un)equip of Tarnkappe
         ServerEntityEvents.EQUIPMENT_CHANGE.register((LivingEntity user, EquipmentSlot slot, ItemStack previous, ItemStack current) -> {
