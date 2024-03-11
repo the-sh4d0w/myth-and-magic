@@ -25,11 +25,6 @@ public class ExcaliburSwordItem extends SwordItem {
     }
 
     @Override
-    public boolean hasGlint(ItemStack stack) {
-        return false;
-    }
-
-    @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         tooltip.add(Text.translatable("item." + MythAndMagic.MOD_ID + ".excalibur.tooltip"));
         // show who the sword is bound to
@@ -47,28 +42,6 @@ public class ExcaliburSwordItem extends SwordItem {
                 tooltip.add(Text.translatable("item." + MythAndMagic.MOD_ID + ".excalibur.tooltip_bound").append(
                         Text.literal(itemStack.getOrCreateNbt().getString(MythAndMagic.MOD_ID + ".player_name")).formatted(Formatting.GOLD)));
             }
-        }
-    }
-
-    @Override
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
-        // TODO: figure out what makes someone worthy
-        if (player.getStackInHand(hand).hasNbt()) {
-            if (player.getStackInHand(hand).getOrCreateNbt().contains(MythAndMagic.MOD_ID + ".owner")
-                    && !player.getStackInHand(hand).getOrCreateNbt().getUuid(MythAndMagic.MOD_ID + ".owner").equals(player.getUuid())) {
-                player.sendMessage(Text.translatable("item.myth_and_magic.excalibur.bound_other"), true);
-            }
-            return TypedActionResult.fail(player.getStackInHand(hand));
-        } else {
-            NbtCompound nbtData = new NbtCompound();
-            nbtData.putUuid(MythAndMagic.MOD_ID + ".owner", player.getUuid());
-            nbtData.putString(MythAndMagic.MOD_ID + ".player_name", player.getName().getString());
-            player.getStackInHand(hand).setNbt(nbtData);
-            player.playSound(SoundEvents.ENTITY_PLAYER_LEVELUP, 0.5f, 1f);
-            if (!world.isClient()) {
-                MythAndMagic.EXCALIBUR_CLAIMED.trigger((ServerPlayerEntity) player);
-            }
-            return TypedActionResult.success(player.getStackInHand(hand));
         }
     }
 }

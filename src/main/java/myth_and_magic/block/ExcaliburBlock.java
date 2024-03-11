@@ -1,13 +1,28 @@
 package myth_and_magic.block;
 
+import myth_and_magic.MythAndMagic;
+import myth_and_magic.PlayerData;
+import myth_and_magic.StateSaverAndLoader;
+import myth_and_magic.item.MythAndMagicItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
 
 public class ExcaliburBlock extends Block {
     public static final VoxelShape BLADE = Block.createCuboidShape(5.5, 0, 7.5, 10.5, 4, 8.5);
@@ -21,7 +36,7 @@ public class ExcaliburBlock extends Block {
     public static final VoxelShape SHAPE = VoxelShapes.union(BLADE, GUARD_ONE, GUARD_TWO, GUARD_THREE, GRIP, POMMEL_ONE, POMMEL_TWO, POMMEL_THREE);
 
     public ExcaliburBlock(Settings settings) {
-        super(settings);
+        super(settings.strength(-1, 3600000));
     }
 
     @Override
@@ -47,5 +62,30 @@ public class ExcaliburBlock extends Block {
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return SHAPE;
+    }
+
+    @Override
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        if (!world.isClient()) {
+            PlayerData playerData = StateSaverAndLoader.getPlayerState(player);
+            if (!playerData.boundSword) {
+                if (playerData.worthiness >= 7) {
+                    world.removeBlock(pos, false);
+                    ItemStack itemStack = MythAndMagicItems.EXCALIBUR.getDefaultStack();
+                    NbtCompound nbtData = new NbtCompound();
+                    nbtData.putUuid(MythAndMagic.MOD_ID + ".owner", player.getUuid());
+                    nbtData.putString(MythAndMagic.MOD_ID + ".player_name", player.getName().getString());
+                    itemStack.setNbt(nbtData);
+                    player.getInventory().insertStack(itemStack);
+                    MythAndMagic.EXCALIBUR_CLAIMED.trigger((ServerPlayerEntity) player);
+                    playerData.boundSword = true;
+                } else {
+                    player.sendMessage(Text.translatable("item.myth_and_magic.excalibur.not_worthy"), true);
+                }
+            } else {
+                player.sendMessage(Text.translatable("item.myth_and_magic.excalibur.already_bound"), true);
+            }
+        }
+        return ActionResult.SUCCESS;
     }
 }

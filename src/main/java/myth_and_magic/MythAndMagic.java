@@ -2,6 +2,7 @@ package myth_and_magic;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.arguments.StringArgumentType;
 import myth_and_magic.block.MythAndMagicBlocks;
 import myth_and_magic.enchantment.MovementEnchantment;
 import myth_and_magic.enchantment.MythAndMagicEnchantments;
@@ -18,12 +19,14 @@ import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.command.CommandException;
+import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
@@ -119,30 +122,34 @@ public class MythAndMagic implements ModInitializer {
         // register commands for setting and getting worthiness
         CommandRegistrationCallback.EVENT.register(
                 (dispatcher, registryAccess, environment) -> dispatcher.register(CommandManager.literal("worthiness")
-                        .requires(source -> source.hasPermissionLevel(2) && source.isExecutedByPlayer())
+                        .requires(source -> source.hasPermissionLevel(2))
                         .then(CommandManager.literal("set")
-                                .then(CommandManager.argument("value", IntegerArgumentType.integer())
-                                        .executes(context -> {
-                                            int value = IntegerArgumentType.getInteger(context, "value");
-                                            if (ExcaliburSwordItem.MIN_WORTHINESS <= value && value <= ExcaliburSwordItem.MAX_WORTHINESS) {
-                                                PlayerData playerState = StateSaverAndLoader.getPlayerState(context.getSource().getPlayer());
-                                                playerState.worthiness = value;
-                                                context.getSource().sendFeedback(() -> Text.translatable(
-                                                        "command." + MOD_ID + ".worthiness_set_response",
-                                                        playerState.worthiness), false);
-                                                return Command.SINGLE_SUCCESS;
-                                            } else {
-                                                throw new CommandException(Text.translatable("command." + MOD_ID + ".value_exception",
-                                                        ExcaliburSwordItem.MIN_WORTHINESS, ExcaliburSwordItem.MAX_WORTHINESS));
-                                            }
-                                        })))
+                                .then(CommandManager.argument("player", EntityArgumentType.player())
+                                        .then(CommandManager.argument("value", IntegerArgumentType.integer())
+                                                .executes(context -> {
+                                                    int value = IntegerArgumentType.getInteger(context, "value");
+                                                    PlayerEntity player = EntityArgumentType.getPlayer(context, "player");
+                                                    if (ExcaliburSwordItem.MIN_WORTHINESS <= value && value <= ExcaliburSwordItem.MAX_WORTHINESS) {
+                                                        PlayerData playerState = StateSaverAndLoader.getPlayerState(player);
+                                                        playerState.worthiness = value;
+                                                        context.getSource().sendFeedback(() -> Text.translatable(
+                                                                "command." + MOD_ID + ".worthiness_set_response",
+                                                                playerState.worthiness), false);
+                                                        return Command.SINGLE_SUCCESS;
+                                                    } else {
+                                                        throw new CommandException(Text.translatable("command." + MOD_ID + ".value_exception",
+                                                                ExcaliburSwordItem.MIN_WORTHINESS, ExcaliburSwordItem.MAX_WORTHINESS));
+                                                    }
+                                                }))))
                         .then(CommandManager.literal("get")
-                                .executes(context -> {
-                                    PlayerData playerState = StateSaverAndLoader.getPlayerState(context.getSource().getPlayer());
-                                    context.getSource().sendFeedback(() -> Text.translatable(
-                                            "command." + MOD_ID + ".worthiness_get_response",
-                                            playerState.worthiness), false);
-                                    return playerState.worthiness;
-                                }))));
+                                .then(CommandManager.argument("player", EntityArgumentType.player())
+                                        .executes(context -> {
+                                            PlayerEntity player = EntityArgumentType.getPlayer(context, "player");
+                                            PlayerData playerState = StateSaverAndLoader.getPlayerState(player);
+                                            context.getSource().sendFeedback(() -> Text.translatable(
+                                                    "command." + MOD_ID + ".worthiness_get_response",
+                                                    playerState.worthiness), false);
+                                            return playerState.worthiness;
+                                        })))));
     }
 }
