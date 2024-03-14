@@ -6,6 +6,7 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import myth_and_magic.block.MythAndMagicBlocks;
 import myth_and_magic.enchantment.MovementEnchantment;
 import myth_and_magic.enchantment.MythAndMagicEnchantments;
+import myth_and_magic.entity.KnightEntity;
 import myth_and_magic.entity.MythAndMagicEntities;
 import myth_and_magic.item.MythAndMagicItems;
 import myth_and_magic.item.TarnkappeArmorItem;
@@ -17,6 +18,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.argument.EntityArgumentType;
@@ -65,12 +67,14 @@ public class MythAndMagic implements ModInitializer {
         MythAndMagicBlocks.registerBlocks();
         MythAndMagicRecipes.registerRecipes();
         MythAndMagicEntities.registerEntities();
+        FabricDefaultAttributeRegistry.register(MythAndMagicEntities.KNIGHT, KnightEntity.createKnightAttributes());
 
         // register item group
         ItemGroup ITEM_GROUP = FabricItemGroup.builder().icon(() -> new ItemStack(MythAndMagicBlocks.RUNE_TABLE_BLOCK))
                 .displayName(Text.literal("Myth & Magic")).entries(((displayContext, entries) -> {
                     entries.add(MythAndMagicBlocks.EXCALIBUR_BLOCK_ITEM);
                     entries.add(MythAndMagicBlocks.RUNE_TABLE_ITEM);
+                    entries.add(MythAndMagicItems.KNIGHT_STATUE);
                     entries.add(MythAndMagicItems.RUNE);
                     entries.add(MythAndMagicItems.FIRE_RUNE);
                     entries.add(MythAndMagicItems.ICE_RUNE);

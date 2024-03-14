@@ -14,6 +14,10 @@ public class MythAndMagicEntities {
             new Identifier(MythAndMagic.MOD_ID, "rune_projectile"),
             FabricEntityTypeBuilder.<RuneProjectileEntity>create(SpawnGroup.MISC, RuneProjectileEntity::new)
                     .dimensions(EntityDimensions.fixed(0.1f, 0.1f)).build());
+    public static final EntityType<KnightEntity> KNIGHT = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(MythAndMagic.MOD_ID, "knight"),
+            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, KnightEntity::new)
+                    .dimensions(EntityDimensions.fixed(1f, 3f)).build());
 
     public static void registerEntities() {
         MythAndMagic.LOGGER.info("Registering Entities for %s".formatted(MythAndMagic.MOD_ID));

@@ -28,6 +28,7 @@ public class MythAndMagicModelProvider extends FabricModelProvider {
         itemModelGenerator.register(MythAndMagicItems.FIRE_RUNE, Models.GENERATED);
         itemModelGenerator.register(MythAndMagicItems.ICE_RUNE, Models.GENERATED);
         itemModelGenerator.register(MythAndMagicItems.HEAL_RUNE, Models.GENERATED);
+        itemModelGenerator.register(MythAndMagicItems.KNIGHT_STATUE, Models.GENERATED);
         itemModelGenerator.register(MythAndMagicItems.MAGIC_ALLOY_INGOT, Models.GENERATED);
     }
 }
