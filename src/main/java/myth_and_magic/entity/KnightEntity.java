@@ -16,6 +16,7 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
@@ -35,7 +36,10 @@ import java.util.UUID;
 public class KnightEntity extends PathAwareEntity {
     public final AnimationState statueAnimationState = new AnimationState();
     private int statueAnimationTimeout = 0;
+    public final AnimationState attackAnimationState = new AnimationState();
+    private int attackAnimationTimeout = 0;
     private static final TrackedData<Boolean> STATUE = DataTracker.registerData(KnightEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> TRACKING = DataTracker.registerData(KnightEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<BlockPos> STATUE_POSITION = DataTracker.registerData(KnightEntity.class, TrackedDataHandlerRegistry.BLOCK_POS);
     private static final TrackedData<Float> STATUE_YAW = DataTracker.registerData(KnightEntity.class, TrackedDataHandlerRegistry.FLOAT);
     protected static final TrackedData<Optional<UUID>> OWNER_UUID = DataTracker.registerData(KnightEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
@@ -111,9 +115,15 @@ public class KnightEntity extends PathAwareEntity {
     }
 
     @Override
+    public boolean cannotDespawn() {
+        return true;
+    }
+
+    @Override
     protected void initDataTracker() {
         super.initDataTracker();
         this.dataTracker.startTracking(STATUE, true);
+        this.dataTracker.startTracking(TRACKING, false);
         this.dataTracker.startTracking(STATUE_POSITION, this.getBlockPos());
         this.dataTracker.startTracking(STATUE_YAW, 0f);
         this.dataTracker.startTracking(OWNER_UUID, Optional.empty());
@@ -123,6 +133,7 @@ public class KnightEntity extends PathAwareEntity {
     public void writeCustomDataToNbt(NbtCompound nbt) {
         super.writeCustomDataToNbt(nbt);
         nbt.putBoolean("statue", this.isStatue());
+        nbt.putBoolean("tracking", this.isTracking());
         nbt.putLong("statuePosition", this.getStatuePosition().asLong());
         nbt.putFloat("statueYaw", this.getStatueYaw());
         nbt.putUuid("ownerUuid", this.getOwnerUuid());
@@ -133,6 +144,9 @@ public class KnightEntity extends PathAwareEntity {
         super.readCustomDataFromNbt(nbt);
         if (nbt.contains("statue")) {
             this.setStatue(nbt.getBoolean("statue"));
+        }
+        if (nbt.contains("tracking")) {
+            this.setTracking(nbt.getBoolean("tracking"));
         }
         if (nbt.contains("statuePosition")) {
             this.setStatuePosition(BlockPos.fromLong(nbt.getLong("statuePosition")));
@@ -151,6 +165,14 @@ public class KnightEntity extends PathAwareEntity {
 
     public void setStatue(boolean statue) {
         this.dataTracker.set(STATUE, statue);
+    }
+
+    public boolean isTracking() {
+        return this.dataTracker.get(TRACKING);
+    }
+
+    public void setTracking(boolean statue) {
+        this.dataTracker.set(TRACKING, statue);
     }
 
     public BlockPos getStatuePosition() {
@@ -181,9 +203,11 @@ public class KnightEntity extends PathAwareEntity {
     public static DefaultAttributeContainer.Builder createKnightAttributes() {
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 200)
-                .add(EntityAttributes.GENERIC_ARMOR, 2)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 1f)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 10f);
+                .add(EntityAttributes.GENERIC_ARMOR, 6)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 1)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 15)
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32)
+                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 2);
     }
 
     @Override
@@ -197,11 +221,26 @@ public class KnightEntity extends PathAwareEntity {
     }
 
     private void setupAnimationStates() {
-        if (this.statueAnimationTimeout <= 0) {
-            this.statueAnimationTimeout = this.random.nextInt(40) + 80;
+        if (this.isStatue() && this.statueAnimationTimeout <= 0) {
+            this.statueAnimationTimeout = 100;
             this.statueAnimationState.start(this.age);
         } else {
             --this.statueAnimationTimeout;
+        }
+
+        if (this.isAttacking() && this.attackAnimationTimeout <= 0) {
+            this.attackAnimationTimeout = 20;
+            this.attackAnimationState.start(this.age);
+        } else {
+            --this.attackAnimationTimeout;
+        }
+
+        if (!this.isStatue()) {
+            this.statueAnimationState.stop();
+        }
+
+        if (!this.isAttacking()) {
+            this.attackAnimationState.stop();
         }
     }
 
@@ -221,14 +260,59 @@ public class KnightEntity extends PathAwareEntity {
         this.goalSelector.add(1, new MeleeAttackGoal(this, 0.5f, true));
         this.goalSelector.add(2, new GoStatuePosGoal(this, 0.2f));
         this.targetSelector.add(0, new ProtectOwnerGoal(this));
+        this.targetSelector.add(1, new AttackWithOwnerGoal(this));
     }
 
     static class ProtectOwnerGoal extends TrackTargetGoal {
         private final KnightEntity knight;
+        private LivingEntity attacker;
+        private int lastAttackedTime;
+
+        public ProtectOwnerGoal(KnightEntity knight) {
+            super(knight, false);
+            this.knight = knight;
+        }
+
+        @Nullable
+        private PlayerEntity getOwner() {
+            return this.knight.getOwnerUuid() != null ? this.knight.getWorld().getPlayerByUuid(this.knight.getOwnerUuid()) : null;
+        }
+
+        @Override
+        public boolean canStart() {
+            if (this.getOwner() != null) {
+                this.attacker = this.getOwner().getAttacker();
+                return this.getOwner().getLastAttackedTime() != this.lastAttackedTime && this.canTrack(this.attacker, TargetPredicate.DEFAULT);
+            } else {
+                return false;
+            }
+        }
+
+        @Override
+        public void start() {
+            this.knight.setTracking(true);
+            this.knight.setStatue(false);
+            this.mob.setTarget(this.attacker);
+            LivingEntity owner = this.getOwner();
+            if (owner != null) {
+                this.lastAttackedTime = owner.getLastAttackedTime();
+            }
+            super.start();
+        }
+
+        @Override
+        public void stop() {
+            this.knight.setTracking(false);
+            super.stop();
+        }
+    }
+
+    static class AttackWithOwnerGoal extends TrackTargetGoal {
+        private final KnightEntity knight;
         private LivingEntity attacking;
         private int lastAttackTime;
 
-        ProtectOwnerGoal(KnightEntity knight) {
+        AttackWithOwnerGoal(KnightEntity knight) {
             super(knight, false);
             this.knight = knight;
         }
@@ -242,14 +326,17 @@ public class KnightEntity extends PathAwareEntity {
         public boolean canStart() {
             if (this.getOwner() != null) {
                 this.attacking = this.getOwner().getAttacking();
-                return this.getOwner().getLastAttackTime() != this.lastAttackTime && this.canTrack(this.attacking, TargetPredicate.DEFAULT);
+                return this.getOwner().getLastAttackTime() != this.lastAttackTime && this.canTrack(this.attacking, TargetPredicate.DEFAULT)
+                        && !(this.attacking instanceof KnightEntity) && !((this.attacking instanceof TameableEntity)
+                        && ((TameableEntity) this.attacking).isTamed());
             } else {
                 return false;
             }
         }
 
+        @Override
         public void start() {
-            this.knight.setAttacking(true);
+            this.knight.setTracking(true);
             this.knight.setStatue(false);
             this.mob.setTarget(this.attacking);
             LivingEntity owner = this.getOwner();
@@ -257,6 +344,12 @@ public class KnightEntity extends PathAwareEntity {
                 this.lastAttackTime = owner.getLastAttackTime();
             }
             super.start();
+        }
+
+        @Override
+        public void stop() {
+            this.knight.setTracking(false);
+            super.stop();
         }
     }
 
@@ -271,7 +364,7 @@ public class KnightEntity extends PathAwareEntity {
 
         @Override
         public boolean canStart() {
-            return !this.knight.isStatue() && !this.knight.isAttacking();
+            return !this.knight.isStatue() && !this.knight.isTracking();
         }
 
         @Override
@@ -282,12 +375,12 @@ public class KnightEntity extends PathAwareEntity {
         @Override
         public boolean shouldContinue() {
             boolean close = this.knight.getStatuePosition().isWithinDistance(this.knight.getBlockPos(), 2);
-            return (!this.knight.isAttacking() && !close) || (close && !this.knight.getNavigation().isIdle());
+            return (!this.knight.isTracking() && !close) || (close && !this.knight.getNavigation().isIdle());
         }
 
         @Override
         public void stop() {
-            if (!this.knight.isAttacking()) {
+            if (!this.knight.isTracking()) {
                 this.knight.setStatue(true);
                 this.knight.setVelocity(0, 0, 0);
                 this.knight.snapToStatuePosition();

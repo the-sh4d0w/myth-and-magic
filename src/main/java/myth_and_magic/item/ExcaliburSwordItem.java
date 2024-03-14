@@ -29,19 +29,21 @@ public class ExcaliburSwordItem extends SwordItem {
         tooltip.add(Text.translatable("item." + MythAndMagic.MOD_ID + ".excalibur.tooltip"));
         // show who the sword is bound to
         if (itemStack.hasNbt() && itemStack.getOrCreateNbt().contains("myth_and_magic.owner")) {
-            PlayerEntity player = world.getPlayerByUuid(itemStack.getOrCreateNbt().getUuid(MythAndMagic.MOD_ID + ".owner"));
-            if (player != null) {
-                tooltip.add(Text.translatable("item." + MythAndMagic.MOD_ID + ".excalibur.tooltip_bound").append(
-                        ((MutableText) player.getName()).formatted(Formatting.GOLD)));
-                if (!player.getName().toString().equals(itemStack.getOrCreateNbt().getString(MythAndMagic.MOD_ID + ".player_name"))) {
-                    NbtCompound nbtData = itemStack.getOrCreateNbt();
-                    nbtData.putString(MythAndMagic.MOD_ID + ".player_name", player.getName().getString());
-                    itemStack.setNbt(nbtData);
+            if (world != null) {
+                PlayerEntity player = world.getPlayerByUuid(itemStack.getOrCreateNbt().getUuid(MythAndMagic.MOD_ID + ".owner"));
+                if (player != null) {
+                    tooltip.add(Text.translatable("item." + MythAndMagic.MOD_ID + ".excalibur.tooltip_bound").append(
+                            ((MutableText) player.getName()).formatted(Formatting.GOLD)));
+                    if (!player.getName().toString().equals(itemStack.getOrCreateNbt().getString(MythAndMagic.MOD_ID + ".player_name"))) {
+                        NbtCompound nbtData = itemStack.getOrCreateNbt();
+                        nbtData.putString(MythAndMagic.MOD_ID + ".player_name", player.getName().getString());
+                        itemStack.setNbt(nbtData);
+                    }
+                    return;
                 }
-            } else {
-                tooltip.add(Text.translatable("item." + MythAndMagic.MOD_ID + ".excalibur.tooltip_bound").append(
-                        Text.literal(itemStack.getOrCreateNbt().getString(MythAndMagic.MOD_ID + ".player_name")).formatted(Formatting.GOLD)));
             }
+            tooltip.add(Text.translatable("item." + MythAndMagic.MOD_ID + ".excalibur.tooltip_bound").append(
+                    Text.literal(itemStack.getOrCreateNbt().getString(MythAndMagic.MOD_ID + ".player_name")).formatted(Formatting.GOLD)));
         }
     }
 }

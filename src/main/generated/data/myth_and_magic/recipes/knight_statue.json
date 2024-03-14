@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "g": {
+      "item": "minecraft:gold_ingot"
+    },
+    "n": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "s": {
+      "item": "minecraft:soul_sand"
+    },
+    "t": {
+      "item": "minecraft:stone"
+    }
+  },
+  "pattern": [
+    "ggg",
+    "sns",
+    "ttt"
+  ],
+  "result": {
+    "item": "myth_and_magic:knight_statue"
+  },
+  "show_notification": true
+}

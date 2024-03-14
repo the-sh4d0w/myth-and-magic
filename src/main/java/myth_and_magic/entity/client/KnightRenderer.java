@@ -10,6 +10,7 @@ import net.minecraft.util.Identifier;
 public class KnightRenderer<T extends MobEntity> extends MobEntityRenderer<KnightEntity, KnightModel<KnightEntity>> {
     public KnightRenderer(EntityRendererFactory.Context context) {
         super(context, new KnightModel<>(context.getPart(MythAndMagicModelLayers.KNIGHT)), 1f);
+        this.addFeature(new KnightEyeFeatureRenderer(this));
     }
 
     @Override

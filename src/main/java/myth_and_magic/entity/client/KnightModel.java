@@ -50,9 +50,9 @@ public class KnightModel<T extends KnightEntity> extends SinglePartEntityModel<T
 
         ModelPartData arm_lower_left = arm_upper_left.addChild("arm_lower_left", ModelPartBuilder.create().uv(65, 61).cuboid(-2.5F, 0.0F, -2.5F, 5.0F, 12.0F, 5.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 12.0F, 0.0F));
 
-        ModelPartData leg_right = torso.addChild("leg_right", ModelPartBuilder.create().uv(28, 48).cuboid(-4.0F, -6.0F, -2.0F, 6.0F, 18.0F, 6.0F, new Dilation(0.0F)), ModelTransform.pivot(-3.0F, 6.0F, -1.0F));
+        ModelPartData leg_right = torso.addChild("leg_right", ModelPartBuilder.create().uv(28, 48).cuboid(-3.0F, 0.0F, -3.0F, 6.0F, 18.0F, 6.0F, new Dilation(0.0F)), ModelTransform.pivot(-4.0F, 0.0F, 0.0F));
 
-        ModelPartData leg_left = torso.addChild("leg_left", ModelPartBuilder.create().uv(40, 72).cuboid(-2.0F, -6.0F, -2.0F, 6.0F, 18.0F, 6.0F, new Dilation(0.0F)), ModelTransform.pivot(3.0F, 6.0F, -1.0F));
+        ModelPartData leg_left = torso.addChild("leg_left", ModelPartBuilder.create().uv(40, 72).cuboid(-3.0F, 1.0F, -2.0F, 6.0F, 18.0F, 6.0F, new Dilation(0.0F)), ModelTransform.pivot(4.0F, -1.0F, -1.0F));
         return TexturedModelData.of(modelData, 128, 128);
     }
 
@@ -68,7 +68,11 @@ public class KnightModel<T extends KnightEntity> extends SinglePartEntityModel<T
 
     @Override
     public void setAngles(KnightEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-        getPart().traverse().forEach(ModelPart::resetTransform);
-        updateAnimation(entity.statueAnimationState, KnightAnimation.KNIGHT_STATUE, 1f);
+        this.getPart().traverse().forEach(ModelPart::resetTransform);
+        if (!entity.isStatue()) {
+            this.animateMovement(KnightAnimation.KNIGHT_WALK, limbAngle, limbDistance, 2f, 2.5f);
+        }
+        this.updateAnimation(entity.statueAnimationState, KnightAnimation.KNIGHT_STATUE, animationProgress, 1f);
+        this.updateAnimation(entity.attackAnimationState, KnightAnimation.KNIGHT_ATTACK, animationProgress, 1f);
     }
 }

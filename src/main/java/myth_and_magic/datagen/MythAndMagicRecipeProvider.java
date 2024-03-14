@@ -30,10 +30,18 @@ public class MythAndMagicRecipeProvider extends FabricRecipeProvider {
                 .pattern("sss").pattern(" s ").input('s', Items.STONE)
                 .criterion(FabricRecipeProvider.hasItem(Items.STONE), FabricRecipeProvider.conditionsFromItem(Items.STONE))
                 .offerTo(exporter);
-        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, MythAndMagicItems.MAGE_STAFF).pattern("  a")
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, MythAndMagicItems.MAGE_STAFF).pattern("  a")
                 .pattern(" s ").pattern("s  ").input('a', Items.AMETHYST_SHARD).input('s', Items.STICK)
                 .criterion(FabricRecipeProvider.hasItem(Items.AMETHYST_SHARD), FabricRecipeProvider.conditionsFromItem(Items.AMETHYST_SHARD))
                 .criterion(FabricRecipeProvider.hasItem(Items.STICK), FabricRecipeProvider.conditionsFromItem(Items.STICK))
+                .offerTo(exporter);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, MythAndMagicItems.KNIGHT_STATUE).pattern("ggg")
+                .pattern("sns").pattern("ttt").input('g', Items.GOLD_INGOT).input('s', Items.SOUL_SAND)
+                .input('n', Items.NETHERITE_INGOT).input('t', Items.STONE)
+                .criterion(FabricRecipeProvider.hasItem(Items.GOLD_INGOT), FabricRecipeProvider.conditionsFromItem(Items.GOLD_INGOT))
+                .criterion(FabricRecipeProvider.hasItem(Items.SOUL_SAND), FabricRecipeProvider.conditionsFromItem(Items.SOUL_SAND))
+                .criterion(FabricRecipeProvider.hasItem(Items.NETHERITE_INGOT), FabricRecipeProvider.conditionsFromItem(Items.NETHERITE_INGOT))
+                .criterion(FabricRecipeProvider.hasItem(Items.STONE), FabricRecipeProvider.conditionsFromItem(Items.STONE))
                 .offerTo(exporter);
     }
 }
