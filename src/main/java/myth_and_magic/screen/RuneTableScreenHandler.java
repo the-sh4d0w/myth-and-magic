@@ -23,7 +23,7 @@ public class RuneTableScreenHandler extends ScreenHandler {
 
     public RuneTableScreenHandler(int syncId, PlayerInventory inventory, PacketByteBuf buf) {
         this(syncId, inventory, inventory.player.getWorld().getBlockEntity(buf.readBlockPos()),
-                new ArrayPropertyDelegate(3));
+                new ArrayPropertyDelegate(4));
     }
 
     public RuneTableScreenHandler(int syncId, PlayerInventory playerInventory, BlockEntity blockEntity, PropertyDelegate propertyDelegate) {
@@ -35,7 +35,8 @@ public class RuneTableScreenHandler extends ScreenHandler {
         this.blockEntity = (RuneTableBlockEntity) blockEntity;
         this.addSlot(new Slot(inventory, 0, 80, 11));
         this.addSlot(new RuneSlot(inventory, 1, 44, 35));
-        this.addSlot(new Slot(inventory, 2, 80, 59));
+        this.addSlot(new PhialSlot(inventory, 2, 116, 35));
+        this.addSlot(new Slot(inventory, 3, 80, 59));
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
         addProperties(propertyDelegate);
@@ -67,7 +68,11 @@ public class RuneTableScreenHandler extends ScreenHandler {
                 if (!this.insertItem(originalStack, 1, 2, true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.insertItem(originalStack, 0, 1, false)) {
+            } else if (originalStack.isOf(MythAndMagicItems.LEVEL_PHIAL)) {
+                if (!this.insertItem(originalStack, 2, 3, true)) {
+                    return ItemStack.EMPTY;
+                }
+            }else if (!this.insertItem(originalStack, 0, 1, false)) {
                 return ItemStack.EMPTY;
             }
             if (originalStack.isEmpty()) {
@@ -98,7 +103,7 @@ public class RuneTableScreenHandler extends ScreenHandler {
         }
     }
 
-    class RuneSlot extends Slot {
+    static class RuneSlot extends Slot {
 
         public RuneSlot(Inventory inventory, int index, int x, int y) {
             super(inventory, index, x, y);
@@ -107,6 +112,18 @@ public class RuneTableScreenHandler extends ScreenHandler {
         @Override
         public boolean canInsert(ItemStack stack) {
             return stack.isOf(MythAndMagicItems.RUNE);
+        }
+    }
+
+    static class PhialSlot extends Slot {
+
+        public PhialSlot(Inventory inventory, int index, int x, int y) {
+            super(inventory, index, x, y);
+        }
+
+        @Override
+        public boolean canInsert(ItemStack stack) {
+            return stack.isOf(MythAndMagicItems.LEVEL_PHIAL);
         }
     }
 }

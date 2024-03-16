@@ -3,6 +3,7 @@ package myth_and_magic.recipe;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import myth_and_magic.MythAndMagic;
+import myth_and_magic.item.MythAndMagicItems;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -18,15 +19,15 @@ import net.minecraft.world.World;
 
 public class RuneTableRecipe implements Recipe<SimpleInventory> {
     private final Ingredient input;
-    private final Ingredient addition;
     private final ItemStack output;
+    private final int levelCost;
     private final Identifier id;
 
-    public RuneTableRecipe(Identifier id, ItemStack output, Ingredient input, Ingredient addition) {
+    public RuneTableRecipe(Identifier id, ItemStack output, Ingredient input, int levelCost) {
         this.id = id;
         this.output = output;
         this.input = input;
-        this.addition = addition;
+        this.levelCost = levelCost;
     }
 
     @Override
@@ -34,7 +35,9 @@ public class RuneTableRecipe implements Recipe<SimpleInventory> {
         if (world.isClient() || inventory.size() < 2) {
             return false;
         }
-        return input.test(inventory.getStack(0)) && addition.test(inventory.getStack(1));
+        return input.test(inventory.getStack(0)) && Ingredient.ofItems(MythAndMagicItems.RUNE).test(inventory.getStack(1))
+                && Ingredient.ofItems(MythAndMagicItems.LEVEL_PHIAL).test(inventory.getStack(2))
+                && inventory.getStack(2).getCount() >= levelCost;
     }
 
     @Override
@@ -51,8 +54,8 @@ public class RuneTableRecipe implements Recipe<SimpleInventory> {
         return input;
     }
 
-    public Ingredient getAddition() {
-        return addition;
+    public int getLevelCost() {
+        return levelCost;
     }
 
     @Override
@@ -92,33 +95,32 @@ public class RuneTableRecipe implements Recipe<SimpleInventory> {
         public RuneTableRecipe read(Identifier id, JsonObject json) {
             MagicTableRecipeJsonFormat recipeJson = new Gson().fromJson(json, MagicTableRecipeJsonFormat.class);
             Ingredient input = Ingredient.fromJson(recipeJson.input);
-            Ingredient addition = Ingredient.fromJson(recipeJson.addition);
             Item outputItem = Registries.ITEM.getOrEmpty(new Identifier(recipeJson.outputItem)).get();
-            ItemStack output = new ItemStack(outputItem, recipeJson.outputAmount);
-            return new RuneTableRecipe(id, output, input, addition);
+            ItemStack output = new ItemStack(outputItem, 1);
+            int levelCost = recipeJson.levelCost;
+            return new RuneTableRecipe(id, output, input, levelCost);
         }
 
         @Override
         public RuneTableRecipe read(Identifier id, PacketByteBuf buf) {
             Ingredient input = Ingredient.fromPacket(buf);
-            Ingredient addition = Ingredient.fromPacket(buf);
             ItemStack output = buf.readItemStack();
-            return new RuneTableRecipe(id, output, input, addition);
+            int levelCost = buf.readInt();
+            return new RuneTableRecipe(id, output, input, levelCost);
         }
 
         @Override
         public void write(PacketByteBuf buf, RuneTableRecipe recipe) {
             recipe.getInput().write(buf);
-            recipe.getAddition().write(buf);
             // passing null because I don't do anything with that
             buf.writeItemStack(recipe.getOutput(null));
+            buf.writeInt(recipe.getLevelCost());
         }
     }
 
     static class MagicTableRecipeJsonFormat {
         JsonObject input;
-        JsonObject addition;
         String outputItem;
-        int outputAmount;
+        int levelCost;
     }
 }

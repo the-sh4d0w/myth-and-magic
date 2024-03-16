@@ -24,6 +24,8 @@ public class MythAndMagicItemTagProvider extends FabricTagProvider.ItemTagProvid
         getOrCreateTagBuilder(RUNE_PROJECTILES)
                 .add(MythAndMagicItems.FIRE_RUNE)
                 .add(MythAndMagicItems.ICE_RUNE)
-                .add(MythAndMagicItems.HEAL_RUNE);
+                .add(MythAndMagicItems.HEAL_RUNE)
+                .add(MythAndMagicItems.LIGHTNING_RUNE)
+                .add(MythAndMagicItems.EXPLOSIVE_RUNE);
     }
 }

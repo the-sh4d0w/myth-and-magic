@@ -17,6 +17,10 @@ public class MythAndMagicItems {
     public static final Item FIRE_RUNE = register("fire_rune", new Item(new FabricItemSettings()));
     public static final Item ICE_RUNE = register("ice_rune", new Item(new FabricItemSettings()));
     public static final Item HEAL_RUNE = register("heal_rune", new Item(new FabricItemSettings()));
+    public static final Item LIGHTNING_RUNE = register("lightning_rune", new Item(new FabricItemSettings()));
+    public static final Item EXPLOSIVE_RUNE = register("explosive_rune", new Item(new FabricItemSettings()));
+    public static final Item GLASS_PHIAL = register("glass_phial", new Item(new FabricItemSettings()));
+    public static final Item LEVEL_PHIAL = register("level_phial", new Item(new FabricItemSettings()));
     public static final Item KNIGHT_STATUE = register("knight_statue", new KnightStatueItem(new FabricItemSettings()));
     public static final Item MAGIC_ALLOY_INGOT = register("magic_alloy_ingot", new Item(new FabricItemSettings()));
 

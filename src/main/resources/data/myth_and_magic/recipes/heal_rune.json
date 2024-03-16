@@ -3,9 +3,7 @@
   "input": {
     "item": "minecraft:glistering_melon_slice"
   },
-  "addition": {
-    "item": "myth_and_magic:rune"
-  },
+  "levelCost": 1,
   "outputItem": "myth_and_magic:heal_rune",
   "outputAmount": "1"
 }

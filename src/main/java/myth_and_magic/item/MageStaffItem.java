@@ -26,7 +26,7 @@ public class MageStaffItem extends RangedWeaponItem {
 
     @Override
     public int getRange() {
-        return 20;
+        return 15;
     }
 
     public static float getPullProgress(int useTicks) {
@@ -55,7 +55,7 @@ public class MageStaffItem extends RangedWeaponItem {
                 if (!world.isClient()) {
                     RuneProjectileEntity runeProjectileEntity = new RuneProjectileEntity(user, world, itemStack);
                     runeProjectileEntity.setItem(itemStack);
-                    runeProjectileEntity.setVelocity(user, user.getPitch(), user.getYaw(), user.getRoll(), 2f, 0f);
+                    runeProjectileEntity.setVelocity(user, user.getPitch(), user.getYaw(), user.getRoll(), 3f, 0f);
                     world.spawnEntity(runeProjectileEntity);
                 }
                 world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ITEM_FIRECHARGE_USE,

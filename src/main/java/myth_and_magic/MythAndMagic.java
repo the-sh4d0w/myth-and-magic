@@ -79,6 +79,10 @@ public class MythAndMagic implements ModInitializer {
                     entries.add(MythAndMagicItems.FIRE_RUNE);
                     entries.add(MythAndMagicItems.ICE_RUNE);
                     entries.add(MythAndMagicItems.HEAL_RUNE);
+                    entries.add(MythAndMagicItems.LIGHTNING_RUNE);
+                    entries.add(MythAndMagicItems.EXPLOSIVE_RUNE);
+                    entries.add(MythAndMagicItems.GLASS_PHIAL);
+                    entries.add(MythAndMagicItems.LEVEL_PHIAL);
                     entries.add(MythAndMagicItems.MAGIC_ALLOY_INGOT);
                     entries.add(MythAndMagicItems.EXCALIBUR);
                     entries.add(MythAndMagicItems.MAGE_STAFF);

@@ -1,7 +1,6 @@
 package myth_and_magic.block.entity;
 
 import myth_and_magic.block.MythAndMagicBlocks;
-import myth_and_magic.item.MythAndMagicItems;
 import myth_and_magic.recipe.RuneTableRecipe;
 import myth_and_magic.screen.RuneTableScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -29,10 +28,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class RuneTableBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, SidedInventory {
-    private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(3, ItemStack.EMPTY);
+    private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(4, ItemStack.EMPTY);
     private static final int INPUT_SLOT = 0;
-    private static final int ADDITION_SLOT = 1;
-    private static final int OUTPUT_SLOT = 2;
+    private static final int RUNE_SLOT = 1;
+    private static final int PHIAL_SLOT = 2;
+    private static final int OUTPUT_SLOT = 3;
     protected final PropertyDelegate propertyDelegate;
     private int progress = 0;
     private int maxProgress = 100;
@@ -203,7 +203,8 @@ public class RuneTableBlockEntity extends BlockEntity implements ExtendedScreenH
     private void craftItem() {
         Optional<RuneTableRecipe> match = getCurrentRecipe();
         this.removeStack(INPUT_SLOT, 1);
-        this.removeStack(ADDITION_SLOT, 1);
+        this.removeStack(RUNE_SLOT, 1);
+        this.removeStack(PHIAL_SLOT, match.get().getLevelCost());
         ItemStack result = match.get().getOutput(null);
         this.setStack(OUTPUT_SLOT, new ItemStack(result.getItem(), getStack(OUTPUT_SLOT).getCount() + result.getCount()));
     }

@@ -3,6 +3,7 @@ package myth_and_magic.entity;
 import myth_and_magic.item.MythAndMagicItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LightningEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -23,7 +24,9 @@ public class RuneProjectileEntity extends ThrownItemEntity {
     enum RuneType {
         FIRE,
         ICE,
-        HEAL
+        HEAL,
+        LIGHTNING,
+        EXPLOSIVE
     }
 
     private RuneType type;
@@ -40,6 +43,10 @@ public class RuneProjectileEntity extends ThrownItemEntity {
             this.type = RuneType.ICE;
         } else if (itemStack.isOf(MythAndMagicItems.HEAL_RUNE)) {
             this.type = RuneType.HEAL;
+        } else if (itemStack.isOf(MythAndMagicItems.LIGHTNING_RUNE)) {
+            this.type = RuneType.LIGHTNING;
+        } else if (itemStack.isOf(MythAndMagicItems.EXPLOSIVE_RUNE)) {
+            this.type = RuneType.EXPLOSIVE;
         }
     }
 
@@ -61,6 +68,8 @@ public class RuneProjectileEntity extends ThrownItemEntity {
                 case FIRE -> ParticleTypes.FLAME;
                 case ICE -> ParticleTypes.SNOWFLAKE;
                 case HEAL -> ParticleTypes.HAPPY_VILLAGER;
+                case LIGHTNING -> ParticleTypes.ELECTRIC_SPARK;
+                case EXPLOSIVE -> ParticleTypes.WHITE_ASH;
             };
             ((ServerWorld) world).spawnParticles(particle, this.getX(), this.getY(), this.getZ(), 5,
                     0, 0, 0, 0.05);
@@ -75,16 +84,31 @@ public class RuneProjectileEntity extends ThrownItemEntity {
             world.sendEntityStatus(this, (byte) 3);
             Entity entity = entityHitResult.getEntity();
             switch (this.type) {
-                case FIRE -> entity.setFireTicks(7 * 20);
+                case FIRE -> {
+                    entity.setFireTicks(7 * 20);
+                    entity.setFrozenTicks(0);
+                }
                 case ICE -> {
                     entity.damage(entity.getDamageSources().magic(), 2);
                     entity.setFrozenTicks(30 * 20);
+                    entity.setFireTicks(0);
                 }
                 case HEAL -> {
                     if (entity instanceof LivingEntity) {
                         ((LivingEntity) entity).addStatusEffect(new StatusEffectInstance(StatusEffects.INSTANT_HEALTH,
                                 10, 0, false, false));
                     }
+                }
+                case LIGHTNING -> {
+                    LightningEntity lightning = EntityType.LIGHTNING_BOLT.create(world);
+                    if (lightning != null) {
+                        lightning.refreshPositionAfterTeleport(entity.getPos());
+                        world.spawnEntity(lightning);
+                    }
+                }
+                case EXPLOSIVE -> {
+                    world.createExplosion(this, this.getX(), this.getBodyY(0.0625), this.getZ(), 3,
+                            World.ExplosionSourceType.NONE);
                 }
             }
             ((ServerWorld) world).spawnParticles(ParticleTypes.SMOKE, this.getX(), this.getY(), this.getZ(), 3,
