@@ -1,10 +1,16 @@
 {
   "added": [
     "myth_and_magic:rune_table",
+    "myth_and_magic:infusion_table",
     "myth_and_magic:rune",
     "myth_and_magic:fire_rune",
     "myth_and_magic:ice_rune",
     "myth_and_magic:heal_rune",
+    "myth_and_magic:lightning_rune",
+    "myth_and_magic:explosive_rune",
+    "myth_and_magic:glass_phial",
+    "myth_and_magic:level_phial",
+    "myth_and_magic:knight_statue",
     "myth_and_magic:mage_staff"
   ]
 }

@@ -24,10 +24,10 @@ public class MythAndMagicBlocks {
     public static final Block INFUSION_TABLE_BLOCK = register("infusion_table", new InfusionTableBlock(FabricBlockSettings.create()));
     public static final BlockEntityType<InfusionTableBlockEntity> INFUSION_TABLE_BLOCK_ENTITY = register("infusion_table_entity",
             FabricBlockEntityTypeBuilder.create(InfusionTableBlockEntity::new, INFUSION_TABLE_BLOCK).build());
-    public static final BlockItem INFUSION_TABLE_BLOCK_ITEM = register("infusion_table", new BlockItem(INFUSION_TABLE_BLOCK,
+    public static final BlockItem INFUSION_TABLE_ITEM = register("infusion_table", new BlockItem(INFUSION_TABLE_BLOCK,
             new FabricItemSettings().maxCount(1)));
     public static final Block EXCALIBUR_BLOCK = register("excalibur_block", new ExcaliburBlock(FabricBlockSettings.create()));
-    public static final BlockItem EXCALIBUR_BLOCK_ITEM = register("excalibur_block", new BlockItem(EXCALIBUR_BLOCK,
+    public static final BlockItem EXCALIBUR_ITEM = register("excalibur_block", new BlockItem(EXCALIBUR_BLOCK,
             new FabricItemSettings()));
 
     private static Block register(String name, Block block) {

@@ -71,9 +71,9 @@ public class MythAndMagic implements ModInitializer {
         // register item group
         ItemGroup ITEM_GROUP = FabricItemGroup.builder().icon(() -> new ItemStack(MythAndMagicBlocks.RUNE_TABLE_BLOCK))
                 .displayName(Text.literal("Myth & Magic")).entries(((displayContext, entries) -> {
-                    entries.add(MythAndMagicBlocks.EXCALIBUR_BLOCK_ITEM);
+                    entries.add(MythAndMagicBlocks.EXCALIBUR_ITEM);
                     entries.add(MythAndMagicBlocks.RUNE_TABLE_ITEM);
-                    entries.add(MythAndMagicBlocks.INFUSION_TABLE_BLOCK_ITEM);
+                    entries.add(MythAndMagicBlocks.INFUSION_TABLE_ITEM);
                     entries.add(MythAndMagicItems.KNIGHT_STATUE);
                     entries.add(MythAndMagicItems.RUNE);
                     entries.add(MythAndMagicItems.FIRE_RUNE);
