@@ -6,12 +6,16 @@ import myth_and_magic.screen.InfusionTableScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.item.EnchantedBookItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
@@ -23,6 +27,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Map;
 import java.util.Optional;
 
 public class InfusionTableBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, SidedInventory {
@@ -155,9 +160,31 @@ public class InfusionTableBlockEntity extends BlockEntity implements ExtendedScr
         }
         if (this.hasRecipe()) {
             this.craftItem();
+        } else if (this.canUpgrade()) {
+            this.upgradeItem();
         } else {
             removeStack(OUTPUT_SLOT);
         }
+    }
+
+    private boolean canUpgrade() {
+        ItemStack item = this.getStack(INPUT_SLOT);
+        return !EnchantmentHelper.get(item).isEmpty();
+    }
+
+    private void upgradeItem() {
+        ItemStack item = this.getStack(INPUT_SLOT).copy();
+        int cost = 0;
+        Map<Enchantment, Integer> map = EnchantmentHelper.get(item);
+        for (Map.Entry<Enchantment, Integer> entry : map.entrySet()) {
+            if (entry.getValue() < entry.getKey().getMaxLevel()) {
+                cost += 5 + entry.getValue();
+                entry.setValue(entry.getValue() + 1);
+            }
+        }
+        EnchantmentHelper.set(map, item);
+        this.propertyDelegate.set(0, cost);
+        this.setStack(OUTPUT_SLOT, item);
     }
 
     private void craftItem() {
