@@ -1,6 +1,5 @@
 package myth_and_magic.screen;
 
-import myth_and_magic.MythAndMagic;
 import myth_and_magic.block.entity.RuneTableBlockEntity;
 import myth_and_magic.item.MythAndMagicItems;
 import net.minecraft.block.entity.BlockEntity;
@@ -13,8 +12,6 @@ import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
 
 public class RuneTableScreenHandler extends ScreenHandler {
     private final Inventory inventory;
@@ -27,8 +24,8 @@ public class RuneTableScreenHandler extends ScreenHandler {
     }
 
     public RuneTableScreenHandler(int syncId, PlayerInventory playerInventory, BlockEntity blockEntity, PropertyDelegate propertyDelegate) {
-        super(MythAndMagicScreenHandlers.MAGIC_TABLE_SCREEN_HANDLER, syncId);
-        checkSize((Inventory) blockEntity, 3);
+        super(MythAndMagicScreenHandlers.RUNE_TABLE_SCREEN_HANDLER, syncId);
+        checkSize((Inventory) blockEntity, 4);
         this.inventory = (Inventory) blockEntity;
         playerInventory.onOpen(playerInventory.player);
         this.propertyDelegate = propertyDelegate;

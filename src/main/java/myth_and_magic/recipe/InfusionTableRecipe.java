@@ -3,7 +3,6 @@ package myth_and_magic.recipe;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import myth_and_magic.MythAndMagic;
-import myth_and_magic.item.MythAndMagicItems;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -17,13 +16,13 @@ import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
-public class RuneTableRecipe implements Recipe<SimpleInventory> {
+public class InfusionTableRecipe implements Recipe<SimpleInventory> {
     private final Ingredient input;
     private final ItemStack output;
     private final int levelCost;
     private final Identifier id;
 
-    public RuneTableRecipe(Identifier id, ItemStack output, Ingredient input, int levelCost) {
+    public InfusionTableRecipe(Identifier id, ItemStack output, Ingredient input, int levelCost) {
         this.id = id;
         this.output = output;
         this.input = input;
@@ -32,12 +31,10 @@ public class RuneTableRecipe implements Recipe<SimpleInventory> {
 
     @Override
     public boolean matches(SimpleInventory inventory, World world) {
-        if (world.isClient() || inventory.size() < 4) {
+        if (world.isClient() || inventory.size() < 2) {
             return false;
         }
-        return input.test(inventory.getStack(0)) && Ingredient.ofItems(MythAndMagicItems.RUNE).test(inventory.getStack(1))
-                && Ingredient.ofItems(MythAndMagicItems.LEVEL_PHIAL).test(inventory.getStack(2))
-                && inventory.getStack(2).getCount() >= levelCost;
+        return input.test(inventory.getStack(0));
     }
 
     @Override
@@ -70,7 +67,7 @@ public class RuneTableRecipe implements Recipe<SimpleInventory> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return Serializer.INSTANCE;
+        return InfusionTableRecipe.Serializer.INSTANCE;
     }
 
     @Override
@@ -78,39 +75,39 @@ public class RuneTableRecipe implements Recipe<SimpleInventory> {
         return Type.INSTANCE;
     }
 
-    public static class Type implements RecipeType<RuneTableRecipe> {
+    public static class Type implements RecipeType<InfusionTableRecipe> {
         public static final Type INSTANCE = new Type();
-        public static final String ID = "rune_table";
+        public static final String ID = "infusion_table";
     }
 
-    public static class Serializer implements RecipeSerializer<RuneTableRecipe> {
-        // this should probably throw an error, but I'm too lazy to do that
+    public static class Serializer implements RecipeSerializer<InfusionTableRecipe> {
+        // this should probably also throw an error, but I'm again too lazy to do that
         private Serializer() {
         }
 
-        public static final Serializer INSTANCE = new Serializer();
-        public static final Identifier ID = new Identifier(MythAndMagic.MOD_ID, "rune_table_recipe");
+        public static final InfusionTableRecipe.Serializer INSTANCE = new InfusionTableRecipe.Serializer();
+        public static final Identifier ID = new Identifier(MythAndMagic.MOD_ID, "infusion_table_recipe");
 
         @Override
-        public RuneTableRecipe read(Identifier id, JsonObject json) {
-            RuneTableRecipeJsonFormat recipeJson = new Gson().fromJson(json, RuneTableRecipeJsonFormat.class);
+        public InfusionTableRecipe read(Identifier id, JsonObject json) {
+            InfusionTableRecipe.InfusionTableRecipeJsonFormat recipeJson = new Gson().fromJson(json, InfusionTableRecipeJsonFormat.class);
             Ingredient input = Ingredient.fromJson(recipeJson.input);
             Item outputItem = Registries.ITEM.getOrEmpty(new Identifier(recipeJson.outputItem)).get();
             ItemStack output = new ItemStack(outputItem, 1);
             int levelCost = recipeJson.levelCost;
-            return new RuneTableRecipe(id, output, input, levelCost);
+            return new InfusionTableRecipe(id, output, input, levelCost);
         }
 
         @Override
-        public RuneTableRecipe read(Identifier id, PacketByteBuf buf) {
+        public InfusionTableRecipe read(Identifier id, PacketByteBuf buf) {
             Ingredient input = Ingredient.fromPacket(buf);
             ItemStack output = buf.readItemStack();
             int levelCost = buf.readInt();
-            return new RuneTableRecipe(id, output, input, levelCost);
+            return new InfusionTableRecipe(id, output, input, levelCost);
         }
 
         @Override
-        public void write(PacketByteBuf buf, RuneTableRecipe recipe) {
+        public void write(PacketByteBuf buf, InfusionTableRecipe recipe) {
             recipe.getInput().write(buf);
             // passing null because I don't do anything with that
             buf.writeItemStack(recipe.getOutput(null));
@@ -118,7 +115,7 @@ public class RuneTableRecipe implements Recipe<SimpleInventory> {
         }
     }
 
-    static class RuneTableRecipeJsonFormat {
+    static class InfusionTableRecipeJsonFormat {
         JsonObject input;
         String outputItem;
         int levelCost;

@@ -23,7 +23,7 @@ public class MythAndMagicEmiPlugin implements EmiPlugin {
         registry.addCategory(RUNE_TABLE_CATEGORY);
         registry.addWorkstation(RUNE_TABLE_CATEGORY, RUNE_TABLE);
         RecipeManager manager = registry.getRecipeManager();
-        for (RuneTableRecipe recipe : manager.listAllOfType(MythAndMagicRecipes.MAGIC_TABLE_RECIPE)) {
+        for (RuneTableRecipe recipe : manager.listAllOfType(MythAndMagicRecipes.RUNE_TABLE_RECIPE)) {
             registry.addRecipe(new RuneTableEmiRecipe(recipe));
         }
     }

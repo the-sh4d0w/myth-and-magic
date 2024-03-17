@@ -1,0 +1,8 @@
+{
+  "type": "myth_and_magic:infusion_table_recipe",
+  "input": {
+    "item": "myth_and_magic:glass_phial"
+  },
+  "levelCost": 1,
+  "outputItem": "myth_and_magic:level_phial"
+}

@@ -17,11 +17,13 @@ public class RuneTableEmiRecipe implements EmiRecipe {
     private final Identifier id;
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
+    private final int levelCost;
 
     public RuneTableEmiRecipe(RuneTableRecipe recipe) {
         this.id = recipe.getId();
         this.input = List.of(EmiIngredient.of(recipe.getInput()));
         this.output = List.of(EmiStack.of(recipe.getOutput(null)));
+        this.levelCost = recipe.getLevelCost();
     }
 
     @Override
@@ -61,9 +63,10 @@ public class RuneTableEmiRecipe implements EmiRecipe {
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
-        widgets.addTexture(EmiTexture.EMPTY_ARROW, 52, 1);
+        widgets.addTexture(EmiTexture.EMPTY_ARROW, 78, 1);
         widgets.addSlot(EmiIngredient.of(Ingredient.ofItems(MythAndMagicItems.RUNE)), 0, 0);
-        widgets.addSlot(getInputs().get(0), 26, 0);
-        widgets.addSlot(getOutputs().get(0), 84, 0).recipeContext(this);
+        widgets.addSlot(EmiIngredient.of(Ingredient.ofItems(MythAndMagicItems.LEVEL_PHIAL)).setAmount(levelCost), 26, 0);
+        widgets.addSlot(getInputs().get(0), 52, 0);
+        widgets.addSlot(getOutputs().get(0), 110, 0).recipeContext(this);
     }
 }

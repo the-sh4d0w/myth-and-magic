@@ -4,6 +4,5 @@
     "item": "minecraft:tnt"
   },
   "levelCost": 3,
-  "outputItem": "myth_and_magic:explosive_rune",
-  "outputAmount": "1"
+  "outputItem": "myth_and_magic:explosive_rune"
 }

@@ -3,8 +3,6 @@
   "input": {
     "item": "minecraft:snowball"
   },
-
   "levelCost": 1,
-  "outputItem": "myth_and_magic:ice_rune",
-  "outputAmount": "1"
+  "outputItem": "myth_and_magic:ice_rune"
 }

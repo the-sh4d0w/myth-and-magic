@@ -8,17 +8,17 @@
     "b": {
       "item": "minecraft:stone_bricks"
     },
+    "g": {
+      "item": "minecraft:gold_ingot"
+    },
     "o": {
       "item": "minecraft:obsidian"
-    },
-    "s": {
-      "item": "minecraft:stone_brick_slab"
     }
   },
   "pattern": [
-    "oao",
-    " b ",
-    "sss"
+    "gag",
+    " o ",
+    "bbb"
   ],
   "result": {
     "item": "myth_and_magic:rune_table"

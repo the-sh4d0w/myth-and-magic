@@ -9,9 +9,12 @@ import net.minecraft.util.Identifier;
 
 public class MythAndMagicScreenHandlers {
     // works for now
-    public static final ScreenHandlerType<RuneTableScreenHandler> MAGIC_TABLE_SCREEN_HANDLER =
+    public static final ScreenHandlerType<RuneTableScreenHandler> RUNE_TABLE_SCREEN_HANDLER =
             Registry.register(Registries.SCREEN_HANDLER, new Identifier(MythAndMagic.MOD_ID, "rune_table"),
                     new ExtendedScreenHandlerType<>(RuneTableScreenHandler::new));
+    public static final ScreenHandlerType<InfusionTableScreenHandler> INFUSION_TABLE_SCREEN_HANDLER =
+            Registry.register(Registries.SCREEN_HANDLER, new Identifier(MythAndMagic.MOD_ID, "infusion_table"),
+                    new ExtendedScreenHandlerType<>(InfusionTableScreenHandler::new));
 
     public static void registerScreenHandlers() {
         MythAndMagic.LOGGER.info("Registering ScreenHandlers for %s".formatted(MythAndMagic.MOD_ID));

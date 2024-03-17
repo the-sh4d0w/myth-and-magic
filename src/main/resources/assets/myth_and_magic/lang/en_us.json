@@ -9,6 +9,8 @@
   "item.myth_and_magic.tarnkappe.tooltip": "Helmet that makes its wearer invisible.",
   "item.myth_and_magic.magic_alloy_ingot": "Magic Alloy Ingot",
   "block.myth_and_magic.rune_table": "Rune Table",
+  "block.myth_and_magic.infusion_table": "Infusion Table",
+  "block.myth_and_magic.infusion_table.cost": "Infusion Cost: %s",
   "entity.myth_and_magic.knight.statue_name": "Statue of Knight",
   "entity.myth_and_magic.knight.name": "Knight",
   "item.myth_and_magic.knight_statue": "Knight Statue",

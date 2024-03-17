@@ -4,6 +4,5 @@
     "item": "minecraft:blaze_powder"
   },
   "levelCost": 1,
-  "outputItem": "myth_and_magic:fire_rune",
-  "outputAmount": "1"
+  "outputItem": "myth_and_magic:fire_rune"
 }

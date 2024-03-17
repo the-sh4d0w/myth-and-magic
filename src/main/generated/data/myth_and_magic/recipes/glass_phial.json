@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "g": {
+      "item": "minecraft:glass"
+    }
+  },
+  "pattern": [
+    " g ",
+    "g g",
+    " g "
+  ],
+  "result": {
+    "item": "myth_and_magic:glass_phial"
+  },
+  "show_notification": true
+}

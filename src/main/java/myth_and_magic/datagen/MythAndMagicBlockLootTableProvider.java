@@ -12,5 +12,6 @@ public class MythAndMagicBlockLootTableProvider extends FabricBlockLootTableProv
     @Override
     public void generate() {
         addDrop(MythAndMagicBlocks.RUNE_TABLE_BLOCK);
+        addDrop(MythAndMagicBlocks.INFUSION_TABLE_BLOCK);
     }
 }

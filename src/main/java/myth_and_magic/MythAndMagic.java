@@ -2,7 +2,6 @@ package myth_and_magic;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
-import com.mojang.brigadier.arguments.StringArgumentType;
 import myth_and_magic.block.MythAndMagicBlocks;
 import myth_and_magic.enchantment.MovementEnchantment;
 import myth_and_magic.enchantment.MythAndMagicEnchantments;
@@ -74,6 +73,7 @@ public class MythAndMagic implements ModInitializer {
                 .displayName(Text.literal("Myth & Magic")).entries(((displayContext, entries) -> {
                     entries.add(MythAndMagicBlocks.EXCALIBUR_BLOCK_ITEM);
                     entries.add(MythAndMagicBlocks.RUNE_TABLE_ITEM);
+                    entries.add(MythAndMagicBlocks.INFUSION_TABLE_BLOCK_ITEM);
                     entries.add(MythAndMagicItems.KNIGHT_STATUE);
                     entries.add(MythAndMagicItems.RUNE);
                     entries.add(MythAndMagicItems.FIRE_RUNE);

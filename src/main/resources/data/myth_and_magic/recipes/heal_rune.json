@@ -4,6 +4,5 @@
     "item": "minecraft:glistering_melon_slice"
   },
   "levelCost": 1,
-  "outputItem": "myth_and_magic:heal_rune",
-  "outputAmount": "1"
+  "outputItem": "myth_and_magic:heal_rune"
 }

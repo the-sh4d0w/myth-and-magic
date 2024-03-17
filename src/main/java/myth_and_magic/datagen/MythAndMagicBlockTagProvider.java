@@ -18,5 +18,6 @@ public class MythAndMagicBlockTagProvider extends FabricTagProvider.BlockTagProv
     protected void configure(RegistryWrapper.WrapperLookup arg) {
         getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE).add(MythAndMagicBlocks.RUNE_TABLE_BLOCK);
         getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL).add(MythAndMagicBlocks.RUNE_TABLE_BLOCK);
+        getOrCreateTagBuilder(BlockTags.AXE_MINEABLE).add(MythAndMagicBlocks.INFUSION_TABLE_BLOCK);
     }
 }

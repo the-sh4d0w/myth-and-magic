@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "a": {
+      "item": "minecraft:amethyst_shard"
+    },
+    "d": {
+      "item": "minecraft:dark_oak_planks"
+    },
+    "s": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "dad",
+    "s s"
+  ],
+  "result": {
+    "item": "myth_and_magic:infusion_table"
+  },
+  "show_notification": true
+}

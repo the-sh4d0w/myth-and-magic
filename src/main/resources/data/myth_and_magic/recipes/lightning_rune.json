@@ -4,6 +4,5 @@
     "item": "minecraft:copper_ingot"
   },
   "levelCost": 2,
-  "outputItem": "myth_and_magic:lightning_rune",
-  "outputAmount": "1"
+  "outputItem": "myth_and_magic:lightning_rune"
 }
