@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "g": {
+      "item": "minecraft:gold_ingot"
+    },
+    "s": {
+      "item": "myth_and_magic:mage_staff"
+    }
+  },
+  "pattern": [
+    " g ",
+    " sg"
+  ],
+  "result": {
+    "item": "myth_and_magic:golden_mage_staff"
+  },
+  "show_notification": true
+}

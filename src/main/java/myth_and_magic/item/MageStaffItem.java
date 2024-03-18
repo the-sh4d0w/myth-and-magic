@@ -15,8 +15,8 @@ import net.minecraft.world.World;
 import java.util.function.Predicate;
 
 public class MageStaffItem extends RangedWeaponItem {
-    public MageStaffItem(Settings settings) {
-        super(settings.maxCount(1).maxDamage(150));
+    public MageStaffItem(Settings settings, int damage) {
+        super(settings.maxCount(1).maxDamage(damage));
     }
 
     @Override

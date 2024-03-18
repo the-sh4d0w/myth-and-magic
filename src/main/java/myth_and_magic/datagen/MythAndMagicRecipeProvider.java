@@ -45,6 +45,11 @@ public class MythAndMagicRecipeProvider extends FabricRecipeProvider {
                 .criterion(FabricRecipeProvider.hasItem(Items.AMETHYST_SHARD), FabricRecipeProvider.conditionsFromItem(Items.AMETHYST_SHARD))
                 .criterion(FabricRecipeProvider.hasItem(Items.STICK), FabricRecipeProvider.conditionsFromItem(Items.STICK))
                 .offerTo(exporter);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, MythAndMagicItems.GOLDEN_MAGE_STAFF).pattern(" g ")
+                .pattern(" sg").input('s', MythAndMagicItems.MAGE_STAFF).input('g', Items.GOLD_INGOT)
+                .criterion(FabricRecipeProvider.hasItem(MythAndMagicItems.MAGE_STAFF), FabricRecipeProvider.conditionsFromItem(MythAndMagicItems.MAGE_STAFF))
+                .criterion(FabricRecipeProvider.hasItem(Items.GOLD_INGOT), FabricRecipeProvider.conditionsFromItem(Items.GOLD_INGOT))
+                .offerTo(exporter);
         ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, MythAndMagicItems.KNIGHT_STATUE).pattern("ggg")
                 .pattern("sns").pattern("ttt").input('g', Items.GOLD_INGOT).input('s', Items.SOUL_SAND)
                 .input('n', Items.NETHERITE_INGOT).input('t', Items.STONE)

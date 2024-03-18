@@ -86,6 +86,7 @@ public class MythAndMagic implements ModInitializer {
                     entries.add(MythAndMagicItems.MAGIC_ALLOY_INGOT);
                     entries.add(MythAndMagicItems.EXCALIBUR);
                     entries.add(MythAndMagicItems.MAGE_STAFF);
+                    entries.add(MythAndMagicItems.GOLDEN_MAGE_STAFF);
                     entries.add(MythAndMagicItems.TARNKAPPE);
                 })).build();
         Registry.register(Registries.ITEM_GROUP, new Identifier(MOD_ID, "item_group"), ITEM_GROUP);
