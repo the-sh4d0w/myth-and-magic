@@ -169,7 +169,7 @@ public class InfusionTableBlockEntity extends BlockEntity implements ExtendedScr
 
     private boolean canUpgrade() {
         ItemStack item = this.getStack(INPUT_SLOT);
-        return !EnchantmentHelper.get(item).isEmpty();
+        return getUpgradeCost(item) != 0;
     }
 
     private void upgradeItem() {
@@ -185,6 +185,17 @@ public class InfusionTableBlockEntity extends BlockEntity implements ExtendedScr
         EnchantmentHelper.set(map, item);
         this.propertyDelegate.set(0, cost);
         this.setStack(OUTPUT_SLOT, item);
+    }
+
+    private int getUpgradeCost(ItemStack item) {
+        int cost = 0;
+        Map<Enchantment, Integer> map = EnchantmentHelper.get(item);
+        for (Map.Entry<Enchantment, Integer> entry : map.entrySet()) {
+            if (entry.getValue() < entry.getKey().getMaxLevel()) {
+                cost += 5 + entry.getValue();
+            }
+        }
+        return cost;
     }
 
     private void craftItem() {

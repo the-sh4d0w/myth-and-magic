@@ -33,7 +33,7 @@ public class InfusionTableScreen extends HandledScreen<InfusionTableScreenHandle
     @Override
     protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
         super.drawForeground(context, mouseX, mouseY);
-        if (!this.handler.getSlot(1).hasStack()) {
+        if (!this.handler.getSlot(1).hasStack() || this.handler.getLevelCost() == 0) {
             return;
         }
         int levelCost = this.handler.getLevelCost();
