@@ -38,6 +38,7 @@ import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -127,6 +128,18 @@ public class MythAndMagic implements ModInitializer {
                 }
             }
         });
+
+        // add worthiness on advancement granted
+        AdvancementGrantedCallback.EVENT.register(((player, advancement) -> {
+            PlayerData playerData = StateSaverAndLoader.getPlayerState(player);
+            playerData.worthiness += switch (advancement.getId().toString()) {
+                // TODO: add wither killed (2) and player healed with rune (1)
+                case "minecraft:end/kill_dragon", "minecraft:adventure/kill_all_mobs" -> 2;
+                case "minecraft:story/cure_zombie_villager", "minecraft:adventure/hero_of_the_village",
+                        "minecraft:adventure/kill_a_mob" -> 1;
+                default -> 0;
+            };
+        }));
 
         // register commands for setting and getting worthiness
         CommandRegistrationCallback.EVENT.register(
