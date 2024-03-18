@@ -23,7 +23,7 @@ public class DashMovementEnchantment extends MovementEnchantment {
         return 35;
     }
 
-    public static boolean move(ServerPlayerEntity player, ItemStack armor, int level) {
+    public static boolean move(ServerPlayerEntity player, ItemStack armor) {
         if (!player.hasVehicle() && !player.isSubmergedInWater() && player.getHungerManager().getFoodLevel() > 6 && !player.isOnGround()) {
             player.addVelocity(player.getRotationVector().normalize());
             player.velocityModified = true;

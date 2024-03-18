@@ -31,9 +31,9 @@ public class MovementEnchantment extends Enchantment {
             int level;
             boolean armor_break = false;
             if ((level = EnchantmentHelper.getLevel(MythAndMagicEnchantments.TELEPORT_ENCHANTMENT, armor)) > 0) {
-                armor_break = TeleportMovementEnchantment.move(player, armor, level);
+                armor_break = TeleportMovementEnchantment.move(player, armor);
             } else if ((level = EnchantmentHelper.getLevel(MythAndMagicEnchantments.DASH_ENCHANTMENT, armor)) > 0) {
-                armor_break = DashMovementEnchantment.move(player, armor, level);
+                armor_break = DashMovementEnchantment.move(player, armor);
             }
             if (armor_break) {
                 armor.decrement(1);

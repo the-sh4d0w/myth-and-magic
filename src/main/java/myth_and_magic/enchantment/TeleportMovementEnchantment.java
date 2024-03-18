@@ -16,11 +16,6 @@ public class TeleportMovementEnchantment extends MovementEnchantment {
     }
 
     @Override
-    public int getMaxLevel() {
-        return 3;
-    }
-
-    @Override
     public int getMinPower(int level) {
         return 15 + 20 * (level - 1);
     }
@@ -30,11 +25,11 @@ public class TeleportMovementEnchantment extends MovementEnchantment {
         return super.getMinPower(level) + 55;
     }
 
-    public static boolean move(ServerPlayerEntity player, ItemStack armor, int level) {
+    public static boolean move(ServerPlayerEntity player, ItemStack armor) {
         if (!player.hasVehicle() && !player.isTouchingWaterOrRain() && player.getHungerManager().getFoodLevel() > 12) {
             World world = player.getWorld();
             for (float i = 0; i <= 3; i++) {
-                Vec3d vec3d = player.getRotationVector().normalize().multiply(2f * level).add(player.getPos()).add(0f, i, 0f);
+                Vec3d vec3d = player.getRotationVector().normalize().multiply(5f).add(player.getPos()).add(0f, i, 0f);
                 if (!player.teleport(vec3d.x, vec3d.y, vec3d.z, false)) {
                     continue;
                 }

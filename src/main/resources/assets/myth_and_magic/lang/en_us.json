@@ -20,6 +20,8 @@
   "enchantment.myth_and_magic.teleport_enchantment.desc": "Allows use of teleportation when not touching water.",
   "enchantment.myth_and_magic.dash_enchantment": "Dash",
   "enchantment.myth_and_magic.dash_enchantment.desc": "Allows use of dash when in the air.",
+  "enchantment.myth_and_magic.fire_thorns_enchantment": "Fire Thorns",
+  "enchantment.myth_and_magic.fire_thorns_enchantment.desc": "Random chance to set attacker on fire.",
   "advancements.myth_and_magic.root": "Myth & Magic",
   "advancements.myth_and_magic.root.desc": "The start of a magical adventure",
   "advancements.myth_and_magic.craft_rune_table": "First Steps [replace]",
