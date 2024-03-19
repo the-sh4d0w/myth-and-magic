@@ -8,6 +8,7 @@
   "item.myth_and_magic.tarnkappe": "Tarnkappe",
   "item.myth_and_magic.tarnkappe.tooltip": "Helmet that makes its wearer invisible.",
   "item.myth_and_magic.magic_alloy_ingot": "Magic Alloy Ingot",
+  "item.myth_and_magic.spell.failed": "You do not have enough levels.",
   "block.myth_and_magic.rune_table": "Rune Table",
   "block.myth_and_magic.infusion_table": "Infusion Table",
   "block.myth_and_magic.infusion_table.cost": "Infusion Cost: %s",

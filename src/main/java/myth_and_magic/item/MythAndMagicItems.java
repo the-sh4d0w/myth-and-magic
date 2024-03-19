@@ -20,6 +20,8 @@ public class MythAndMagicItems {
     public static final Item HEAL_RUNE = register("heal_rune", new Item(new FabricItemSettings()));
     public static final Item LIGHTNING_RUNE = register("lightning_rune", new Item(new FabricItemSettings()));
     public static final Item EXPLOSIVE_RUNE = register("explosive_rune", new Item(new FabricItemSettings()));
+    public static final Item HOME_SPELL = register("domicilium_spell", new SpellItem(new FabricItemSettings(), SpellItem.Type.HOME));
+    public static final Item GROW_SPELL = register("cresco_spell", new SpellItem(new FabricItemSettings(), SpellItem.Type.GROW));
     public static final Item GLASS_PHIAL = register("glass_phial", new Item(new FabricItemSettings()));
     public static final Item LEVEL_PHIAL = register("level_phial", new LevelPhialItem(new FabricItemSettings().food(LEVEL_PHIAL_FOOD)));
     public static final Item KNIGHT_STATUE = register("knight_statue", new KnightStatueItem(new FabricItemSettings()));

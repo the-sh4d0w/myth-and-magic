@@ -19,13 +19,15 @@ import net.minecraft.world.World;
 public class InfusionTableRecipe implements Recipe<SimpleInventory> {
     private final Ingredient input;
     private final ItemStack output;
+    private final String name;
     private final int levelCost;
     private final Identifier id;
 
-    public InfusionTableRecipe(Identifier id, ItemStack output, Ingredient input, int levelCost) {
+    public InfusionTableRecipe(Identifier id, ItemStack output, Ingredient input, String name, int levelCost) {
         this.id = id;
         this.output = output;
         this.input = input;
+        this.name = name;
         this.levelCost = levelCost;
     }
 
@@ -34,7 +36,7 @@ public class InfusionTableRecipe implements Recipe<SimpleInventory> {
         if (world.isClient() || inventory.size() < 2) {
             return false;
         }
-        return input.test(inventory.getStack(0));
+        return input.test(inventory.getStack(0)) && (name == null || inventory.getStack(0).getName().getString().equalsIgnoreCase(name));
     }
 
     @Override
@@ -49,6 +51,10 @@ public class InfusionTableRecipe implements Recipe<SimpleInventory> {
 
     public Ingredient getInput() {
         return input;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getLevelCost() {
@@ -94,16 +100,18 @@ public class InfusionTableRecipe implements Recipe<SimpleInventory> {
             Ingredient input = Ingredient.fromJson(recipeJson.input);
             Item outputItem = Registries.ITEM.getOrEmpty(new Identifier(recipeJson.outputItem)).get();
             ItemStack output = new ItemStack(outputItem, 1);
+            String name = recipeJson.name;
             int levelCost = recipeJson.levelCost;
-            return new InfusionTableRecipe(id, output, input, levelCost);
+            return new InfusionTableRecipe(id, output, input, name, levelCost);
         }
 
         @Override
         public InfusionTableRecipe read(Identifier id, PacketByteBuf buf) {
             Ingredient input = Ingredient.fromPacket(buf);
             ItemStack output = buf.readItemStack();
+            String name = buf.readString();
             int levelCost = buf.readInt();
-            return new InfusionTableRecipe(id, output, input, levelCost);
+            return new InfusionTableRecipe(id, output, input, name, levelCost);
         }
 
         @Override
@@ -111,6 +119,7 @@ public class InfusionTableRecipe implements Recipe<SimpleInventory> {
             recipe.getInput().write(buf);
             // passing null because I don't do anything with that
             buf.writeItemStack(recipe.getOutput(null));
+            buf.writeString(recipe.getName());
             buf.writeInt(recipe.getLevelCost());
         }
     }
@@ -118,6 +127,7 @@ public class InfusionTableRecipe implements Recipe<SimpleInventory> {
     static class InfusionTableRecipeJsonFormat {
         JsonObject input;
         String outputItem;
+        String name;
         int levelCost;
     }
 }

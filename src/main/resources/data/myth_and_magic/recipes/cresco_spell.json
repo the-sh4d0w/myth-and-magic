@@ -1,0 +1,9 @@
+{
+  "type": "myth_and_magic:infusion_table_recipe",
+  "input": {
+    "item": "minecraft:written_book"
+  },
+  "name": "Cresco",
+  "levelCost": 5,
+  "outputItem": "myth_and_magic:cresco_spell"
+}
