@@ -3,7 +3,7 @@
 	"id": "myth_and_magic",
 	"version": "${version}",
 	"name": "Myth & Magic",
-	"description": "This mod adds a powerful sword only the worthy can wield. Potentially some other stuff.",
+	"description": "Adds more magic and some mythical weapons.",
 	"authors": [
 		"Sh4d0w"
 	],
@@ -12,7 +12,7 @@
 		"sources": "https://github.com/the-sh4d0w/myth-and-magic"
 	},
 	"license": "MIT",
-	"icon": "assets/myth_and_magic/icon.png",
+	"icon": "assets/myth_and_magic/myth_and_magic-icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
