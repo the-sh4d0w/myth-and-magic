@@ -25,7 +25,6 @@ public class MythAndMagicModelProvider extends FabricModelProvider {
         itemModelGenerator.register(MythAndMagicItems.EXCALIBUR, Models.HANDHELD);
         itemModelGenerator.register(MythAndMagicItems.MAGE_STAFF, Models.HANDHELD);
         itemModelGenerator.register(MythAndMagicItems.GOLDEN_MAGE_STAFF, Models.HANDHELD);
-        itemModelGenerator.register(MythAndMagicItems.TARNKAPPE, Models.GENERATED);
         itemModelGenerator.register(MythAndMagicItems.RUNE, Models.GENERATED);
         itemModelGenerator.register(MythAndMagicItems.FIRE_RUNE, Models.GENERATED);
         itemModelGenerator.register(MythAndMagicItems.ICE_RUNE, Models.GENERATED);
@@ -37,6 +36,5 @@ public class MythAndMagicModelProvider extends FabricModelProvider {
         itemModelGenerator.register(MythAndMagicItems.GLASS_PHIAL, Models.GENERATED);
         itemModelGenerator.register(MythAndMagicItems.LEVEL_PHIAL, Models.GENERATED);
         itemModelGenerator.register(MythAndMagicItems.KNIGHT_STATUE, Models.GENERATED);
-        itemModelGenerator.register(MythAndMagicItems.MAGIC_ALLOY_INGOT, Models.GENERATED);
     }
 }

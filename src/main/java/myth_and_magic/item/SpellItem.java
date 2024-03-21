@@ -30,11 +30,6 @@ public class SpellItem extends Item {
     }
 
     @Override
-    public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
-        super.onStoppedUsing(stack, world, user, remainingUseTicks);
-    }
-
-    @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
         if (player.getAbilities().creativeMode || player.experienceLevel >= this.type.levelCost) {
