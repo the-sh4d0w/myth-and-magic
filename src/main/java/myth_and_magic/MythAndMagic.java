@@ -55,7 +55,7 @@ public class MythAndMagic implements ModInitializer {
     public static Identifier MOVE_PACKET_ID = new Identifier(MythAndMagic.MOD_ID, "move");
     // TODO: translate everything
     // TODO: translate advancements
-    // TODO: add JEI support
+    // TODO: add REI support later
 
     @Override
     public void onInitialize() {

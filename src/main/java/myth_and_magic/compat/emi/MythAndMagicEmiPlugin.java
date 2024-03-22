@@ -14,6 +14,8 @@ import net.minecraft.recipe.RecipeManager;
 import net.minecraft.util.Identifier;
 
 public class MythAndMagicEmiPlugin implements EmiPlugin {
+    // would like to implement a recipe handler (thing that allows the + button to auto craft), but it's not documented,
+    // so I'm not going to waste my time trying to figure it ou
     public static final Identifier RUNE_TABLE_ICON = new Identifier(MythAndMagic.MOD_ID, "textures/gui/rune_table_icon.png");
     public static final EmiStack RUNE_TABLE = EmiStack.of(MythAndMagicBlocks.RUNE_TABLE_ITEM);
     public static final EmiRecipeCategory RUNE_TABLE_CATEGORY = new EmiRecipeCategory(new Identifier(MythAndMagic.MOD_ID, "rune_table"),
