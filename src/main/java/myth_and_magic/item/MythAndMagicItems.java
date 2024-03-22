@@ -11,6 +11,7 @@ public class MythAndMagicItems {
     public static final FoodComponent LEVEL_PHIAL_FOOD = new FoodComponent.Builder().alwaysEdible().build();
 
     public static final Item EXCALIBUR = register("excalibur", new ExcaliburSwordItem(new FabricItemSettings()));
+    public static final Item NARCISSUS_MIRROR = register("narcissus_mirror", new NarcissusMirrorItem(new FabricItemSettings()));
     public static final Item MAGE_STAFF = register("mage_staff", new MageStaffItem(new FabricItemSettings(), 100));
     public static final Item GOLDEN_MAGE_STAFF = register("golden_mage_staff", new MageStaffItem(new FabricItemSettings(), 300));
     public static final Item TARNKAPPE = register("tarnkappe", new TarnkappeArmorItem(new FabricItemSettings()));

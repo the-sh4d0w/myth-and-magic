@@ -19,6 +19,7 @@ import java.util.List;
 public class ExcaliburSwordItem extends SwordItem {
     public static final int MIN_WORTHINESS = 0;
     public static final int MAX_WORTHINESS = 10;
+    public static final int REQUIRED_WORTHINESS = 7;
 
     public ExcaliburSwordItem(Settings settings) {
         super(new MagicAlloyToolMaterial(), 5, -2f, settings.rarity(Rarity.EPIC));

@@ -86,6 +86,7 @@ public class MythAndMagic implements ModInitializer {
                     entries.add(MythAndMagicItems.GLASS_PHIAL);
                     entries.add(MythAndMagicItems.LEVEL_PHIAL);
                     entries.add(MythAndMagicItems.EXCALIBUR);
+                    entries.add(MythAndMagicItems.NARCISSUS_MIRROR);
                     entries.add(MythAndMagicItems.MAGE_STAFF);
                     entries.add(MythAndMagicItems.GOLDEN_MAGE_STAFF);
                 })).build();

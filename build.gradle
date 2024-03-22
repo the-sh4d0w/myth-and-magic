@@ -20,9 +20,6 @@ repositories {
         name = "TerraformersMC"
         url = "https://maven.terraformersmc.com/"
     }
-    maven {
-        url "https://maven.shedaniel.me/"
-    }
 }
 
 fabricApi {
@@ -39,8 +36,6 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
     modCompileOnly "dev.emi:emi-fabric:${project.emi_version}:api"
-
-    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}"
 
     // Uncomment the following line to enable the deprecated Fabric API modules.
     // These are included in the Fabric API production distribution and allow you to update your mod to the latest modules at a later more convenient time.

@@ -3,6 +3,7 @@ package myth_and_magic.block;
 import myth_and_magic.MythAndMagic;
 import myth_and_magic.PlayerData;
 import myth_and_magic.StateSaverAndLoader;
+import myth_and_magic.item.ExcaliburSwordItem;
 import myth_and_magic.item.MythAndMagicItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
@@ -69,7 +70,7 @@ public class ExcaliburBlock extends Block {
         if (!world.isClient()) {
             PlayerData playerData = StateSaverAndLoader.getPlayerState(player);
             if (!playerData.boundSword) {
-                if (playerData.worthiness >= 7) {
+                if (playerData.worthiness >= ExcaliburSwordItem.REQUIRED_WORTHINESS) {
                     world.removeBlock(pos, false);
                     ItemStack itemStack = MythAndMagicItems.EXCALIBUR.getDefaultStack();
                     NbtCompound nbtData = new NbtCompound();
