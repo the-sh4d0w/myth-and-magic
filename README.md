@@ -1,2 +1,2 @@
 # Myth & Magic
-Minecraft mod that adds a powerful sword only the mighty can wield.
+Adds more magic and some mythical weapons.
