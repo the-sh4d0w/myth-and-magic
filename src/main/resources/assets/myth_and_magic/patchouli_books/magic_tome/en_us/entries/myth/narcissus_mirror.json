@@ -1,0 +1,17 @@
+{
+  "name": "Narcissus Mirror",
+  "icon": "myth_and_magic:narcissus_mirror",
+  "category": "myth_and_magic:myth",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "myth_and_magic:narcissus_mirror",
+      "text": "A mirror to reveal information about yourself.$(br)Shows your worthiness.$(br2)$(o)Try to not get lost in its reflection.$()"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "myth_and_magic:narcissus_mirror",
+      "title": " "
+    }
+  ]
+}

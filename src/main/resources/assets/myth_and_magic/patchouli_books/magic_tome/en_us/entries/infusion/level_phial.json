@@ -1,0 +1,27 @@
+{
+  "name": "Level Phial",
+  "icon": "myth_and_magic:level_phial",
+  "category": "myth_and_magic:infusion",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "myth_and_magic:level_phial",
+      "text": "Stores one level. Mostly used in the rune table, but the level can also be retrieved."
+    },
+    {
+      "type": "myth_and_magic:infusion_table_recipe",
+      "input": "myth_and_magic:glass_phial",
+      "output": "myth_and_magic:level_phial",
+      "text": "Costs one level to infuse."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "myth_and_magic:glass_phial",
+      "text": "Used to capture XP in the infusion table."
+    },
+    {
+      "type": "patchouli:empty",
+      "draw_filler": false
+    }
+  ]
+}

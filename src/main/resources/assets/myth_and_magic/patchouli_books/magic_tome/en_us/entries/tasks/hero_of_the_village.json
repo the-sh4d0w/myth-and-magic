@@ -1,0 +1,17 @@
+{
+  "name": "Hero of the Village",
+  "icon": "minecraft:white_banner",
+  "category": "myth_and_magic:tasks",
+  "pages": [
+    {
+      "type": "patchouli:quest",
+      "title": "Hero of the Village",
+      "text": "Defeat a raid.",
+      "trigger": "minecraft:adventure/hero_of_the_village"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "minecraft:pillager"
+    }
+  ]
+}

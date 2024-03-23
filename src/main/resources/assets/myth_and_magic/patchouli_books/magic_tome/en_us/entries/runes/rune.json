@@ -1,0 +1,17 @@
+{
+  "name": "Rune",
+  "icon": "myth_and_magic:rune",
+  "category": "myth_and_magic:runes",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "myth_and_magic:rune",
+      "text": "The base rune stone used to create runes."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "myth_and_magic:rune",
+      "title": " "
+    }
+  ]
+}

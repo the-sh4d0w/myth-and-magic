@@ -1,0 +1,17 @@
+{
+  "name": "Knight Statue",
+  "icon": "myth_and_magic:knight_statue",
+  "category": "myth_and_magic:myth",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "myth_and_magic:knight",
+      "text": "Knight statue that protects its owner."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "myth_and_magic:knight_statue",
+      "text": "$(o)Can also be used for decorating.$()"
+    }
+  ]
+}

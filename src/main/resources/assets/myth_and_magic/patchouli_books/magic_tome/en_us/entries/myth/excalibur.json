@@ -1,0 +1,31 @@
+{
+  "name": "Excalibur",
+  "icon": "myth_and_magic:excalibur",
+  "category": "myth_and_magic:myth",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "myth_and_magic:excalibur",
+      "text": "A sword that only the mighty can wield. Unbreakable, can be summoned and only used by its owner.$(br2)$(o)Ah, this brings back some memories.$()$(br2)$(l:myth_and_magic:tasks)You can prove you are worthy by completing these tasks.$()"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "text": "Excalibur can be found in the world and claimed if you are worthy.",
+      "multiblock": {
+        "pattern": [
+          [
+            " E "
+          ],
+          [
+            " 0 "
+          ]
+        ],
+        "mapping": {
+          "E": "myth_and_magic:excalibur_block",
+          "0": "minecraft:chipped_anvil"
+        }
+      },
+      "enable_visualize": false
+    }
+  ]
+}

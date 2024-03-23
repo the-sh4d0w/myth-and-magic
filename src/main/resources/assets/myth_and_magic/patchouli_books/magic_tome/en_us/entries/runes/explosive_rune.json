@@ -1,0 +1,17 @@
+{
+  "name": "Explosive Rune",
+  "icon": "myth_and_magic:explosive_rune",
+  "category": "myth_and_magic:runes",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "myth_and_magic:explosive_rune",
+      "text": "Rune that explodes whoever it hits."
+    },
+    {
+      "type": "myth_and_magic:rune_table_recipe",
+      "input": "minecraft:tnt",
+      "output": "myth_and_magic:explosive_rune"
+    }
+  ]
+}

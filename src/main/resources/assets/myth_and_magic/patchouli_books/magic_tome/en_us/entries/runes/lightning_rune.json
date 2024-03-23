@@ -1,0 +1,17 @@
+{
+  "name": "Lightning Rune",
+  "icon": "myth_and_magic:lightning_rune",
+  "category": "myth_and_magic:runes",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "myth_and_magic:lightning_rune",
+      "text": "Rune that strikes whoever it hits with lightning.$(br2)$(o)My favorite rune.$()"
+    },
+    {
+      "type": "myth_and_magic:rune_table_recipe",
+      "input": "minecraft:copper_ingot",
+      "output": "myth_and_magic:lightning_rune"
+    }
+  ]
+}

@@ -56,6 +56,7 @@ public class MythAndMagic implements ModInitializer {
     // TODO: translate everything
     // TODO: translate advancements
     // TODO: add REI support later
+    // TODO: maybe generate book dynamically?
 
     @Override
     public void onInitialize() {

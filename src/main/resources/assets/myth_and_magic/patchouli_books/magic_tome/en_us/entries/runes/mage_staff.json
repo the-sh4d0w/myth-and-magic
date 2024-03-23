@@ -1,0 +1,17 @@
+{
+  "name": "Mage Staff",
+  "icon": "myth_and_magic:mage_staff",
+  "category": "myth_and_magic:runes",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "myth_and_magic:mage_staff",
+      "text": "Used to cast runes. Can be upgraded with gold.$(br2)$(o)Every mage needs one.$()"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "myth_and_magic:mage_staff",
+      "recipe2": "myth_and_magic:golden_mage_staff"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Upgrading Enchantments",
+  "icon": "minecraft:enchanted_book",
+  "category": "myth_and_magic:infusion",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "text": "The infusion table allows you to upgrade your enchantments to the next level."
+    },
+    {
+      "type": "myth_and_magic:infusion_table_recipe",
+      "input": "minecraft:enchanted_book",
+      "output": "minecraft:enchanted_book",
+      "text": "You can, for example, upgrade $(o)Sharpness II$() to $(o)Sharpness III$()."
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Rune Table",
+  "icon": "myth_and_magic:rune_table",
+  "category": "myth_and_magic:runes",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "myth_and_magic:rune_table",
+      "text": "Table used in making runes.$(br2)$(o)Runes are a very useful offensive tool.$()"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "myth_and_magic:rune_table",
+      "title": " "
+    }
+  ]
+}
