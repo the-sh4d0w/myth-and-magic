@@ -14,6 +14,8 @@ import java.util.concurrent.CompletableFuture;
 
 public class MythAndMagicItemTagProvider extends FabricTagProvider.ItemTagProvider {
     public static final TagKey<Item> RUNE_PROJECTILES = TagKey.of(RegistryKeys.ITEM, new Identifier(MythAndMagic.MOD_ID, "rune_projectiles"));
+    public static final TagKey<Item> SPELLS = TagKey.of(RegistryKeys.ITEM, new Identifier(MythAndMagic.MOD_ID, "spells"));
+
 
     public MythAndMagicItemTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture) {
         super(output, completableFuture);

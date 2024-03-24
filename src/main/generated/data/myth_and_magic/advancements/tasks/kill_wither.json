@@ -1,0 +1,40 @@
+{
+  "criteria": {
+    "tasks/killed_wither": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:wither"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "myth_and_magic:textures/gui/tasks_background.png",
+    "description": {
+      "text": "This is used to track the worthiness task."
+    },
+    "frame": "task",
+    "hidden": true,
+    "icon": {
+      "item": "minecraft:nether_star"
+    },
+    "show_toast": false,
+    "title": {
+      "text": "Kill the Wither"
+    }
+  },
+  "requirements": [
+    [
+      "tasks/killed_wither"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

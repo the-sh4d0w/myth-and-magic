@@ -1,0 +1,38 @@
+{
+  "parent": "myth_and_magic:magic/craft_rune_table",
+  "criteria": {
+    "magic/got_rune": {
+      "conditions": {
+        "recipe_ids": [
+          "myth_and_magic:fire_rune",
+          "myth_and_magic:ice_rune",
+          "myth_and_magic:heal_rune",
+          "myth_and_magic:lightning_rune",
+          "myth_and_magic:explosive_rune"
+        ]
+      },
+      "trigger": "myth_and_magic:recipe_rune"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "text": "Make a rune."
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "myth_and_magic:fire_rune"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "Rune something"
+    }
+  },
+  "requirements": [
+    [
+      "magic/got_rune"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

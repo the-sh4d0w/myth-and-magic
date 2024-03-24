@@ -1,6 +1,6 @@
 {
   "criteria": {
-    "root": {
+    "magic/beginning": {
       "conditions": {
         "items": [
           {
@@ -14,24 +14,24 @@
     }
   },
   "display": {
-    "announce_to_chat": true,
-    "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png",
+    "announce_to_chat": false,
+    "background": "myth_and_magic:textures/gui/magic_background.png",
     "description": {
-      "translate": "advancements.myth_and_magic.root.desc"
+      "text": "A magical beginning."
     },
     "frame": "task",
     "hidden": false,
     "icon": {
       "item": "minecraft:amethyst_shard"
     },
-    "show_toast": true,
+    "show_toast": false,
     "title": {
-      "translate": "advancements.myth_and_magic.root"
+      "text": "Magic"
     }
   },
   "requirements": [
     [
-      "root"
+      "magic/beginning"
     ]
   ],
   "sends_telemetry_event": true

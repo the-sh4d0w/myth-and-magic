@@ -1,10 +1,9 @@
-package myth_and_magic;
+package myth_and_magic.util;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.advancement.Advancement;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ActionResult;
 
 public interface AdvancementGrantedCallback {
     Event<AdvancementGrantedCallback.Grant> EVENT = EventFactory.createArrayBacked(Grant.class,
@@ -15,7 +14,7 @@ public interface AdvancementGrantedCallback {
             });
 
     @FunctionalInterface
-    public interface Grant {
+    interface Grant {
         void grant(PlayerEntity player, Advancement advancement);
     }
 }

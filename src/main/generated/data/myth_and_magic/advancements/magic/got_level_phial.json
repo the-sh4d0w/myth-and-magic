@@ -1,0 +1,34 @@
+{
+  "parent": "myth_and_magic:magic/craft_infusion_table",
+  "criteria": {
+    "magic/got_level_phial": {
+      "conditions": {
+        "recipe_ids": [
+          "myth_and_magic:level_phial"
+        ]
+      },
+      "trigger": "myth_and_magic:recipe_infusion"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "text": "Infuse a glass phial with magic to create a level phial."
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "myth_and_magic:level_phial"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "Level Down"
+    }
+  },
+  "requirements": [
+    [
+      "magic/got_level_phial"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

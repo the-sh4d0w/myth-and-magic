@@ -8,10 +8,11 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ArrayPropertyDelegate;
-import net.minecraft.screen.Property;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
 
 public class InfusionTableScreenHandler extends ScreenHandler {
     private final Inventory inventory;
@@ -113,6 +114,9 @@ public class InfusionTableScreenHandler extends ScreenHandler {
 
         @Override
         public void onTakeItem(PlayerEntity player, ItemStack stack) {
+            if (!player.getWorld().isClient()) {
+                this.blockEntity.triggerCriterion((ServerPlayerEntity) player);
+            }
             if (!player.getAbilities().creativeMode) {
                 player.addExperienceLevels(-this.screenHandler.getLevelCost());
             }

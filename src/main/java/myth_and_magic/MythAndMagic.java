@@ -3,6 +3,7 @@ package myth_and_magic;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import myth_and_magic.block.MythAndMagicBlocks;
+import myth_and_magic.criteria.*;
 import myth_and_magic.enchantment.MovementEnchantment;
 import myth_and_magic.enchantment.MythAndMagicEnchantments;
 import myth_and_magic.entity.KnightEntity;
@@ -11,6 +12,7 @@ import myth_and_magic.item.MythAndMagicItems;
 import myth_and_magic.item.TarnkappeArmorItem;
 import myth_and_magic.recipe.MythAndMagicRecipes;
 import myth_and_magic.screen.MythAndMagicScreenHandlers;
+import myth_and_magic.util.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
@@ -48,8 +50,15 @@ import java.util.Set;
 public class MythAndMagic implements ModInitializer {
     public static final String MOD_ID = "myth_and_magic";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-    // criteria
+    // criteria; maybe too many?
     public static ExcaliburClaimedCriterion EXCALIBUR_CLAIMED = Criteria.register(new ExcaliburClaimedCriterion());
+    public static ExcaliburCalledCriterion EXCALIBUR_CALLED = Criteria.register(new ExcaliburCalledCriterion());
+    public static TaskCompletedCriterion TASK_COMPLETED = Criteria.register(new TaskCompletedCriterion());
+    public static EnchantmentUpgradedCriterion ENCHANTMENT_UPGRADED = Criteria.register(new EnchantmentUpgradedCriterion());
+    public static RecipeInfusionCriterion RECIPE_INFUSION = Criteria.register(new RecipeInfusionCriterion());
+    public static RecipeRuneCriterion RECIPE_RUNE = Criteria.register(new RecipeRuneCriterion());
+    public static HealRuneUsedCriterion HEAL_RUNE_USED = Criteria.register(new HealRuneUsedCriterion());
+    public static KnightProtectionCriterion KNIGHT_PROTECT = Criteria.register(new KnightProtectionCriterion());
     // network packet ids
     public static final Identifier CALL_SWORD_PACKET_ID = new Identifier(MythAndMagic.MOD_ID, "call_sword");
     public static Identifier MOVE_PACKET_ID = new Identifier(MythAndMagic.MOD_ID, "move");
@@ -133,13 +142,18 @@ public class MythAndMagic implements ModInitializer {
         // add worthiness on advancement granted
         AdvancementGrantedCallback.EVENT.register(((player, advancement) -> {
             PlayerData playerData = StateSaverAndLoader.getPlayerState(player);
-            playerData.worthiness += switch (advancement.getId().toString()) {
-                // TODO: add wither killed (2) and player healed with rune (1)
-                case "minecraft:end/kill_dragon", "minecraft:adventure/kill_all_mobs" -> 2;
+            int value = switch (advancement.getId().toString()) {
+                // TODO: add player healed with rune (1)
+                case "minecraft:end/kill_dragon", "minecraft:adventure/kill_all_mobs",
+                        "myth_and_magic:tasks/kill_wither" -> 2;
                 case "minecraft:story/cure_zombie_villager", "minecraft:adventure/hero_of_the_village",
                         "minecraft:adventure/kill_a_mob" -> 1;
                 default -> 0;
             };
+            playerData.worthiness += value;
+            if (value != 0) {
+                MythAndMagic.TASK_COMPLETED.trigger((ServerPlayerEntity) player);
+            }
         }));
 
         // register commands for setting and getting worthiness

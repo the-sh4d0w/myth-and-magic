@@ -1,0 +1,30 @@
+{
+  "parent": "myth_and_magic:magic/got_rune",
+  "criteria": {
+    "magic/used_heal_rune": {
+      "conditions": {},
+      "trigger": "myth_and_magic:heal_rune_used"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "text": "Heal a player with a rune."
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "myth_and_magic:heal_rune"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "Heal rune stuff"
+    }
+  },
+  "requirements": [
+    [
+      "magic/used_heal_rune"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

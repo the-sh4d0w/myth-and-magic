@@ -1,0 +1,30 @@
+{
+  "parent": "myth_and_magic:myth/beginning",
+  "criteria": {
+    "myth/claimed_excalibur": {
+      "conditions": {},
+      "trigger": "myth_and_magic:excalibur_claimed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "text": "Claim excalibur."
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "myth_and_magic:excalibur"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "The True King"
+    }
+  },
+  "requirements": [
+    [
+      "myth/claimed_excalibur"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

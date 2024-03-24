@@ -1,5 +1,6 @@
 package myth_and_magic.entity;
 
+import myth_and_magic.MythAndMagic;
 import myth_and_magic.item.MythAndMagicItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -7,6 +8,7 @@ import net.minecraft.entity.LightningEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -15,6 +17,7 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
@@ -30,12 +33,13 @@ public class RuneProjectileEntity extends ThrownItemEntity {
     }
 
     private RuneType type;
+    private PlayerEntity player;
 
     public RuneProjectileEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
         super(entityType, world);
     }
 
-    public RuneProjectileEntity(LivingEntity livingEntity, World world, ItemStack itemStack) {
+    public RuneProjectileEntity(LivingEntity livingEntity, World world, ItemStack itemStack, PlayerEntity player) {
         super(MythAndMagicEntities.RUNE_PROJECTILE, livingEntity, world);
         if (itemStack.isOf(MythAndMagicItems.FIRE_RUNE)) {
             this.type = RuneType.FIRE;
@@ -48,6 +52,7 @@ public class RuneProjectileEntity extends ThrownItemEntity {
         } else if (itemStack.isOf(MythAndMagicItems.EXPLOSIVE_RUNE)) {
             this.type = RuneType.EXPLOSIVE;
         }
+        this.player = player;
     }
 
     @Override
@@ -81,6 +86,9 @@ public class RuneProjectileEntity extends ThrownItemEntity {
     protected void onEntityHit(EntityHitResult entityHitResult) {
         World world = this.getWorld();
         if (!world.isClient() && this.type != null) {
+            if (entityHitResult.getEntity().isPlayer()) {
+                MythAndMagic.HEAL_RUNE_USED.trigger((ServerPlayerEntity) this.player);
+            }
             world.sendEntityStatus(this, (byte) 3);
             Entity entity = entityHitResult.getEntity();
             switch (this.type) {

@@ -1,6 +1,7 @@
-package myth_and_magic;
+package myth_and_magic.criteria;
 
 import com.google.gson.JsonObject;
+import myth_and_magic.MythAndMagic;
 import net.minecraft.advancement.criterion.AbstractCriterion;
 import net.minecraft.advancement.criterion.AbstractCriterionConditions;
 import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer;
@@ -8,14 +9,12 @@ import net.minecraft.predicate.entity.LootContextPredicate;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
-public class ExcaliburClaimedCriterion extends AbstractCriterion<ExcaliburClaimedCriterion.Conditions> {
-    private static Identifier ID = new Identifier(MythAndMagic.MOD_ID, "excalibur_claimed");
+public class KnightProtectionCriterion extends AbstractCriterion<KnightProtectionCriterion.Conditions> {
+    private static final Identifier ID = new Identifier(MythAndMagic.MOD_ID, "knight_protect");
 
     @Override
-    protected Conditions conditionsFromJson(JsonObject json, LootContextPredicate playerPredicate,
-                                            AdvancementEntityPredicateDeserializer predicateDeserializer) {
-        Conditions conditions = new Conditions();
-        return conditions;
+    protected Conditions conditionsFromJson(JsonObject json, LootContextPredicate playerPredicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {
+        return new Conditions();
     }
 
     public Identifier getId() {

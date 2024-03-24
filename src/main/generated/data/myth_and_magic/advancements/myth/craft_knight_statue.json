@@ -1,9 +1,9 @@
 {
-  "parent": "minecraft:myth_and_magic/root",
+  "parent": "myth_and_magic:myth/beginning",
   "criteria": {
-    "craft_rune_table": {
+    "myth/craft_knight_statue": {
       "conditions": {
-        "recipe_id": "myth_and_magic:rune_table"
+        "recipe_id": "myth_and_magic:knight_statue"
       },
       "trigger": "minecraft:recipe_crafted"
     }
@@ -11,21 +11,21 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.myth_and_magic.craft_rune_table.desc"
+      "text": "Craft knight statue."
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "myth_and_magic:rune_table"
+      "item": "myth_and_magic:knight_statue"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.myth_and_magic.craft_rune_table"
+      "text": "Knightly something"
     }
   },
   "requirements": [
     [
-      "craft_rune_table"
+      "myth/craft_knight_statue"
     ]
   ],
   "sends_telemetry_event": true

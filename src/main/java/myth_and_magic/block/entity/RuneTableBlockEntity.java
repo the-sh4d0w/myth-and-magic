@@ -1,5 +1,6 @@
 package myth_and_magic.block.entity;
 
+import myth_and_magic.MythAndMagic;
 import myth_and_magic.block.MythAndMagicBlocks;
 import myth_and_magic.recipe.RuneTableRecipe;
 import myth_and_magic.screen.RuneTableScreenHandler;
@@ -19,6 +20,7 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -36,6 +38,7 @@ public class RuneTableBlockEntity extends BlockEntity implements ExtendedScreenH
     protected final PropertyDelegate propertyDelegate;
     private int progress = 0;
     private int maxProgress = 100;
+    private Identifier currentRecipeId;
 
     public RuneTableBlockEntity(BlockPos pos, BlockState state) {
         super(MythAndMagicBlocks.RUNE_TABLE_BLOCK_ENTITY, pos, state);
@@ -196,6 +199,12 @@ public class RuneTableBlockEntity extends BlockEntity implements ExtendedScreenH
         }
     }
 
+    public void triggerCriterion(ServerPlayerEntity player) {
+        if (this.currentRecipeId != null) {
+            MythAndMagic.RECIPE_RUNE.trigger(player, this.currentRecipeId);
+        }
+    }
+
     private void resetProgress() {
         this.progress = 0;
     }
@@ -206,6 +215,7 @@ public class RuneTableBlockEntity extends BlockEntity implements ExtendedScreenH
         this.removeStack(RUNE_SLOT, 1);
         this.removeStack(PHIAL_SLOT, match.get().getLevelCost());
         ItemStack result = match.get().getOutput(null);
+        this.currentRecipeId = match.get().getId();
         this.setStack(OUTPUT_SLOT, new ItemStack(result.getItem(), getStack(OUTPUT_SLOT).getCount() + result.getCount()));
     }
 

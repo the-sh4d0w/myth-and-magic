@@ -1,5 +1,6 @@
 package myth_and_magic.screen;
 
+import myth_and_magic.block.entity.InfusionTableBlockEntity;
 import myth_and_magic.block.entity.RuneTableBlockEntity;
 import myth_and_magic.item.MythAndMagicItems;
 import net.minecraft.block.entity.BlockEntity;
@@ -12,6 +13,7 @@ import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.server.network.ServerPlayerEntity;
 
 public class RuneTableScreenHandler extends ScreenHandler {
     private final Inventory inventory;
@@ -33,7 +35,7 @@ public class RuneTableScreenHandler extends ScreenHandler {
         this.addSlot(new Slot(inventory, 0, 80, 11));
         this.addSlot(new RuneSlot(inventory, 1, 44, 35));
         this.addSlot(new PhialSlot(inventory, 2, 116, 35));
-        this.addSlot(new Slot(inventory, 3, 80, 59));
+        this.addSlot(new OutputSlot(inventory, 3, 80, 59, (RuneTableBlockEntity) blockEntity));
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
         addProperties(propertyDelegate);
@@ -69,7 +71,7 @@ public class RuneTableScreenHandler extends ScreenHandler {
                 if (!this.insertItem(originalStack, 2, 3, true)) {
                     return ItemStack.EMPTY;
                 }
-            }else if (!this.insertItem(originalStack, 0, 1, false)) {
+            } else if (!this.insertItem(originalStack, 0, 1, false)) {
                 return ItemStack.EMPTY;
             }
             if (originalStack.isEmpty()) {
@@ -121,6 +123,28 @@ public class RuneTableScreenHandler extends ScreenHandler {
         @Override
         public boolean canInsert(ItemStack stack) {
             return stack.isOf(MythAndMagicItems.LEVEL_PHIAL);
+        }
+    }
+
+    static class OutputSlot extends Slot {
+        private final RuneTableBlockEntity blockEntity;
+
+        public OutputSlot(Inventory inventory, int index, int x, int y, RuneTableBlockEntity blockEntity) {
+            super(inventory, index, x, y);
+            this.blockEntity = blockEntity;
+        }
+
+        @Override
+        public void onTakeItem(PlayerEntity player, ItemStack stack) {
+            if (!player.getWorld().isClient()) {
+                this.blockEntity.triggerCriterion((ServerPlayerEntity) player);
+            }
+            super.onTakeItem(player, stack);
+        }
+
+        @Override
+        public boolean canInsert(ItemStack stack) {
+            return false;
         }
     }
 }

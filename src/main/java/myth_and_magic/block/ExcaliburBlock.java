@@ -1,8 +1,8 @@
 package myth_and_magic.block;
 
 import myth_and_magic.MythAndMagic;
-import myth_and_magic.PlayerData;
-import myth_and_magic.StateSaverAndLoader;
+import myth_and_magic.util.PlayerData;
+import myth_and_magic.util.StateSaverAndLoader;
 import myth_and_magic.item.ExcaliburSwordItem;
 import myth_and_magic.item.MythAndMagicItems;
 import net.minecraft.block.Block;
@@ -13,8 +13,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;

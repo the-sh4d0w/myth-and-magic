@@ -1,7 +1,7 @@
 package myth_and_magic.item;
 
-import myth_and_magic.PlayerData;
-import myth_and_magic.StateSaverAndLoader;
+import myth_and_magic.util.PlayerData;
+import myth_and_magic.util.StateSaverAndLoader;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
@@ -17,7 +17,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -25,8 +24,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
-
-import java.util.Random;
 
 public class DiceOfDestinyItem extends Item {
     public DiceOfDestinyItem(Settings settings) {

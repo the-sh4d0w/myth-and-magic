@@ -53,7 +53,7 @@ public class MageStaffItem extends RangedWeaponItem {
             float f = getPullProgress(i);
             if (f == 1f) {
                 if (!world.isClient()) {
-                    RuneProjectileEntity runeProjectileEntity = new RuneProjectileEntity(user, world, itemStack);
+                    RuneProjectileEntity runeProjectileEntity = new RuneProjectileEntity(user, world, itemStack, (PlayerEntity) user);
                     runeProjectileEntity.setItem(itemStack);
                     runeProjectileEntity.setVelocity(user, user.getPitch(), user.getYaw(), user.getRoll(), 3f, 0f);
                     world.spawnEntity(runeProjectileEntity);

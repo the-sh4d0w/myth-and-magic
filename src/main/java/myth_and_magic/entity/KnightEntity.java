@@ -1,5 +1,6 @@
 package myth_and_magic.entity;
 
+import myth_and_magic.MythAndMagic;
 import myth_and_magic.item.MythAndMagicItems;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
@@ -19,6 +20,7 @@ import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
@@ -367,9 +369,17 @@ public class KnightEntity extends PathAwareEntity {
             return !this.knight.isStatue() && !this.knight.isTracking();
         }
 
+        @Nullable
+        private PlayerEntity getOwner() {
+            return this.knight.getOwnerUuid() != null ? this.knight.getWorld().getPlayerByUuid(this.knight.getOwnerUuid()) : null;
+        }
+
         @Override
         public void start() {
             this.knight.updateStatuePosition();
+            if (this.getOwner() != null && !this.knight.getWorld().isClient()) {
+                MythAndMagic.KNIGHT_PROTECT.trigger((ServerPlayerEntity) this.getOwner());
+            }
         }
 
         @Override

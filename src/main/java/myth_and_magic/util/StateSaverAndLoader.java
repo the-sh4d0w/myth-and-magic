@@ -1,5 +1,6 @@
-package myth_and_magic;
+package myth_and_magic.util;
 
+import myth_and_magic.MythAndMagic;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.MinecraftServer;

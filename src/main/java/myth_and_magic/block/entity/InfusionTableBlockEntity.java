@@ -1,5 +1,6 @@
 package myth_and_magic.block.entity;
 
+import myth_and_magic.MythAndMagic;
 import myth_and_magic.block.MythAndMagicBlocks;
 import myth_and_magic.recipe.InfusionTableRecipe;
 import myth_and_magic.screen.InfusionTableScreenHandler;
@@ -13,14 +14,13 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.EnchantedBookItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -36,6 +36,7 @@ public class InfusionTableBlockEntity extends BlockEntity implements ExtendedScr
     private static final int OUTPUT_SLOT = 1;
     protected final PropertyDelegate propertyDelegate;
     private int levelCost = 0;
+    private Identifier currentRecipeId;
 
     public InfusionTableBlockEntity(BlockPos pos, BlockState state) {
         super(MythAndMagicBlocks.INFUSION_TABLE_BLOCK_ENTITY, pos, state);
@@ -66,7 +67,6 @@ public class InfusionTableBlockEntity extends BlockEntity implements ExtendedScr
         return Text.translatable("block.myth_and_magic.infusion_table");
     }
 
-    @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
         return new InfusionTableScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
@@ -167,12 +167,21 @@ public class InfusionTableBlockEntity extends BlockEntity implements ExtendedScr
         }
     }
 
+    public void triggerCriterion(ServerPlayerEntity player) {
+        if (this.currentRecipeId != null) {
+            MythAndMagic.RECIPE_INFUSION.trigger(player, this.currentRecipeId);
+        } else {
+            MythAndMagic.ENCHANTMENT_UPGRADED.trigger(player);
+        }
+    }
+
     private boolean canUpgrade() {
         ItemStack item = this.getStack(INPUT_SLOT);
         return getUpgradeCost(item) != 0;
     }
 
     private void upgradeItem() {
+        this.currentRecipeId = null;
         ItemStack item = this.getStack(INPUT_SLOT).copy();
         int cost = 0;
         Map<Enchantment, Integer> map = EnchantmentHelper.get(item);
@@ -201,6 +210,7 @@ public class InfusionTableBlockEntity extends BlockEntity implements ExtendedScr
     private void craftItem() {
         Optional<InfusionTableRecipe> match = getCurrentRecipe();
         ItemStack result = match.get().getOutput(null);
+        this.currentRecipeId = match.get().getId();
         this.propertyDelegate.set(0, match.get().getLevelCost());
         this.setStack(OUTPUT_SLOT, new ItemStack(result.getItem(), result.getCount()));
     }

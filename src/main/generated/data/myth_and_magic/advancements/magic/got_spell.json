@@ -1,0 +1,35 @@
+{
+  "parent": "myth_and_magic:magic/craft_infusion_table",
+  "criteria": {
+    "magic/got_spell": {
+      "conditions": {
+        "recipe_ids": [
+          "myth_and_magic:cresco_spell",
+          "myth_and_magic:domicilium_spell"
+        ]
+      },
+      "trigger": "myth_and_magic:recipe_infusion"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "text": "Create a spell."
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "myth_and_magic:cresco_spell"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "Spell something"
+    }
+  },
+  "requirements": [
+    [
+      "magic/got_spell"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

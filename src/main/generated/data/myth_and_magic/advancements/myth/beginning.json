@@ -1,0 +1,30 @@
+{
+  "criteria": {
+    "myth/beginning": {
+      "conditions": {},
+      "trigger": "myth_and_magic:task_completed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "myth_and_magic:textures/gui/myth_background.png",
+    "description": {
+      "text": "A mythical beginning."
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "myth_and_magic:narcissus_mirror"
+    },
+    "show_toast": false,
+    "title": {
+      "text": "Myth"
+    }
+  },
+  "requirements": [
+    [
+      "myth/beginning"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

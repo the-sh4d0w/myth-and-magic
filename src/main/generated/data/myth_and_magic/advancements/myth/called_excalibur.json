@@ -1,15 +1,15 @@
 {
-  "parent": "minecraft:myth_and_magic/root",
+  "parent": "myth_and_magic:myth/claimed_excalibur",
   "criteria": {
-    "claimed_excalibur": {
+    "myth/called_excalibur": {
       "conditions": {},
-      "trigger": "myth_and_magic:excalibur_claimed"
+      "trigger": "myth_and_magic:excalibur_called"
     }
   },
   "display": {
     "announce_to_chat": true,
     "description": {
-      "text": "Claim excalibur."
+      "text": "Call excalibur."
     },
     "frame": "challenge",
     "hidden": false,
@@ -18,12 +18,12 @@
     },
     "show_toast": true,
     "title": {
-      "text": "The True King"
+      "text": "Return of the King?"
     }
   },
   "requirements": [
     [
-      "claimed_excalibur"
+      "myth/called_excalibur"
     ]
   ],
   "sends_telemetry_event": true

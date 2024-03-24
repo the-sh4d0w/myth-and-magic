@@ -1,7 +1,7 @@
 package myth_and_magic.item;
 
-import myth_and_magic.PlayerData;
-import myth_and_magic.StateSaverAndLoader;
+import myth_and_magic.util.PlayerData;
+import myth_and_magic.util.StateSaverAndLoader;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

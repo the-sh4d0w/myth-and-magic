@@ -1,6 +1,6 @@
 package myth_and_magic.mixin;
 
-import myth_and_magic.AdvancementGrantedCallback;
+import myth_and_magic.util.AdvancementGrantedCallback;
 import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.PlayerAdvancementTracker;
 import net.minecraft.server.network.ServerPlayerEntity;

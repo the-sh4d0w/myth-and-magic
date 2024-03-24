@@ -1,0 +1,30 @@
+{
+  "parent": "myth_and_magic:myth/beginning",
+  "criteria": {
+    "myth/knight_protect": {
+      "conditions": {},
+      "trigger": "myth_and_magic:knight_protect"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "text": "Let a knight protect you."
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "myth_and_magic:knight_statue"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "Knightly protection?"
+    }
+  },
+  "requirements": [
+    [
+      "myth/knight_protect"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
