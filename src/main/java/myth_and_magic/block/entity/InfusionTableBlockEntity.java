@@ -1,11 +1,13 @@
 package myth_and_magic.block.entity;
 
 import myth_and_magic.MythAndMagic;
+import myth_and_magic.block.InfusionTableBlock;
 import myth_and_magic.block.MythAndMagicBlocks;
 import myth_and_magic.recipe.InfusionTableRecipe;
 import myth_and_magic.screen.InfusionTableScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.EnchantingTableBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -158,10 +160,20 @@ public class InfusionTableBlockEntity extends BlockEntity implements ExtendedScr
         if (world.isClient()) {
             return;
         }
-        if (this.hasRecipe()) {
-            this.craftItem();
-        } else if (this.canUpgrade()) {
-            this.upgradeItem();
+        int power = 0;
+        for (BlockPos blockPos : InfusionTableBlock.POWER_PROVIDER_OFFSETS) {
+            if (InfusionTableBlock.canAccessPowerProvider(world, pos, blockPos)) {
+                power++;
+            }
+        }
+        if (power >= 7) {
+            if (this.hasRecipe()) {
+                this.craftItem();
+            } else if (this.canUpgrade()) {
+                this.upgradeItem();
+            } else {
+                removeStack(OUTPUT_SLOT);
+            }
         } else {
             removeStack(OUTPUT_SLOT);
         }

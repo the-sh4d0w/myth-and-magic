@@ -11,7 +11,6 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 
 public class MovementEnchantment extends Enchantment {
-    // TODO: this needs some improvement; make more 'agnostic'
     // cooldown reduced once per tick
     public static final int MAX_COOLDOWN = 30;
     public static int cooldown = 0;

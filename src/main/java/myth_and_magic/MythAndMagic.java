@@ -142,7 +142,6 @@ public class MythAndMagic implements ModInitializer {
         AdvancementGrantedCallback.EVENT.register(((player, advancement) -> {
             PlayerData playerData = StateSaverAndLoader.getPlayerState(player);
             int value = switch (advancement.getId().toString()) {
-                // TODO: add player healed with rune (1)
                 case "minecraft:end/kill_dragon", "minecraft:adventure/kill_all_mobs",
                         "myth_and_magic:tasks/kill_wither" -> 2;
                 case "minecraft:story/cure_zombie_villager", "minecraft:adventure/hero_of_the_village",
