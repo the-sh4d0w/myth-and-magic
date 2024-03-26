@@ -1,0 +1,17 @@
+{
+  "name": "Healer",
+  "icon": "myth_and_magic:heal_rune",
+  "category": "myth_and_magic:tasks",
+  "pages": [
+    {
+      "type": "patchouli:quest",
+      "title": "Healer",
+      "text": "Heal a player with magic.$(br2)$(o)$()",
+      "trigger": "myth_and_magic:magic/used_heal_rune"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "myth_and_magic:rune_projectile"
+    }
+  ]
+}

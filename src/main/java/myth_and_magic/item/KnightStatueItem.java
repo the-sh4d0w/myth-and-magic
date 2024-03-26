@@ -3,6 +3,7 @@ package myth_and_magic.item;
 import myth_and_magic.entity.KnightEntity;
 import myth_and_magic.entity.MythAndMagicEntities;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
@@ -28,14 +29,15 @@ public class KnightStatueItem extends Item {
             BlockPos blockPos = context.getBlockPos();
             Direction direction = context.getSide();
             KnightEntity knight;
-            if ((knight = MythAndMagicEntities.KNIGHT.spawnFromItemStack((ServerWorld) world, itemStack, context.getPlayer(),
+            PlayerEntity player = context.getPlayer();
+            if ((knight = MythAndMagicEntities.KNIGHT.spawnFromItemStack((ServerWorld) world, itemStack, player,
                     blockPos, SpawnReason.SPAWN_EGG, true, direction == Direction.UP)) != null) {
                 itemStack.decrement(1);
-                if (itemStack.getCount() == 0) {
-                    context.getPlayer().getInventory().removeOne(itemStack);
+                if (itemStack.getCount() == 0 && !player.getAbilities().creativeMode) {
+                    player.getInventory().removeOne(itemStack);
                 }
-                world.emitGameEvent(context.getPlayer(), GameEvent.ENTITY_PLACE, blockPos);
-                knight.setOwnerUuid(context.getPlayer().getUuid());
+                world.emitGameEvent(player, GameEvent.ENTITY_PLACE, blockPos);
+                knight.setOwnerUuid(player.getUuid());
                 knight.setStatuePosition(blockPos);
                 knight.setStatueYaw(context.getHorizontalPlayerFacing().getOpposite().getHorizontal() * 90);
                 knight.snapToStatuePosition();

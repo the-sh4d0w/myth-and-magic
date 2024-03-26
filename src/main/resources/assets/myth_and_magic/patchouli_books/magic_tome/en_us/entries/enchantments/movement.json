@@ -1,0 +1,19 @@
+{
+  "name": "Movement Enchantments",
+  "icon": "minecraft:enchanted_book",
+  "category": "myth_and_magic:enchantments",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "text": "Allows the use of dash when pressing $(k:myth_and_magic.move).",
+      "title": "Dash"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "text": "Allows teleporting 5 blocks forward when pressing $(k:myth_and_magic.move).",
+      "title": "Teleportation"
+    }
+  ]
+}

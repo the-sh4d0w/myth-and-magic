@@ -1,5 +1,5 @@
 {
-  "parent": "myth_and_magic:myth/beginning",
+  "parent": "myth_and_magic:myth/craft_knight_statue",
   "criteria": {
     "myth/knight_protect": {
       "conditions": {},

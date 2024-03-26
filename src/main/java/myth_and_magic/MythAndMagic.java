@@ -147,7 +147,7 @@ public class MythAndMagic implements ModInitializer {
                 case "minecraft:end/kill_dragon", "minecraft:adventure/kill_all_mobs",
                         "myth_and_magic:tasks/kill_wither" -> 2;
                 case "minecraft:story/cure_zombie_villager", "minecraft:adventure/hero_of_the_village",
-                        "minecraft:adventure/kill_a_mob" -> 1;
+                        "minecraft:adventure/kill_a_mob", "myth_and_magic:magic/used_heal_rune" -> 1;
                 default -> 0;
             };
             playerData.worthiness += value;

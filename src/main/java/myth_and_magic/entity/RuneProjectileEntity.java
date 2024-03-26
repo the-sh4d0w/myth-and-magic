@@ -86,7 +86,7 @@ public class RuneProjectileEntity extends ThrownItemEntity {
     protected void onEntityHit(EntityHitResult entityHitResult) {
         World world = this.getWorld();
         if (!world.isClient() && this.type != null) {
-            if (entityHitResult.getEntity().isPlayer()) {
+            if (entityHitResult.getEntity().isPlayer() && this.type == RuneType.HEAL) {
                 MythAndMagic.HEAL_RUNE_USED.trigger((ServerPlayerEntity) this.player);
             }
             world.sendEntityStatus(this, (byte) 3);

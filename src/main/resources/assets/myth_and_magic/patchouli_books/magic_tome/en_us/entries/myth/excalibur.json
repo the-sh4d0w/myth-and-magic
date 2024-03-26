@@ -6,7 +6,7 @@
     {
       "type": "patchouli:spotlight",
       "item": "myth_and_magic:excalibur",
-      "text": "A sword that only the mighty can wield. Unbreakable, can be summoned and only used by its owner.$(br2)$(o)Ah, this brings back some memories.$()$(br2)$(l:myth_and_magic:tasks)You can prove you are worthy by completing these tasks.$()"
+      "text": "A sword that only the mighty can wield. Unbreakable, can be summoned by pressing $(k:myth_and_magic.call) and only used by its owner.$(br2)$(o)Ah, this brings back some memories.$()$(br2)$(l:myth_and_magic:tasks)You can prove you are worthy by completing these tasks.$()"
     },
     {
       "type": "patchouli:multiblock",
