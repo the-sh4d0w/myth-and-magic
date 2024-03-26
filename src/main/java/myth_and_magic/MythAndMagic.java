@@ -33,8 +33,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
+import net.minecraft.registry.*;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
@@ -51,14 +50,14 @@ public class MythAndMagic implements ModInitializer {
     public static final String MOD_ID = "myth_and_magic";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     // criteria; maybe too many?
-    public static ExcaliburClaimedCriterion EXCALIBUR_CLAIMED = Criteria.register(new ExcaliburClaimedCriterion());
-    public static ExcaliburCalledCriterion EXCALIBUR_CALLED = Criteria.register(new ExcaliburCalledCriterion());
-    public static TaskCompletedCriterion TASK_COMPLETED = Criteria.register(new TaskCompletedCriterion());
-    public static EnchantmentUpgradedCriterion ENCHANTMENT_UPGRADED = Criteria.register(new EnchantmentUpgradedCriterion());
-    public static RecipeInfusionCriterion RECIPE_INFUSION = Criteria.register(new RecipeInfusionCriterion());
-    public static RecipeRuneCriterion RECIPE_RUNE = Criteria.register(new RecipeRuneCriterion());
-    public static HealRuneUsedCriterion HEAL_RUNE_USED = Criteria.register(new HealRuneUsedCriterion());
-    public static KnightProtectionCriterion KNIGHT_PROTECT = Criteria.register(new KnightProtectionCriterion());
+    public static final ExcaliburClaimedCriterion EXCALIBUR_CLAIMED = Criteria.register(new ExcaliburClaimedCriterion());
+    public static final ExcaliburCalledCriterion EXCALIBUR_CALLED = Criteria.register(new ExcaliburCalledCriterion());
+    public static final TaskCompletedCriterion TASK_COMPLETED = Criteria.register(new TaskCompletedCriterion());
+    public static final EnchantmentUpgradedCriterion ENCHANTMENT_UPGRADED = Criteria.register(new EnchantmentUpgradedCriterion());
+    public static final RecipeInfusionCriterion RECIPE_INFUSION = Criteria.register(new RecipeInfusionCriterion());
+    public static final RecipeRuneCriterion RECIPE_RUNE = Criteria.register(new RecipeRuneCriterion());
+    public static final HealRuneUsedCriterion HEAL_RUNE_USED = Criteria.register(new HealRuneUsedCriterion());
+    public static final KnightProtectionCriterion KNIGHT_PROTECT = Criteria.register(new KnightProtectionCriterion());
     // network packet ids
     public static final Identifier CALL_SWORD_PACKET_ID = new Identifier(MythAndMagic.MOD_ID, "call_sword");
     public static Identifier MOVE_PACKET_ID = new Identifier(MythAndMagic.MOD_ID, "move");
