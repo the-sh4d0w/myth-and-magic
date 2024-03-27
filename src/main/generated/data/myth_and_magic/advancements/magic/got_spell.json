@@ -14,7 +14,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "text": "Create a spell."
+      "translate": "advancements.myth_and_magic.magic.got_spell.desc"
     },
     "frame": "task",
     "hidden": false,
@@ -23,7 +23,7 @@
     },
     "show_toast": true,
     "title": {
-      "text": "Spell something"
+      "translate": "advancements.myth_and_magic.magic.got_spell"
     }
   },
   "requirements": [

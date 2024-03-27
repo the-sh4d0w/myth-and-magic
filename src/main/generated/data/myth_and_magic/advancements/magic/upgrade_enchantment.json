@@ -9,16 +9,16 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "text": "Upgrade an enchantment."
+      "translate": "advancements.myth_and_magic.magic.upgrade_enchantment.desc"
     },
-    "frame": "task",
+    "frame": "goal",
     "hidden": false,
     "icon": {
       "item": "minecraft:enchanted_book"
     },
     "show_toast": true,
     "title": {
-      "text": "Upgrades"
+      "translate": "advancements.myth_and_magic.magic.upgrade_enchantment"
     }
   },
   "requirements": [

@@ -9,7 +9,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "text": "Claim excalibur."
+      "translate": "advancements.myth_and_magic.myth.claimed_excalibur.desc"
     },
     "frame": "challenge",
     "hidden": false,
@@ -18,7 +18,7 @@
     },
     "show_toast": true,
     "title": {
-      "text": "The True King"
+      "translate": "advancements.myth_and_magic.myth.claimed_excalibur"
     }
   },
   "requirements": [

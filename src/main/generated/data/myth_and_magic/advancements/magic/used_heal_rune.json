@@ -9,16 +9,16 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "text": "Heal a player with a rune."
+      "translate": "advancements.myth_and_magic.magic.used_heal_rune.desc"
     },
-    "frame": "task",
+    "frame": "goal",
     "hidden": false,
     "icon": {
       "item": "myth_and_magic:heal_rune"
     },
     "show_toast": true,
     "title": {
-      "text": "Heal rune stuff"
+      "translate": "advancements.myth_and_magic.magic.used_heal_rune"
     }
   },
   "requirements": [

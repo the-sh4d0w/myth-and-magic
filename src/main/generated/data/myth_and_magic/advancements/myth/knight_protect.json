@@ -9,16 +9,16 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "text": "Let a knight protect you."
+      "translate": "advancements.myth_and_magic.myth.knight_protect.desc"
     },
-    "frame": "task",
+    "frame": "goal",
     "hidden": false,
     "icon": {
       "item": "myth_and_magic:knight_statue"
     },
     "show_toast": true,
     "title": {
-      "text": "Knightly protection?"
+      "translate": "advancements.myth_and_magic.myth.knight_protect"
     }
   },
   "requirements": [

@@ -13,7 +13,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "text": "Infuse a glass phial with magic to create a level phial."
+      "translate": "advancements.myth_and_magic.magic.got_level_phial.desc"
     },
     "frame": "task",
     "hidden": false,
@@ -22,7 +22,7 @@
     },
     "show_toast": true,
     "title": {
-      "text": "Level Down"
+      "translate": "advancements.myth_and_magic.magic.got_level_phial"
     }
   },
   "requirements": [

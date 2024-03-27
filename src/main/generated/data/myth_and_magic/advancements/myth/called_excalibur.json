@@ -9,16 +9,16 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "text": "Call excalibur."
+      "translate": "advancements.myth_and_magic.myth.called_excalibur.desc"
     },
-    "frame": "challenge",
+    "frame": "task",
     "hidden": false,
     "icon": {
       "item": "myth_and_magic:excalibur"
     },
     "show_toast": true,
     "title": {
-      "text": "Return of the King?"
+      "translate": "advancements.myth_and_magic.myth.called_excalibur"
     }
   },
   "requirements": [

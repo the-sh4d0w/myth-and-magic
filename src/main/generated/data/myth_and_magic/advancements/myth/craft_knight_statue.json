@@ -11,7 +11,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "text": "Craft knight statue."
+      "translate": "advancements.myth_and_magic.myth.craft_knight_statue.desc"
     },
     "frame": "task",
     "hidden": false,
@@ -20,7 +20,7 @@
     },
     "show_toast": true,
     "title": {
-      "text": "Knightly something"
+      "translate": "advancements.myth_and_magic.myth.craft_knight_statue"
     }
   },
   "requirements": [

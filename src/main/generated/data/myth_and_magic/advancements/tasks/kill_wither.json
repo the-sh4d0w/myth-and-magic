@@ -19,7 +19,7 @@
     "announce_to_chat": false,
     "background": "myth_and_magic:textures/gui/tasks_background.png",
     "description": {
-      "text": "This is used to track the worthiness task."
+      "translate": "advancements.myth_and_magic.tasks.killed_wither.desc"
     },
     "frame": "task",
     "hidden": true,
@@ -28,7 +28,7 @@
     },
     "show_toast": false,
     "title": {
-      "text": "Kill the Wither"
+      "translate": "advancements.myth_and_magic.tasks.killed_wither"
     }
   },
   "requirements": [

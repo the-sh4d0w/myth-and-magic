@@ -9,7 +9,7 @@
     "announce_to_chat": false,
     "background": "myth_and_magic:textures/gui/myth_background.png",
     "description": {
-      "text": "A mythical beginning."
+      "translate": "advancements.myth_and_magic.myth.beginning.desc"
     },
     "frame": "task",
     "hidden": false,
@@ -18,7 +18,7 @@
     },
     "show_toast": false,
     "title": {
-      "text": "Myth"
+      "translate": "advancements.myth_and_magic.myth.beginning"
     }
   },
   "requirements": [

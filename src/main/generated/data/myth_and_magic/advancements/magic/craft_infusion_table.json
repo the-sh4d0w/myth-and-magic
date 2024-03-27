@@ -11,7 +11,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "text": "Craft an infusion table."
+      "translate": "advancements.myth_and_magic.magic.craft_infusion_table.desc"
     },
     "frame": "task",
     "hidden": false,
@@ -20,7 +20,7 @@
     },
     "show_toast": true,
     "title": {
-      "text": "Something funny 2"
+      "translate": "advancements.myth_and_magic.magic.craft_infusion_table"
     }
   },
   "requirements": [

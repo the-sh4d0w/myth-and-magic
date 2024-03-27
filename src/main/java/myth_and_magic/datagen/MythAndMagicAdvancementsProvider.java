@@ -31,8 +31,8 @@ public class MythAndMagicAdvancementsProvider extends FabricAdvancementProvider 
         Advancement myth_root = Advancement.Builder.create()
                 .display(
                         MythAndMagicItems.NARCISSUS_MIRROR,
-                        Text.literal("Myth"),
-                        Text.literal("A mythical beginning."),
+                        Text.translatable("advancements.myth_and_magic.myth.beginning"),
+                        Text.translatable("advancements.myth_and_magic.myth.beginning.desc"),
                         new Identifier(MythAndMagic.MOD_ID, "textures/gui/myth_background.png"),
                         AdvancementFrame.TASK,
                         false,
@@ -43,8 +43,8 @@ public class MythAndMagicAdvancementsProvider extends FabricAdvancementProvider 
         Advancement claimed_excalibur = Advancement.Builder.create().parent(myth_root)
                 .display(
                         MythAndMagicItems.EXCALIBUR,
-                        Text.literal("The True King"),
-                        Text.literal("Claim excalibur."),
+                        Text.translatable("advancements.myth_and_magic.myth.claimed_excalibur"),
+                        Text.translatable("advancements.myth_and_magic.myth.claimed_excalibur.desc"),
                         null,
                         AdvancementFrame.CHALLENGE,
                         true,
@@ -55,10 +55,10 @@ public class MythAndMagicAdvancementsProvider extends FabricAdvancementProvider 
         Advancement.Builder.create().parent(claimed_excalibur)
                 .display(
                         MythAndMagicItems.EXCALIBUR,
-                        Text.literal("Return of the King?"),
-                        Text.literal("Call excalibur."),
+                        Text.translatable("advancements.myth_and_magic.myth.called_excalibur"),
+                        Text.translatable("advancements.myth_and_magic.myth.called_excalibur.desc"),
                         null,
-                        AdvancementFrame.CHALLENGE,
+                        AdvancementFrame.TASK,
                         true,
                         true,
                         false
@@ -67,8 +67,8 @@ public class MythAndMagicAdvancementsProvider extends FabricAdvancementProvider 
         Advancement craft_knight_statue = Advancement.Builder.create().parent(myth_root)
                 .display(
                         MythAndMagicItems.KNIGHT_STATUE,
-                        Text.literal("Knightly something"),
-                        Text.literal("Craft knight statue."),
+                        Text.translatable("advancements.myth_and_magic.myth.craft_knight_statue"),
+                        Text.translatable("advancements.myth_and_magic.myth.craft_knight_statue.desc"),
                         null,
                         AdvancementFrame.TASK,
                         true,
@@ -80,10 +80,10 @@ public class MythAndMagicAdvancementsProvider extends FabricAdvancementProvider 
         Advancement.Builder.create().parent(craft_knight_statue)
                 .display(
                         MythAndMagicItems.KNIGHT_STATUE,
-                        Text.literal("Knightly protection?"),
-                        Text.literal("Let a knight protect you."),
+                        Text.translatable("advancements.myth_and_magic.myth.knight_protect"),
+                        Text.translatable("advancements.myth_and_magic.myth.knight_protect.desc"),
                         null,
-                        AdvancementFrame.TASK,
+                        AdvancementFrame.GOAL,
                         true,
                         true,
                         false
@@ -93,8 +93,8 @@ public class MythAndMagicAdvancementsProvider extends FabricAdvancementProvider 
         Advancement magic_root = Advancement.Builder.create()
                 .display(
                         Items.AMETHYST_SHARD,
-                        Text.literal("Magic"),
-                        Text.literal("A magical beginning."),
+                        Text.translatable("advancements.myth_and_magic.magic.beginning"),
+                        Text.translatable("advancements.myth_and_magic.magic.beginning.desc"),
                         new Identifier(MythAndMagic.MOD_ID, "textures/gui/magic_background.png"),
                         AdvancementFrame.TASK,
                         false,
@@ -105,8 +105,8 @@ public class MythAndMagicAdvancementsProvider extends FabricAdvancementProvider 
         Advancement craft_rune_table = Advancement.Builder.create().parent(magic_root)
                 .display(
                         MythAndMagicBlocks.RUNE_TABLE_ITEM,
-                        Text.literal("Something funny 1"),
-                        Text.literal("Craft a rune table."),
+                        Text.translatable("advancements.myth_and_magic.magic.craft_rune_table"),
+                        Text.translatable("advancements.myth_and_magic.magic.craft_rune_table.desc"),
                         null,
                         AdvancementFrame.TASK,
                         true,
@@ -119,8 +119,8 @@ public class MythAndMagicAdvancementsProvider extends FabricAdvancementProvider 
         Advancement got_rune = Advancement.Builder.create().parent(craft_rune_table)
                 .display(
                         MythAndMagicItems.FIRE_RUNE,
-                        Text.literal("Rune something"),
-                        Text.literal("Make a rune."),
+                        Text.translatable("advancements.myth_and_magic.magic.got_rune"),
+                        Text.translatable("advancements.myth_and_magic.magic.got_rune.desc"),
                         null,
                         AdvancementFrame.TASK,
                         true,
@@ -134,10 +134,10 @@ public class MythAndMagicAdvancementsProvider extends FabricAdvancementProvider 
         Advancement.Builder.create().parent(got_rune)
                 .display(
                         MythAndMagicItems.HEAL_RUNE,
-                        Text.literal("Heal rune stuff"),
-                        Text.literal("Heal a player with a rune."),
+                        Text.translatable("advancements.myth_and_magic.magic.used_heal_rune"),
+                        Text.translatable("advancements.myth_and_magic.magic.used_heal_rune.desc"),
                         null,
-                        AdvancementFrame.TASK,
+                        AdvancementFrame.GOAL,
                         true,
                         true,
                         false
@@ -147,8 +147,8 @@ public class MythAndMagicAdvancementsProvider extends FabricAdvancementProvider 
         Advancement craft_infusion_table = Advancement.Builder.create().parent(magic_root)
                 .display(
                         MythAndMagicBlocks.INFUSION_TABLE_BLOCK,
-                        Text.literal("Something funny 2"),
-                        Text.literal("Craft an infusion table."),
+                        Text.translatable("advancements.myth_and_magic.magic.craft_infusion_table"),
+                        Text.translatable("advancements.myth_and_magic.magic.craft_infusion_table.desc"),
                         null,
                         AdvancementFrame.TASK,
                         true,
@@ -161,8 +161,8 @@ public class MythAndMagicAdvancementsProvider extends FabricAdvancementProvider 
         Advancement.Builder.create().parent(craft_infusion_table)
                 .display(
                         MythAndMagicItems.LEVEL_PHIAL,
-                        Text.literal("Level Down"),
-                        Text.literal("Infuse a glass phial with magic to create a level phial."),
+                        Text.translatable("advancements.myth_and_magic.magic.got_level_phial"),
+                        Text.translatable("advancements.myth_and_magic.magic.got_level_phial.desc"),
                         null,
                         AdvancementFrame.TASK,
                         true,
@@ -175,10 +175,10 @@ public class MythAndMagicAdvancementsProvider extends FabricAdvancementProvider 
         Advancement.Builder.create().parent(craft_infusion_table)
                 .display(
                         Items.ENCHANTED_BOOK,
-                        Text.literal("Upgrades"),
-                        Text.literal("Upgrade an enchantment."),
+                        Text.translatable("advancements.myth_and_magic.magic.upgrade_enchantment"),
+                        Text.translatable("advancements.myth_and_magic.magic.upgrade_enchantment.desc"),
                         null,
-                        AdvancementFrame.TASK,
+                        AdvancementFrame.GOAL,
                         true,
                         true,
                         false
@@ -188,8 +188,8 @@ public class MythAndMagicAdvancementsProvider extends FabricAdvancementProvider 
         Advancement.Builder.create().parent(craft_infusion_table)
                 .display(
                         MythAndMagicItems.GROW_SPELL,
-                        Text.literal("Spell something"),
-                        Text.literal("Create a spell."),
+                        Text.translatable("advancements.myth_and_magic.magic.got_spell"),
+                        Text.translatable("advancements.myth_and_magic.magic.got_spell.desc"),
                         null,
                         AdvancementFrame.TASK,
                         true,
@@ -205,8 +205,8 @@ public class MythAndMagicAdvancementsProvider extends FabricAdvancementProvider 
         Advancement.Builder.create()
                 .display(
                         Items.NETHER_STAR,
-                        Text.literal("Kill the Wither"),
-                        Text.literal("This is used to track the worthiness task."),
+                        Text.translatable("advancements.myth_and_magic.tasks.killed_wither"),
+                        Text.translatable("advancements.myth_and_magic.tasks.killed_wither.desc"),
                         new Identifier(MythAndMagic.MOD_ID, "textures/gui/tasks_background.png"),
                         AdvancementFrame.TASK,
                         false,
