@@ -38,6 +38,7 @@ public class InfusionTableBlockEntity extends BlockEntity implements ExtendedScr
     protected final PropertyDelegate propertyDelegate;
     private int levelCost = 0;
     private Identifier currentRecipeId;
+    public int power;
 
     public InfusionTableBlockEntity(BlockPos pos, BlockState state) {
         super(MythAndMagicBlocks.INFUSION_TABLE_BLOCK_ENTITY, pos, state);
@@ -159,11 +160,11 @@ public class InfusionTableBlockEntity extends BlockEntity implements ExtendedScr
         if (world.isClient()) {
             return;
         }
-        int power = 0;
+        this.power = 0;
         for (BlockPos blockPos : InfusionTableBlock.POWER_PROVIDER_OFFSETS) {
-            power += InfusionTableBlock.getPower(world, pos, blockPos);
+            this.power += InfusionTableBlock.getPower(world, pos, blockPos);
         }
-        if (power >= InfusionTableBlock.MIN_POWER) {
+        if (this.power >= InfusionTableBlock.MIN_POWER) {
             if (this.hasRecipe()) {
                 this.craftItem();
             } else if (this.canUpgrade()) {

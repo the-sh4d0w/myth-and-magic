@@ -26,6 +26,9 @@
 		],
 		"emi": [
 			"myth_and_magic.compat.emi.MythAndMagicEmiPlugin"
+		],
+		"jade": [
+			"myth_and_magic.compat.jade.MythAndMagicJadePlugin"
 		]
 	},
 	"mixins": [
