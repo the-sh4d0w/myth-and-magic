@@ -7,7 +7,6 @@ import myth_and_magic.recipe.InfusionTableRecipe;
 import myth_and_magic.screen.InfusionTableScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.EnchantingTableBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -162,11 +161,9 @@ public class InfusionTableBlockEntity extends BlockEntity implements ExtendedScr
         }
         int power = 0;
         for (BlockPos blockPos : InfusionTableBlock.POWER_PROVIDER_OFFSETS) {
-            if (InfusionTableBlock.canAccessPowerProvider(world, pos, blockPos)) {
-                power++;
-            }
+            power += InfusionTableBlock.getPower(world, pos, blockPos);
         }
-        if (power >= 7) {
+        if (power >= InfusionTableBlock.MIN_POWER) {
             if (this.hasRecipe()) {
                 this.craftItem();
             } else if (this.canUpgrade()) {

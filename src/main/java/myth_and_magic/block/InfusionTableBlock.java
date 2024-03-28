@@ -33,22 +33,28 @@ public class InfusionTableBlock extends BlockWithEntity implements BlockEntityPr
     public static final VoxelShape SHAPE = VoxelShapes.union(TOP_SHAPE, LEG_ONE_SHAPE, LEG_TWO_SHAPE, LEG_THREE_SHAPE, LEG_FOUR_SHAPE);
     public static final List<BlockPos> POWER_PROVIDER_OFFSETS = BlockPos.stream(-3, 0, -3, 3, 2, 3
     ).map(BlockPos::toImmutable).toList();
+    public static final int MIN_POWER = 20;
 
     public InfusionTableBlock(Settings settings) {
         super(settings.strength(1));
     }
 
-    public static boolean canAccessPowerProvider(World world, BlockPos tablePos, BlockPos providerOffset) {
-        return world.getBlockState(tablePos.add(providerOffset)).isIn(MythAndMagicBlockTagProvider.INFUSION_POWER_PROVIDER)
+    public static int getPower(World world, BlockPos tablePos, BlockPos providerOffset) {
+        // very much not optimal; should probably rework this
+        if (world.getBlockState(tablePos.add(providerOffset)).isIn(MythAndMagicBlockTagProvider.INFUSION_POWER_PROVIDER)
                 && world.getBlockState(tablePos.add(providerOffset.getX() / 2, providerOffset.getY(),
-                providerOffset.getZ() / 2)).isIn(BlockTags.ENCHANTMENT_POWER_TRANSMITTER);
+                providerOffset.getZ() / 2)).isIn(BlockTags.ENCHANTMENT_POWER_TRANSMITTER)) {
+            return world.getBlockState(tablePos.add(providerOffset)).get(CandleBlock.CANDLES);
+        } else {
+            return 0;
+        }
     }
 
     @Override
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
         super.randomDisplayTick(state, world, pos, random);
         for (BlockPos blockPos : POWER_PROVIDER_OFFSETS) {
-            if (random.nextInt(16) != 0 || !InfusionTableBlock.canAccessPowerProvider(world, pos, blockPos)) {
+            if (random.nextInt(16) != 0 || InfusionTableBlock.getPower(world, pos, blockPos) == 0) {
                 continue;
             }
             world.addParticle(ParticleTypes.ENCHANT, (double) pos.getX() + 0.5, (double) pos.getY() + 1.75,

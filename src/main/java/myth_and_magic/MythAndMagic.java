@@ -61,10 +61,6 @@ public class MythAndMagic implements ModInitializer {
     // network packet ids
     public static final Identifier CALL_SWORD_PACKET_ID = new Identifier(MythAndMagic.MOD_ID, "call_sword");
     public static Identifier MOVE_PACKET_ID = new Identifier(MythAndMagic.MOD_ID, "move");
-    // TODO: translate everything
-    // TODO: translate advancements
-    // TODO: add REI support later
-    // TODO: maybe generate book dynamically?
 
     @Override
     public void onInitialize() {
