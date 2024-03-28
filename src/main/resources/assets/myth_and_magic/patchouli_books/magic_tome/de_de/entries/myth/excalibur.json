@@ -1,0 +1,31 @@
+{
+  "name": "Excalibur",
+  "icon": "myth_and_magic:excalibur",
+  "category": "myth_and_magic:myth",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "myth_and_magic:excalibur",
+      "text": "Ein Schwert, das nur die Mächtigen führen können. Unzerbrechlich, kann durch drücken von $(k:myth_and_magic.call) beschworen und nur von seinem Besitzer verwendet werden.$(br2)$(o)Ah, das weckt einige Erinnerungen.$()$(br2)$(l:myth_and_magic:tasks)Du kannst beweisen, dass du würdig bist, indem du diese Aufgaben erfüllst.$()"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "text": "Excalibur kann in der Welt gefunden und beansprucht werden, wenn du würdig bist.",
+      "multiblock": {
+        "pattern": [
+          [
+            " E "
+          ],
+          [
+            " 0 "
+          ]
+        ],
+        "mapping": {
+          "E": "myth_and_magic:excalibur_block",
+          "0": "minecraft:chipped_anvil"
+        }
+      },
+      "enable_visualize": false
+    }
+  ]
+}

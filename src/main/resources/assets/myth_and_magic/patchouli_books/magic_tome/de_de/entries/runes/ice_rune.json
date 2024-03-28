@@ -1,0 +1,17 @@
+{
+  "name": "Eisrune",
+  "icon": "myth_and_magic:ice_rune",
+  "category": "myth_and_magic:runes",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "myth_and_magic:ice_rune",
+      "text": "Rune, die jeden einfriert, den sie trifft."
+    },
+    {
+      "type": "myth_and_magic:rune_table_recipe",
+      "input": "minecraft:snowball",
+      "output": "myth_and_magic:ice_rune"
+    }
+  ]
+}

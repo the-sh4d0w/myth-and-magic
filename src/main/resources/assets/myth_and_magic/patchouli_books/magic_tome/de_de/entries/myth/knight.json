@@ -1,0 +1,17 @@
+{
+  "name": "Ritterstatue",
+  "icon": "myth_and_magic:knight_statue",
+  "category": "myth_and_magic:myth",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "myth_and_magic:knight",
+      "text": "Ritterstatue, die ihren Besitzer beschützt."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "myth_and_magic:knight_statue",
+      "text": "$(o)Kann auch zum Dekorieren verwendet werden.$()"
+    }
+  ]
+}

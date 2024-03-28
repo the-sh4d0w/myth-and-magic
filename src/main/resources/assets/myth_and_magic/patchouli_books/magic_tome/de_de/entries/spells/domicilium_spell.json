@@ -1,0 +1,18 @@
+{
+  "name": "Domiclium Zauberspruch",
+  "icon": "myth_and_magic:domicilium_spell",
+  "category": "myth_and_magic:spells",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "myth_and_magic:domicilium_spell",
+      "text": "Teleportiert dich zurück zu deinem Spawnpunkt.$(br)Nutzung kostet 10 Level."
+    },
+    {
+      "type": "myth_and_magic:infusion_table_recipe",
+      "input": "minecraft:written_book",
+      "output": "myth_and_magic:domicilium_spell",
+      "text": "Das beschriebene Buch muss den Namen $(o)Domicilium$() tragen."
+    }
+  ]
+}

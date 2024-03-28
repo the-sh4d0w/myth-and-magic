@@ -1,0 +1,17 @@
+{
+  "name": "Monsters Hunted",
+  "icon": "minecraft:diamond_sword",
+  "category": "myth_and_magic:tasks",
+  "pages": [
+    {
+      "type": "patchouli:quest",
+      "title": "Monsters Hunted",
+      "text": "Kill one of every hostile monster.",
+      "trigger": "minecraft:adventure/kill_all_mobs"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "minecraft:phantom"
+    }
+  ]
+}

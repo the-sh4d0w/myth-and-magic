@@ -1,0 +1,40 @@
+{
+  "components": [
+    {
+      "type": "patchouli:item",
+      "item": "#input",
+      "x": 30,
+      "y": 10,
+      "framed": true
+    },
+    {
+      "type": "patchouli:image",
+      "image": "myth_and_magic:textures/gui/book_arrow.png",
+      "width": 16,
+      "height": 16,
+      "texture_width": 16,
+      "texture_height": 16,
+      "x": 50,
+      "y": 10
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#output",
+      "x": 70,
+      "y": 10,
+      "framed": true
+    },
+    {
+      "type": "patchouli:item",
+      "item": "myth_and_magic:infusion_table",
+      "x": 50,
+      "y": 30,
+      "link_recipe": true
+    },
+    {
+      "type": "patchouli:text",
+      "text": "#text",
+      "y": 50
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Runentisch",
+  "icon": "myth_and_magic:rune_table",
+  "category": "myth_and_magic:runes",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "myth_and_magic:rune_table",
+      "text": "Tisch für die Herstellung von Runen.$(br2)$(o)Runen sind ein sehr nützliches offensives Werkzeug.$()"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "myth_and_magic:rune_table",
+      "title": " "
+    }
+  ]
+}

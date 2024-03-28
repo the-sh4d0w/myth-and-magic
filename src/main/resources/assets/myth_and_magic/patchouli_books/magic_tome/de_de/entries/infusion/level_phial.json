@@ -1,0 +1,27 @@
+{
+  "name": "Levelphiole",
+  "icon": "myth_and_magic:level_phial",
+  "category": "myth_and_magic:infusion",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "myth_and_magic:level_phial",
+      "text": "Speichert einen Level. Hauptsächlich im Runentisch verwendet, aber der Level kann auch entnommen werden."
+    },
+    {
+      "type": "myth_and_magic:infusion_table_recipe",
+      "input": "myth_and_magic:glass_phial",
+      "output": "myth_and_magic:level_phial",
+      "text": "Mit Magie versehen kostet einen Level."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "myth_and_magic:glass_phial",
+      "text": "Wird im Infusiontisch zum Speichern von XP verwendet."
+    },
+    {
+      "type": "patchouli:empty",
+      "draw_filler": false
+    }
+  ]
+}

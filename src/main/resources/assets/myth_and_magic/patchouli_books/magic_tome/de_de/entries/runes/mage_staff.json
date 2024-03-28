@@ -1,0 +1,17 @@
+{
+  "name": "Magierstab",
+  "icon": "myth_and_magic:mage_staff",
+  "category": "myth_and_magic:runes",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "myth_and_magic:mage_staff",
+      "text": "Wird zum Wirken von Runen verwendet. Kann mit Gold verbessert werden.$(br2)$(o)Jeder Magier braucht einen.$()"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "myth_and_magic:mage_staff",
+      "recipe2": "myth_and_magic:golden_mage_staff"
+    }
+  ]
+}

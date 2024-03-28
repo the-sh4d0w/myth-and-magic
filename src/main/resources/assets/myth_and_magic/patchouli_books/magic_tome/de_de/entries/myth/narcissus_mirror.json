@@ -1,0 +1,17 @@
+{
+  "name": "Narziss Spiegel",
+  "icon": "myth_and_magic:narcissus_mirror",
+  "category": "myth_and_magic:myth",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "myth_and_magic:narcissus_mirror",
+      "text": "Ein Spiegel, der Informationen über dich offenbart.$(br)Zeigt deine Würdigkeit.$(br2)$(o)Versuche, dich nicht im Spiegelbild zu verlieren.$()"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "myth_and_magic:narcissus_mirror",
+      "title": " "
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Verzauberungen verbessern",
+  "icon": "minecraft:enchanted_book",
+  "category": "myth_and_magic:infusion",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "text": "Der Infusionstisch ermöglicht es, Verzauberungen auf den nächsten Level zu verbessern."
+    },
+    {
+      "type": "myth_and_magic:infusion_table_recipe",
+      "input": "minecraft:enchanted_book",
+      "output": "minecraft:enchanted_book",
+      "text": "Du kannst zum Beispiel Schärfe II auf Schärfe III erhöhen."
+    }
+  ]
+}

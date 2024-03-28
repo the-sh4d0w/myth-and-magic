@@ -1,0 +1,17 @@
+{
+  "name": "Heilrune",
+  "icon": "myth_and_magic:heal_rune",
+  "category": "myth_and_magic:runes",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "myth_and_magic:heal_rune",
+      "text": "Rune, die jeden heilt, den sie trifft.$(br2)$(o)Sehr nützlich, um andere zu heilen.$()"
+    },
+    {
+      "type": "myth_and_magic:rune_table_recipe",
+      "input": "minecraft:glistering_melon_slice",
+      "output": "myth_and_magic:heal_rune"
+    }
+  ]
+}

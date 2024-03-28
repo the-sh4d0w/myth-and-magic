@@ -1,0 +1,19 @@
+{
+  "name": "Bewegungsverzauberungen",
+  "icon": "minecraft:enchanted_book",
+  "category": "myth_and_magic:enchantments",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "text": "Ermöglicht den Einsatz von Dash wenn $(k:myth_and_magic.move) gedrückt wird.",
+      "title": "Dash"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "text": "Ermöglicht das Teleportieren um 5 Blöcke nach vorne wen $(k:myth_and_magic.move) gedrückt wird.",
+      "title": "Teleportation"
+    }
+  ]
+}

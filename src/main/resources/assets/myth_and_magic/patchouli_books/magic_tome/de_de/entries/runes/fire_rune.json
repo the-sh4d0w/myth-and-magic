@@ -1,0 +1,17 @@
+{
+  "name": "Feuerrune",
+  "icon": "myth_and_magic:fire_rune",
+  "category": "myth_and_magic:runes",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "myth_and_magic:fire_rune",
+      "text": "Rune, die jeden, den sie trifft, in Brand setzt."
+    },
+    {
+      "type": "myth_and_magic:rune_table_recipe",
+      "input": "minecraft:blaze_powder",
+      "output": "myth_and_magic:fire_rune"
+    }
+  ]
+}

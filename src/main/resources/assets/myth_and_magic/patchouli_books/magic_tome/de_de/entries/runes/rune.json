@@ -1,0 +1,17 @@
+{
+  "name": "Rune",
+  "icon": "myth_and_magic:rune",
+  "category": "myth_and_magic:runes",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "myth_and_magic:rune",
+      "text": "Der grundlegende Runenstein, der zur Herstellung von Runen verwendet wird."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "myth_and_magic:rune",
+      "title": " "
+    }
+  ]
+}

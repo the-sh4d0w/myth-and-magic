@@ -1,0 +1,17 @@
+{
+  "name": "Monster Hunter",
+  "icon": "minecraft:iron_sword",
+  "category": "myth_and_magic:tasks",
+  "pages": [
+    {
+      "type": "patchouli:quest",
+      "title": "Monster Hunter",
+      "text": "Kill any hostile monster.",
+      "trigger": "minecraft:adventure/kill_a_mob"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "minecraft:zombie"
+    }
+  ]
+}
