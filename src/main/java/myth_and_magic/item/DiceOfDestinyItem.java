@@ -36,7 +36,7 @@ public class DiceOfDestinyItem extends Item {
         if (world.isClient()) {
             return TypedActionResult.success(itemStack);
         }
-        PlayerData playerData = StateSaverAndLoader.getPlayerState(player);
+        PlayerData playerData = StateSaverAndLoader.getPlayerState(world, player.getUuid());
         switch (player.getRandom().nextInt(25)) {
             case 0, 1, 2 -> {
                 // gives the player 10 diamonds

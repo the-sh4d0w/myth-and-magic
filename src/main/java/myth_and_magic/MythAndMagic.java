@@ -101,18 +101,7 @@ public class MythAndMagic implements ModInitializer {
         ServerPlayNetworking.registerGlobalReceiver(CALL_SWORD_PACKET_ID,
                 (MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf buf,
                  PacketSender responseSender) -> {
-                    PlayerData playerState = StateSaverAndLoader.getPlayerState(player);
-                    if (playerState.boundSword) {
-                        if (player.getInventory().containsAny(Set.of(MythAndMagicItems.EXCALIBUR)) && player.getInventory().containsAny(stack ->
-                                stack.getOrCreateNbt().contains(MOD_ID + ".owner") && stack.getOrCreateNbt().getUuid(
-                                        MOD_ID + ".owner").equals(player.getUuid()))) {
-                            player.sendMessage(Text.literal("Sword is already in inventory."));
-                        } else {
-                            player.sendMessage(Text.literal("Summoning sword."));
-                        }
-                    } else {
-                        player.sendMessage(Text.literal("No sword is bound to you."));
-                    }
+                    ExcaliburSwordItem.callSword(player);
                 });
         ServerPlayNetworking.registerGlobalReceiver(MOVE_PACKET_ID,
                 (MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf buf,
@@ -136,7 +125,7 @@ public class MythAndMagic implements ModInitializer {
 
         // add worthiness on advancement granted
         AdvancementGrantedCallback.EVENT.register(((player, advancement) -> {
-            PlayerData playerData = StateSaverAndLoader.getPlayerState(player);
+            PlayerData playerData = StateSaverAndLoader.getPlayerState(player.getWorld(), player.getUuid());
             int value = switch (advancement.getId().toString()) {
                 case "minecraft:end/kill_dragon", "minecraft:adventure/kill_all_mobs",
                         "myth_and_magic:tasks/kill_wither" -> 2;
@@ -145,6 +134,9 @@ public class MythAndMagic implements ModInitializer {
                 default -> 0;
             };
             playerData.worthiness += value;
+            if (playerData.worthiness > ExcaliburSwordItem.MAX_WORTHINESS) {
+                playerData.worthiness = ExcaliburSwordItem.MAX_WORTHINESS;
+            }
             if (value != 0) {
                 MythAndMagic.TASK_COMPLETED.trigger((ServerPlayerEntity) player);
             }
@@ -161,7 +153,7 @@ public class MythAndMagic implements ModInitializer {
                                                     int value = IntegerArgumentType.getInteger(context, "value");
                                                     PlayerEntity player = EntityArgumentType.getPlayer(context, "player");
                                                     if (ExcaliburSwordItem.MIN_WORTHINESS <= value && value <= ExcaliburSwordItem.MAX_WORTHINESS) {
-                                                        PlayerData playerState = StateSaverAndLoader.getPlayerState(player);
+                                                        PlayerData playerState = StateSaverAndLoader.getPlayerState(player.getWorld(), player.getUuid());
                                                         playerState.worthiness = value;
                                                         context.getSource().sendFeedback(() -> Text.translatable(
                                                                 "command." + MOD_ID + ".worthiness_set_response",
@@ -176,11 +168,31 @@ public class MythAndMagic implements ModInitializer {
                                 .then(CommandManager.argument("player", EntityArgumentType.player())
                                         .executes(context -> {
                                             PlayerEntity player = EntityArgumentType.getPlayer(context, "player");
-                                            PlayerData playerState = StateSaverAndLoader.getPlayerState(player);
+                                            PlayerData playerState = StateSaverAndLoader.getPlayerState(player.getWorld(), player.getUuid());
                                             context.getSource().sendFeedback(() -> Text.translatable(
                                                     "command." + MOD_ID + ".worthiness_get_response",
                                                     playerState.worthiness), false);
                                             return playerState.worthiness;
                                         })))));
+        CommandRegistrationCallback.EVENT.register(
+                ((dispatcher, registryAccess, environment) -> dispatcher.register(CommandManager.literal("excalibur")
+                        .requires(source -> source.hasPermissionLevel(2))
+                        .then(CommandManager.literal("setDestroyed")
+                                .then(CommandManager.argument("player", EntityArgumentType.player())
+                                        .executes(context -> {
+                                            PlayerEntity player = EntityArgumentType.getPlayer(context, "player");
+                                            PlayerData playerData = StateSaverAndLoader.getPlayerState(player.getWorld(), player.getUuid());
+                                            playerData.swordDestroyed = true;
+                                            return Command.SINGLE_SUCCESS;
+                                        })))
+                        .then(CommandManager.literal("unbind")
+                                .then(CommandManager.argument("player", EntityArgumentType.player())
+                                        .executes(context -> {
+                                            PlayerEntity player = EntityArgumentType.getPlayer(context, "player");
+                                            PlayerData playerData = StateSaverAndLoader.getPlayerState(player.getWorld(), player.getUuid());
+                                            playerData.boundSword = false;
+                                            playerData.swordDestroyed = false;
+                                            return Command.SINGLE_SUCCESS;
+                                        }))))));
     }
 }

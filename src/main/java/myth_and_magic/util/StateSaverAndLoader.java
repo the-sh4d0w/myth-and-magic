@@ -19,21 +19,25 @@ public class StateSaverAndLoader extends PersistentState {
         NbtCompound playersNbt = new NbtCompound();
         players.forEach(((uuid, playerData) -> {
             NbtCompound playerNbt = new NbtCompound();
-            playerNbt.putInt(MythAndMagic.MOD_ID + ".worthiness", playerData.worthiness);
-            playerNbt.putBoolean(MythAndMagic.MOD_ID + ".boundSword", playerData.boundSword);
+            playerNbt.putInt("worthiness", playerData.worthiness);
+            playerNbt.putBoolean("boundSword", playerData.boundSword);
+            playerNbt.putBoolean("swordDestroyed", playerData.swordDestroyed);
+            playerNbt.put("data", playerData.data);
             playersNbt.put(uuid.toString(), playerNbt);
         }));
-        nbt.put(MythAndMagic.MOD_ID + ".players", playersNbt);
+        nbt.put("players", playersNbt);
         return nbt;
     }
 
     public static StateSaverAndLoader createFromNbt(NbtCompound tag) {
         StateSaverAndLoader state = new StateSaverAndLoader();
-        NbtCompound playersNbt = tag.getCompound(MythAndMagic.MOD_ID + ".players");
+        NbtCompound playersNbt = tag.getCompound("players");
         playersNbt.getKeys().forEach(key -> {
             PlayerData playerData = new PlayerData();
-            playerData.worthiness = playersNbt.getCompound(key).getInt(MythAndMagic.MOD_ID + ".worthiness");
-            playerData.boundSword = playersNbt.getCompound(key).getBoolean(MythAndMagic.MOD_ID + ".boundSword");
+            playerData.worthiness = playersNbt.getCompound(key).getInt("worthiness");
+            playerData.boundSword = playersNbt.getCompound(key).getBoolean("boundSword");
+            playerData.swordDestroyed = playersNbt.getCompound(key).getBoolean("swordDestroyed");
+            playerData.data = playersNbt.getCompound(key).getCompound("data");
             UUID uuid = UUID.fromString(key);
             state.players.put(uuid, playerData);
         });
@@ -47,8 +51,8 @@ public class StateSaverAndLoader extends PersistentState {
         return state;
     }
 
-    public static PlayerData getPlayerState(LivingEntity player) {
-        StateSaverAndLoader serverState = getServerState(player.getWorld().getServer());
-        return serverState.players.computeIfAbsent(player.getUuid(), uuid -> new PlayerData());
+    public static PlayerData getPlayerState(World world, UUID uuid) {
+        StateSaverAndLoader serverState = getServerState(world.getServer());
+        return serverState.players.computeIfAbsent(uuid, newUuid -> new PlayerData());
     }
 }

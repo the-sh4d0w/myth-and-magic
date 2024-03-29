@@ -20,7 +20,7 @@ public class NarcissusMirrorItem extends Item {
         if (world.isClient()) {
             return TypedActionResult.success(player.getStackInHand(hand));
         }
-        PlayerData playerState = StateSaverAndLoader.getPlayerState(player);
+        PlayerData playerState = StateSaverAndLoader.getPlayerState(world, player.getUuid());
         player.sendMessage(Text.translatable(playerState.worthiness >= ExcaliburSwordItem.REQUIRED_WORTHINESS ?
                 "item.myth_and_magic.narcissus_mirror.worthy" : "item.myth_and_magic.narcissus_mirror.not_worthy"));
         player.sendMessage(Text.translatable(playerState.boundSword ? "item.myth_and_magic.narcissus_mirror.sword_bound"

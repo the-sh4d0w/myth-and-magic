@@ -66,18 +66,12 @@ public class ExcaliburBlock extends Block {
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient()) {
-            PlayerData playerData = StateSaverAndLoader.getPlayerState(player);
+            PlayerData playerData = StateSaverAndLoader.getPlayerState(world, player.getUuid());
             if (!playerData.boundSword) {
                 if (playerData.worthiness >= ExcaliburSwordItem.REQUIRED_WORTHINESS) {
                     world.removeBlock(pos, false);
-                    ItemStack itemStack = MythAndMagicItems.EXCALIBUR.getDefaultStack();
-                    NbtCompound nbtData = new NbtCompound();
-                    nbtData.putUuid(MythAndMagic.MOD_ID + ".owner", player.getUuid());
-                    nbtData.putString(MythAndMagic.MOD_ID + ".player_name", player.getName().getString());
-                    itemStack.setNbt(nbtData);
-                    player.getInventory().insertStack(itemStack);
+                    ExcaliburSwordItem.createSword((ServerPlayerEntity) player, true);
                     MythAndMagic.EXCALIBUR_CLAIMED.trigger((ServerPlayerEntity) player);
-                    playerData.boundSword = true;
                 } else {
                     player.sendMessage(Text.translatable("item.myth_and_magic.excalibur.not_worthy"), true);
                 }
