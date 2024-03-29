@@ -51,12 +51,13 @@ public class MythAndMagicRecipeProvider extends FabricRecipeProvider {
                 .criterion(FabricRecipeProvider.hasItem(Items.GOLD_INGOT), FabricRecipeProvider.conditionsFromItem(Items.GOLD_INGOT))
                 .offerTo(exporter);
         ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, MythAndMagicItems.KNIGHT_STATUE).pattern("ggg")
-                .pattern("sns").pattern("ttt").input('g', Items.GOLD_INGOT).input('s', Items.SOUL_SAND)
-                .input('n', Items.NETHERITE_INGOT).input('t', Items.STONE)
+                .pattern("sns").pattern("tdt").input('g', Items.GOLD_INGOT).input('s', Items.SOUL_SAND)
+                .input('n', Items.NETHERITE_INGOT).input('t', Items.STONE).input('d', Items.DIAMOND)
                 .criterion(FabricRecipeProvider.hasItem(Items.GOLD_INGOT), FabricRecipeProvider.conditionsFromItem(Items.GOLD_INGOT))
                 .criterion(FabricRecipeProvider.hasItem(Items.SOUL_SAND), FabricRecipeProvider.conditionsFromItem(Items.SOUL_SAND))
                 .criterion(FabricRecipeProvider.hasItem(Items.NETHERITE_INGOT), FabricRecipeProvider.conditionsFromItem(Items.NETHERITE_INGOT))
                 .criterion(FabricRecipeProvider.hasItem(Items.STONE), FabricRecipeProvider.conditionsFromItem(Items.STONE))
+                .criterion(FabricRecipeProvider.hasItem(Items.DIAMOND), FabricRecipeProvider.conditionsFromItem(Items.DIAMOND))
                 .offerTo(exporter);
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, MythAndMagicItems.NARCISSUS_MIRROR).pattern("ggg")
                 .pattern("gdg").pattern("ggg").input('g', Items.GOLD_INGOT).input('d', Items.DIAMOND)

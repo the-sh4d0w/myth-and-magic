@@ -1,6 +1,5 @@
 package myth_and_magic.mixin;
 
-import myth_and_magic.MythAndMagic;
 import myth_and_magic.enchantment.MovementEnchantment;
 import myth_and_magic.item.MythAndMagicItems;
 import net.minecraft.entity.Entity;
@@ -20,12 +19,12 @@ public class PlayerEntityMixin {
         // check if using excalibur
         if (player.getMainHandStack().isOf(MythAndMagicItems.EXCALIBUR)) {
             // check if player is owner
-            if (!player.getMainHandStack().hasNbt() || !player.getMainHandStack().getOrCreateNbt().contains(MythAndMagic.MOD_ID + ".owner")
-                    || !player.getMainHandStack().getOrCreateNbt().getUuid(MythAndMagic.MOD_ID + ".owner").equals(player.getUuid())) {
+            if (!player.getMainHandStack().hasNbt() || !player.getMainHandStack().getOrCreateNbt().contains("owner")
+                    || !player.getMainHandStack().getOrCreateNbt().getUuid("owner").equals(player.getUuid())) {
                 if (player.getWorld().isClient()) {
                     // cancel attack method; makes sure that the attack does nothing
-                    if (player.getMainHandStack().getOrCreateNbt().contains(MythAndMagic.MOD_ID + ".owner")
-                            && !player.getMainHandStack().getOrCreateNbt().getUuid(MythAndMagic.MOD_ID + ".owner").equals(player.getUuid())) {
+                    if (player.getMainHandStack().getOrCreateNbt().contains("owner")
+                            && !player.getMainHandStack().getOrCreateNbt().getUuid("owner").equals(player.getUuid())) {
                         ((PlayerEntity) player).sendMessage(Text.translatable("item.myth_and_magic.excalibur.bound_other"), true);
                     } else {
                         ((PlayerEntity) player).sendMessage(Text.translatable("item.myth_and_magic.excalibur.bound_none"), true);

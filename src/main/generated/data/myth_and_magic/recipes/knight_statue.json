@@ -2,6 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
+    "d": {
+      "item": "minecraft:diamond"
+    },
     "g": {
       "item": "minecraft:gold_ingot"
     },
@@ -18,7 +21,7 @@
   "pattern": [
     "ggg",
     "sns",
-    "ttt"
+    "tdt"
   ],
   "result": {
     "item": "myth_and_magic:knight_statue"
