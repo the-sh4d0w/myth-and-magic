@@ -27,7 +27,7 @@ public class InfusionTableRecipe implements Recipe<SimpleInventory> {
         this.id = id;
         this.output = output;
         this.input = input;
-        this.name = name;
+        this.name = name != null ? name : "";
         this.levelCost = levelCost;
     }
 
@@ -36,7 +36,7 @@ public class InfusionTableRecipe implements Recipe<SimpleInventory> {
         if (world.isClient() || inventory.size() < 2) {
             return false;
         }
-        return input.test(inventory.getStack(0)) && (name == null || inventory.getStack(0).getName().getString().equalsIgnoreCase(name));
+        return input.test(inventory.getStack(0)) && (name.isEmpty() || inventory.getStack(0).getName().getString().equalsIgnoreCase(name));
     }
 
     @Override
