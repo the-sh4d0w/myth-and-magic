@@ -1,5 +1,6 @@
 package myth_and_magic.compat.jade;
 
+import myth_and_magic.MythAndMagic;
 import net.minecraft.block.CandleBlock;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -8,7 +9,7 @@ import snownee.jade.api.IBlockComponentProvider;
 import snownee.jade.api.ITooltip;
 import snownee.jade.api.config.IPluginConfig;
 
-public enum CandleComponentProvider implements IBlockComponentProvider {
+public enum CandlePowerProvider implements IBlockComponentProvider {
     INSTANCE;
 
     @Override
@@ -18,6 +19,6 @@ public enum CandleComponentProvider implements IBlockComponentProvider {
 
     @Override
     public Identifier getUid() {
-        return MythAndMagicJadePlugin.INFUSION_POWER;
+        return new Identifier(MythAndMagic.MOD_ID, "candle");
     }
 }

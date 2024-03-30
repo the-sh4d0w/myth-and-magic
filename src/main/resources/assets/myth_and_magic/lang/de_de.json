@@ -79,5 +79,6 @@
   "patchouli.book.myth_and_magic.magic_tome.name": "Magischer Foliant",
   "patchouli.book.myth_and_magic.magic_tome.landing_text": "Hallo $(l)$(6)$(playername)$()!$(br)Willkommen im Magischen Folianten, einem Leitfaden, der dich in die Magie einführt.$(br2)Ich, $(l)$(#2a4cc7)Emrys der Weise$(), größter Zauberer meiner Zeit, habe all das magische Wissen, das ich über viele Jahre hinweg erworben habe, in diesem Buch zusammengefasst. Ich hoffe dieses Buch ist für dich nützlich.",
   "config.jade.myth_and_magic.infusion_power": "Infusionskraft",
-  "jade.myth_and_magic.power": "Infusionskraft: %d"
+  "jade.myth_and_magic.power": "Infusionskraft: %d",
+  "jade.myth_and_magic.owner": "Besitzer: %s"
 }
