@@ -2,6 +2,7 @@ package myth_and_magic.entity;
 
 import myth_and_magic.MythAndMagic;
 import myth_and_magic.item.MythAndMagicItems;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
@@ -36,12 +37,16 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class KnightEntity extends PathAwareEntity {
+    // this is a bit cursed, but it works ¯\_(ツ)_/¯
     public final AnimationState statueAnimationState = new AnimationState();
     private int statueAnimationTimeout = 0;
     public final AnimationState attackAnimationState = new AnimationState();
     private int attackAnimationTimeout = 0;
+    public final AnimationState wakeupAnimationState = new AnimationState();
+    private int wakeupAnimationTimeout = 0;
     private static final TrackedData<Boolean> STATUE = DataTracker.registerData(KnightEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> TRACKING = DataTracker.registerData(KnightEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> WAKE_UP = DataTracker.registerData(KnightEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<BlockPos> STATUE_POSITION = DataTracker.registerData(KnightEntity.class, TrackedDataHandlerRegistry.BLOCK_POS);
     private static final TrackedData<Float> STATUE_YAW = DataTracker.registerData(KnightEntity.class, TrackedDataHandlerRegistry.FLOAT);
     protected static final TrackedData<Optional<UUID>> OWNER_UUID = DataTracker.registerData(KnightEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
@@ -126,6 +131,7 @@ public class KnightEntity extends PathAwareEntity {
         super.initDataTracker();
         this.dataTracker.startTracking(STATUE, true);
         this.dataTracker.startTracking(TRACKING, false);
+        this.dataTracker.startTracking(WAKE_UP, false);
         this.dataTracker.startTracking(STATUE_POSITION, this.getBlockPos());
         this.dataTracker.startTracking(STATUE_YAW, 0f);
         this.dataTracker.startTracking(OWNER_UUID, Optional.empty());
@@ -136,6 +142,7 @@ public class KnightEntity extends PathAwareEntity {
         super.writeCustomDataToNbt(nbt);
         nbt.putBoolean("statue", this.isStatue());
         nbt.putBoolean("tracking", this.isTracking());
+        nbt.putBoolean("wakeUp", this.isWakeUp());
         nbt.putLong("statuePosition", this.getStatuePosition().asLong());
         nbt.putFloat("statueYaw", this.getStatueYaw());
         nbt.putUuid("ownerUuid", this.getOwnerUuid());
@@ -149,6 +156,9 @@ public class KnightEntity extends PathAwareEntity {
         }
         if (nbt.contains("tracking")) {
             this.setTracking(nbt.getBoolean("tracking"));
+        }
+        if (nbt.contains("wakeUp")) {
+            this.setWakeUp(nbt.getBoolean("wakeUp"));
         }
         if (nbt.contains("statuePosition")) {
             this.setStatuePosition(BlockPos.fromLong(nbt.getLong("statuePosition")));
@@ -175,6 +185,14 @@ public class KnightEntity extends PathAwareEntity {
 
     public void setTracking(boolean statue) {
         this.dataTracker.set(TRACKING, statue);
+    }
+
+    public boolean isWakeUp() {
+        return this.dataTracker.get(WAKE_UP);
+    }
+
+    public void setWakeUp(boolean wakeUp) {
+        this.dataTracker.set(WAKE_UP, wakeUp);
     }
 
     public BlockPos getStatuePosition() {
@@ -222,6 +240,11 @@ public class KnightEntity extends PathAwareEntity {
         return SoundEvents.ENTITY_IRON_GOLEM_DEATH;
     }
 
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {
+        this.playSound(SoundEvents.ENTITY_IRON_GOLEM_STEP, 1, 1);
+    }
+
     private void setupAnimationStates() {
         if (this.isStatue() && this.statueAnimationTimeout <= 0) {
             this.statueAnimationTimeout = 100;
@@ -231,18 +254,29 @@ public class KnightEntity extends PathAwareEntity {
         }
 
         if (this.isAttacking() && this.attackAnimationTimeout <= 0) {
-            this.attackAnimationTimeout = 20;
+            this.attackAnimationTimeout = 15;
             this.attackAnimationState.start(this.age);
         } else {
             --this.attackAnimationTimeout;
         }
 
-        if (!this.isStatue()) {
+        if (this.isWakeUp() && this.wakeupAnimationTimeout <= 0) {
+            this.wakeupAnimationTimeout = 80;
+            this.wakeupAnimationState.start(this.age);
+        } else {
+            --this.wakeupAnimationTimeout;
+        }
+
+        if (!this.isStatue() || this.isWakeUp()) {
             this.statueAnimationState.stop();
         }
 
         if (!this.isAttacking()) {
             this.attackAnimationState.stop();
+        }
+
+        if (!this.isWakeUp()) {
+            this.wakeupAnimationState.stop();
         }
     }
 
@@ -260,9 +294,10 @@ public class KnightEntity extends PathAwareEntity {
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(1, new MeleeAttackGoal(this, 0.5f, true));
-        this.goalSelector.add(2, new GoStatuePosGoal(this, 0.2f));
-        this.targetSelector.add(0, new ProtectOwnerGoal(this));
-        this.targetSelector.add(1, new AttackWithOwnerGoal(this));
+        this.goalSelector.add(2, new GoStatuePosGoal(this, 0.25f));
+        this.targetSelector.add(0, new WakeUpGoal(this));
+        this.targetSelector.add(1, new ProtectOwnerGoal(this));
+        this.targetSelector.add(2, new AttackWithOwnerGoal(this));
     }
 
     static class ProtectOwnerGoal extends TrackTargetGoal {
@@ -277,7 +312,7 @@ public class KnightEntity extends PathAwareEntity {
 
         @Nullable
         private PlayerEntity getOwner() {
-            return this.knight.getOwnerUuid() != null ? this.knight.getWorld().getPlayerByUuid(this.knight.getOwnerUuid()) : null;
+            return !this.knight.isStatue() && this.knight.getOwnerUuid() != null ? this.knight.getWorld().getPlayerByUuid(this.knight.getOwnerUuid()) : null;
         }
 
         @Override
@@ -293,7 +328,6 @@ public class KnightEntity extends PathAwareEntity {
         @Override
         public void start() {
             this.knight.setTracking(true);
-            this.knight.setStatue(false);
             this.mob.setTarget(this.attacker);
             LivingEntity owner = this.getOwner();
             if (owner != null) {
@@ -328,7 +362,7 @@ public class KnightEntity extends PathAwareEntity {
         public boolean canStart() {
             if (this.getOwner() != null) {
                 this.attacking = this.getOwner().getAttacking();
-                return this.getOwner().getLastAttackTime() != this.lastAttackTime && this.canTrack(this.attacking, TargetPredicate.DEFAULT)
+                return !this.knight.isStatue() && this.getOwner().getLastAttackTime() != this.lastAttackTime && this.canTrack(this.attacking, TargetPredicate.DEFAULT)
                         && !(this.attacking instanceof KnightEntity) && !((this.attacking instanceof TameableEntity)
                         && ((TameableEntity) this.attacking).isTamed());
             } else {
@@ -339,7 +373,6 @@ public class KnightEntity extends PathAwareEntity {
         @Override
         public void start() {
             this.knight.setTracking(true);
-            this.knight.setStatue(false);
             this.mob.setTarget(this.attacking);
             LivingEntity owner = this.getOwner();
             if (owner != null) {
@@ -403,6 +436,61 @@ public class KnightEntity extends PathAwareEntity {
                 BlockPos pos = this.knight.getStatuePosition();
                 this.knight.getNavigation().startMovingTo(pos.getX(), pos.getY(), pos.getZ(), this.speed);
             }
+        }
+    }
+
+    static class WakeUpGoal extends TrackTargetGoal {
+        // this is stupid; I very much dislike Minecraft entities
+        private final KnightEntity knight;
+        private int time;
+
+        WakeUpGoal(KnightEntity knight) {
+            super(knight, false);
+            this.knight = knight;
+        }
+
+        @Override
+        public boolean canStart() {
+            PlayerEntity owner = this.getOwner();
+            if (owner != null) {
+                LivingEntity attacking = owner.getAttacking();
+                LivingEntity attacker = owner.getAttacker();
+                return this.knight.isStatue() && ((attacking != null && this.canTrack(attacking, TargetPredicate.DEFAULT)
+                        && !(attacking instanceof KnightEntity) && !((attacking instanceof TameableEntity)
+                        && ((TameableEntity) attacking).isTamed())) || (attacker != null
+                        && this.canTrack(attacker, TargetPredicate.DEFAULT) && !(attacker instanceof KnightEntity)));
+            } else {
+                return false;
+            }
+        }
+
+        @Nullable
+        private PlayerEntity getOwner() {
+            return this.knight.getOwnerUuid() != null ? this.knight.getWorld().getPlayerByUuid(this.knight.getOwnerUuid()) : null;
+        }
+
+        @Override
+        public void start() {
+            MythAndMagic.LOGGER.info("Starting wakeUp");
+            this.time = 40;
+            this.knight.setWakeUp(true);
+        }
+
+        @Override
+        public boolean shouldContinue() {
+            return this.time > 0;
+        }
+
+        @Override
+        public void stop() {
+            MythAndMagic.LOGGER.info("Stopping wakeUp");
+            this.knight.setWakeUp(false);
+            this.knight.setStatue(false);
+        }
+
+        @Override
+        public void tick() {
+            this.time--;
         }
     }
 }

@@ -69,10 +69,9 @@ public class KnightModel<T extends KnightEntity> extends SinglePartEntityModel<T
     @Override
     public void setAngles(KnightEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
         this.getPart().traverse().forEach(ModelPart::resetTransform);
-        if (!entity.isStatue()) {
-            this.animateMovement(KnightAnimation.KNIGHT_WALK, limbAngle, limbDistance, 2f, 2.5f);
-        }
+        this.animateMovement(KnightAnimation.KNIGHT_WALK, limbAngle, limbDistance, 2f, 2.5f);
         this.updateAnimation(entity.statueAnimationState, KnightAnimation.KNIGHT_STATUE, animationProgress, 1f);
         this.updateAnimation(entity.attackAnimationState, KnightAnimation.KNIGHT_ATTACK, animationProgress, 1f);
+        this.updateAnimation(entity.wakeupAnimationState, KnightAnimation.KNIGHT_WAKE_UP, animationProgress, 1f);
     }
 }
