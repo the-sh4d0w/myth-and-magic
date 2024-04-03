@@ -53,16 +53,16 @@ public class ExcaliburSwordItem extends SwordItem {
         if (playerState.boundSword) {
             if (player.getInventory().containsAny(Set.of(MythAndMagicItems.EXCALIBUR)) && player.getInventory().containsAny(stack ->
                     stack.getOrCreateNbt().contains("owner") && stack.getOrCreateNbt().getUuid("owner").equals(player.getUuid()))) {
-                player.sendMessage(Text.literal("Sword is already in inventory."), true);
+                player.sendMessage(Text.translatable("item.myth_and_magic.excalibur.inventory"), true);
             } else if (playerState.swordDestroyed) {
                 createSword(player);
                 MythAndMagic.EXCALIBUR_CALLED.trigger(player);
-                player.sendMessage(Text.literal("Summoning sword."), true);
+                player.sendMessage(Text.translatable("item.myth_and_magic.excalibur.summon"), true);
             } else {
-                player.sendMessage(Text.literal("Your sword cannot be summoned."), true);
+                player.sendMessage(Text.translatable("item.myth_and_magic.excalibur.cant_summon"), true);
             }
         } else {
-            player.sendMessage(Text.literal("No sword is bound to you."), true);
+            player.sendMessage(Text.translatable("item.myth_and_magic.excalibur.not_bound"), true);
         }
     }
 
