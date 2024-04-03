@@ -34,6 +34,7 @@
 	"mixins": [
 		"myth_and_magic.mixins.json"
 	],
+	"accessWidener": "myth_and_magic.accesswidener",
 	"depends": {
 		"fabricloader": ">=0.14.21",
 		"minecraft": "~1.20",

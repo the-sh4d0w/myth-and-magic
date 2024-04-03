@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class MythAndMagicItemTagProvider extends FabricTagProvider.ItemTagProvider {
     public static final TagKey<Item> RUNE_PROJECTILES = TagKey.of(RegistryKeys.ITEM, new Identifier(MythAndMagic.MOD_ID, "rune_projectiles"));
-
+    public static final TagKey<Item> SPELL_BOOKS = TagKey.of(RegistryKeys.ITEM, new Identifier(MythAndMagic.MOD_ID, "spell_books"));
 
     public MythAndMagicItemTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture) {
         super(output, completableFuture);
@@ -29,7 +29,14 @@ public class MythAndMagicItemTagProvider extends FabricTagProvider.ItemTagProvid
                 .add(MythAndMagicItems.HEAL_RUNE)
                 .add(MythAndMagicItems.LIGHTNING_RUNE)
                 .add(MythAndMagicItems.EXPLOSIVE_RUNE);
+        getOrCreateTagBuilder(SPELL_BOOKS)
+                .add(MythAndMagicItems.GROW_SPELL)
+                .add(MythAndMagicItems.HOME_SPELL);
+        // TODO: maybe add by tag?
         getOrCreateTagBuilder(ItemTags.BOOKSHELF_BOOKS)
+                .add(MythAndMagicItems.GROW_SPELL)
+                .add(MythAndMagicItems.HOME_SPELL);
+        getOrCreateTagBuilder(ItemTags.LECTERN_BOOKS)
                 .add(MythAndMagicItems.GROW_SPELL)
                 .add(MythAndMagicItems.HOME_SPELL);
     }

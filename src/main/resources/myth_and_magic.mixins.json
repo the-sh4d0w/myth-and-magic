@@ -6,7 +6,10 @@
     "defaultRequire": 1
   },
   "mixins": [
+    "ContentsMixin",
     "EntityMixin",
+    "LecternBlockEntityMixin",
+    "LecternBlockMixin",
     "PlayerAdvancementTrackerMixin",
     "PlayerEntityMixin"
   ]

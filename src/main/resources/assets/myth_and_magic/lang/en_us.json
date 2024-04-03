@@ -76,6 +76,7 @@
   "emi.category.myth_and_magic.rune_table": "Rune Making",
   "emi.category.myth_and_magic.infusion_table": "Magic Infusion",
   "tag.item.myth_and_magic.rune_projectiles": "Rune Projectiles",
+  "tag.item.myth_and_magic.spell_books": "Spell Books",
   "patchouli.book.myth_and_magic.magic_tome.name": "Magic Tome",
   "patchouli.book.myth_and_magic.magic_tome.landing_text": "Hello $(l)$(6)$(playername)$()!$(br)Welcome to the Magic Tome, a guide book to introduce you to magic.$(br2)I, $(l)$(#2a4cc7)Emrys the Wise$(), greatest wizard of my time, have compiled all the magic knowledge I have acquired over many years into this book. I hope this book is useful to you.",
   "config.jade.myth_and_magic.infusion_power": "Infusion Power",

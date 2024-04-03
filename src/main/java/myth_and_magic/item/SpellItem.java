@@ -1,15 +1,23 @@
 package myth_and_magic.item;
 
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.Fertilizable;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.block.LecternBlock;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.NbtString;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
@@ -26,7 +34,33 @@ public class SpellItem extends Item {
 
     @Override
     public boolean isDamageable() {
+        // it is actually damageable, but this prevents it from being mended
         return false;
+    }
+
+    @Override
+    public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+        // this is complicated and annoying
+        super.inventoryTick(stack, world, entity, slot, selected);
+        if (!stack.getOrCreateNbt().contains("pages")) {
+            NbtList list = new NbtList();
+            NbtCompound page = new NbtCompound();
+            list.add(NbtString.of(this.type.name));
+            stack.setSubNbt("title", NbtString.of(this.type.name));
+            stack.setSubNbt("pages", list);
+            stack.setSubNbt("author", NbtString.of(((PlayerEntity)entity).getGameProfile().getName()));
+        }
+    }
+
+    @Override
+    public ActionResult useOnBlock(ItemUsageContext context) {
+        BlockPos blockPos;
+        World world = context.getWorld();
+        BlockState blockState = world.getBlockState(blockPos = context.getBlockPos());
+        if (blockState.isOf(Blocks.LECTERN)) {
+            return LecternBlock.putBookIfAbsent(context.getPlayer(), world, blockPos, blockState, context.getStack()) ? ActionResult.success(world.isClient) : ActionResult.PASS;
+        }
+        return ActionResult.PASS;
     }
 
     @Override
@@ -78,17 +112,19 @@ public class SpellItem extends Item {
     }
 
     public enum Type {
-        HOME(10, 1),
+        HOME(10, 1, "Domicilium"),
         // teleport to where?
-        GROW(2, 10),
-        TELEPORT(1, 5);
+        GROW(2, 10, "Cresco"),
+        TELEPORT(1, 5, "?");
 
         final int levelCost;
         final int damage;
+        final String name;
 
-        Type(int levelCost, int damage) {
+        Type(int levelCost, int damage, String name) {
             this.levelCost = levelCost;
             this.damage = damage;
+            this.name = name;
         }
     }
 }
