@@ -24,6 +24,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
+import java.util.HashMap;
+
 public class SpellItem extends Item {
     private final Type type;
 
@@ -44,11 +46,11 @@ public class SpellItem extends Item {
         super.inventoryTick(stack, world, entity, slot, selected);
         if (!stack.getOrCreateNbt().contains("pages")) {
             NbtList list = new NbtList();
-            NbtCompound page = new NbtCompound();
-            list.add(NbtString.of(this.type.name));
-            stack.setSubNbt("title", NbtString.of(this.type.name));
+            String text = "{\"text\":\"%s\",\"color\":\"dark_purple\",\"italic\":true}".formatted(this.type.text);
+            list.add(NbtString.of(text));
+            stack.setSubNbt("title", NbtString.of("Lorem Ipsum"));
             stack.setSubNbt("pages", list);
-            stack.setSubNbt("author", NbtString.of(((PlayerEntity)entity).getGameProfile().getName()));
+            stack.setSubNbt("author", NbtString.of(((PlayerEntity) entity).getGameProfile().getName()));
         }
     }
 
@@ -112,19 +114,18 @@ public class SpellItem extends Item {
     }
 
     public enum Type {
-        HOME(10, 1, "Domicilium"),
-        // teleport to where?
-        GROW(2, 10, "Cresco"),
+        HOME(10, 1, "Tincidunt lobortis feugiat vivamus at augue eget arcu dictum varius."),
+        GROW(2, 10, "Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum."),
         TELEPORT(1, 5, "?");
 
         final int levelCost;
         final int damage;
-        final String name;
+        final String text;
 
-        Type(int levelCost, int damage, String name) {
+        Type(int levelCost, int damage, String text) {
             this.levelCost = levelCost;
             this.damage = damage;
-            this.name = name;
+            this.text = text;
         }
     }
 }
