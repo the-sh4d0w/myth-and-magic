@@ -43,6 +43,8 @@
   "enchantment.myth_and_magic.dash_enchantment.desc": "Allows use of dash when in the air.",
   "enchantment.myth_and_magic.fire_thorns_enchantment": "Fire Thorns",
   "enchantment.myth_and_magic.fire_thorns_enchantment.desc": "Random chance to set attacker on fire.",
+  "enchantment.myth_and_magic.xp_enchantment": "XP Boost",
+  "enchantment.myth_and_magic.xp_enchantment.desc": "Increases the amount of experience you receive.",
   "advancements.myth_and_magic.tasks.killed_wither": "Kill the Wither",
   "advancements.myth_and_magic.tasks.killed_wither.desc": "This advancement is used for tracking the worthiness task.",
   "advancements.myth_and_magic.myth.beginning": "Myth",

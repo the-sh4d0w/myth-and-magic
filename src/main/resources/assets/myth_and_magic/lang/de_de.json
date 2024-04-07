@@ -43,6 +43,8 @@
   "enchantment.myth_and_magic.dash_enchantment.desc": "Ermöglicht den Einsatz von Dash in der Luft.",
   "enchantment.myth_and_magic.fire_thorns_enchantment": "Feuerdornen",
   "enchantment.myth_and_magic.fire_thorns_enchantment.desc": "Zufällige Chance Angreifer in Brand zu setzen.",
+  "enchantment.myth_and_magic.xp_enchantment": "XP Boost",
+  "enchantment.myth_and_magic.xp_enchantment.desc": "Erhöht die Anzahl an Erfahrung, die du erhältst.",
   "advancements.myth_and_magic.tasks.killed_wither": "Töte den Wither",
   "advancements.myth_and_magic.tasks.killed_wither.desc": "Dieser Fortschritt dient dem Nachverfolgen der Würdigkeitsaufgabe.",
   "advancements.myth_and_magic.myth.beginning": "Mythos",

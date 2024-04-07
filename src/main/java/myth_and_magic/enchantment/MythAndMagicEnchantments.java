@@ -11,6 +11,7 @@ public class MythAndMagicEnchantments {
     public static final Enchantment TELEPORT_ENCHANTMENT = register("teleport_enchantment", new TeleportMovementEnchantment());
     public static final Enchantment DASH_ENCHANTMENT = register("dash_enchantment", new DashMovementEnchantment());
     public static final Enchantment FIRE_THORNS_ENCHANTMENT = register("fire_thorns_enchantment", new ElementThornsEnchantment(ElementThornsEnchantment.Type.FIRE));
+    public static final Enchantment XP_ENCHANTMENT = register("xp_enchantment", new XPEnchantment());
 
     private static Enchantment register(String name, Enchantment enchantment) {
         return Registry.register(Registries.ENCHANTMENT, new Identifier(MythAndMagic.MOD_ID, name), enchantment);
