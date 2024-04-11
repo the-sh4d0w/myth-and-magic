@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "inventory": {
+      "model": "myth_and_magic:block/excalibur_block"
+    },
+    "facing=north": {
+      "model": "myth_and_magic:block/excalibur_block"
+    },
+    "facing=east": {
+      "model": "myth_and_magic:block/excalibur_block",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "myth_and_magic:block/excalibur_block",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "myth_and_magic:block/excalibur_block",
+      "y": 270
+    }
+  }
+}

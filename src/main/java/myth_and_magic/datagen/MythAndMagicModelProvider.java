@@ -17,7 +17,6 @@ public class MythAndMagicModelProvider extends FabricModelProvider {
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
         blockStateModelGenerator.registerSimpleState(MythAndMagicBlocks.RUNE_TABLE_BLOCK);
         blockStateModelGenerator.registerSimpleState(MythAndMagicBlocks.INFUSION_TABLE_BLOCK);
-        blockStateModelGenerator.registerSimpleState(MythAndMagicBlocks.EXCALIBUR_BLOCK);
     }
 
     @Override
