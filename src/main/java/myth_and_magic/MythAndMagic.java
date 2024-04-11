@@ -20,6 +20,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.argument.EntityArgumentType;
@@ -44,7 +45,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import myth_and_magic.item.ExcaliburSwordItem;
 
-import java.util.Set;
+import java.util.List;
 
 public class MythAndMagic implements ModInitializer {
     public static final String MOD_ID = "myth_and_magic";
@@ -61,6 +62,12 @@ public class MythAndMagic implements ModInitializer {
     // network packet ids
     public static final Identifier CALL_SWORD_PACKET_ID = new Identifier(MythAndMagic.MOD_ID, "call_sword");
     public static Identifier MOVE_PACKET_ID = new Identifier(MythAndMagic.MOD_ID, "move");
+    // advancements for worthiness tasks
+    public static final List<String> tasks_two = List.of("minecraft:end/kill_dragon", "minecraft:adventure/kill_all_mobs",
+            "myth_and_magic:tasks/kill_wither");
+    public static final List<String> tasks_one = List.of("minecraft:story/cure_zombie_villager", "minecraft:adventure/hero_of_the_village",
+            "minecraft:adventure/kill_a_mob", "myth_and_magic:magic/used_heal_rune");
+
 
     @Override
     public void onInitialize() {
@@ -126,13 +133,13 @@ public class MythAndMagic implements ModInitializer {
         // add worthiness on advancement granted
         AdvancementGrantedCallback.EVENT.register(((player, advancement) -> {
             PlayerData playerData = StateSaverAndLoader.getPlayerState(player.getWorld(), player.getUuid());
-            int value = switch (advancement.getId().toString()) {
-                case "minecraft:end/kill_dragon", "minecraft:adventure/kill_all_mobs",
-                        "myth_and_magic:tasks/kill_wither" -> 2;
-                case "minecraft:story/cure_zombie_villager", "minecraft:adventure/hero_of_the_village",
-                        "minecraft:adventure/kill_a_mob", "myth_and_magic:magic/used_heal_rune" -> 1;
-                default -> 0;
-            };
+            int value = 0;
+            if (tasks_two.contains(advancement.getId().toString())) {
+                value = 2;
+            }
+            if (tasks_one.contains(advancement.getId().toString())) {
+                value = 1;
+            }
             playerData.worthiness += value;
             if (playerData.worthiness > ExcaliburSwordItem.MAX_WORTHINESS) {
                 playerData.worthiness = ExcaliburSwordItem.MAX_WORTHINESS;
@@ -192,6 +199,29 @@ public class MythAndMagic implements ModInitializer {
                                             PlayerData playerData = StateSaverAndLoader.getPlayerState(player.getWorld(), player.getUuid());
                                             playerData.boundSword = false;
                                             playerData.swordDestroyed = false;
+                                            return Command.SINGLE_SUCCESS;
+                                        })))
+                        .then(CommandManager.literal("updateTasks")
+                                .then(CommandManager.argument("player", EntityArgumentType.player())
+                                        .executes(context -> {
+                                            // not optimal
+                                            ServerPlayerEntity player = EntityArgumentType.getPlayer(context, "player");
+                                            PlayerData playerData = StateSaverAndLoader.getPlayerState(player.getWorld(), player.getUuid());
+                                            playerData.worthiness = 1;
+                                            for (String advancementId : tasks_two) {
+                                                Advancement advancement = player.getServer().getAdvancementLoader()
+                                                        .get(Identifier.splitOn(advancementId, ':'));
+                                                if (player.getAdvancementTracker().getProgress(advancement).isDone()) {
+                                                    playerData.worthiness += 2;
+                                                }
+                                            }
+                                            for (String advancementId : tasks_one) {
+                                                Advancement advancement = player.getServer().getAdvancementLoader()
+                                                        .get(Identifier.splitOn(advancementId, ':'));
+                                                if (player.getAdvancementTracker().getProgress(advancement).isDone()) {
+                                                    playerData.worthiness += 1;
+                                                }
+                                            }
                                             return Command.SINGLE_SUCCESS;
                                         }))))));
     }
