@@ -1,7 +1,7 @@
 # Myth & Magic
 
 ![The banner for the mod. Shows the mod logo infront of a Minecraft landscape.](https://cdn.modrinth.com/data/EmBFQcAY/images/71158d6818403161d85a4577de1f8834384338da.png)
-**Myth & Magic** adds more magical systems (runes and spells) and some mythology inspired weapons and items.
+**Myth & Magic** adds more magic systems (runes and spells) and some mythology inspired weapons and items.
 
 ---
 **Excalibur**
@@ -97,7 +97,7 @@ This mod adds a few commands:
 ---
 **Q: Can I use this mod in my modpack?**
 
-A: Of course, just credit me (by linking to this page).
+A: Of course, just credit me (by linking to [this page](https://modrinth.com/project/myth-and-magic)).
 
 **Q: Is this mod available in version X.Y.Z?**
 
