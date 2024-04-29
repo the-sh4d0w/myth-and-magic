@@ -1,12 +1,12 @@
 {
-  "name": "The Beginning",
+  "name": "Der Anfang",
   "icon": "minecraft:wither_skeleton_skull",
   "category": "myth_and_magic:tasks",
   "pages": [
     {
       "type": "patchouli:quest",
-      "title": "The Beginning",
-      "text": "Kill the wither.",
+      "title": "Der Anfang",
+      "text": "Töte den Wither.",
       "trigger": "myth_and_magic:tasks/kill_wither"
     },
     {

@@ -1,12 +1,12 @@
 {
-  "name": "Zombie Doctor",
+  "name": "Zombiearzt",
   "icon": "minecraft:golden_apple",
   "category": "myth_and_magic:tasks",
   "pages": [
     {
       "type": "patchouli:quest",
-      "title": "Zombie Doctor",
-      "text": "Cure a zombie villager.",
+      "title": "Zombiearzt",
+      "text": "Heile einen Zombiedorfbewohner.",
       "trigger": "minecraft:story/cure_zombie_villager"
     },
     {

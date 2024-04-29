@@ -1,12 +1,12 @@
 {
-  "name": "Free the End",
+  "name": "Befreie das Ende",
   "icon": "minecraft:dragon_head",
   "category": "myth_and_magic:tasks",
   "pages": [
     {
       "type": "patchouli:quest",
-      "title": "Free the End",
-      "text": "Kill the ender dragon.$(br2)$(o)Every good hero needs to kill a dragon at least once.$()",
+      "title": "Befreie das Ende",
+      "text": "Töte den Enderdrachen.$(br2)$(o)Jeder gute Held muss mal einen Drachen töten.$()",
       "trigger": "minecraft:end/kill_dragon"
     },
     {

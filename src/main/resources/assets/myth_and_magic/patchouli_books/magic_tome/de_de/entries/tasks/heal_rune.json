@@ -1,12 +1,12 @@
 {
-  "name": "Healer",
+  "name": "Heiler",
   "icon": "myth_and_magic:heal_rune",
   "category": "myth_and_magic:tasks",
   "pages": [
     {
       "type": "patchouli:quest",
-      "title": "Healer",
-      "text": "Heal a player with magic.$(br2)$(o)$()",
+      "title": "Heiler",
+      "text": "Heile einen Spieler mit Magie.$(br2)$(o)$()",
       "trigger": "myth_and_magic:magic/used_heal_rune"
     },
     {

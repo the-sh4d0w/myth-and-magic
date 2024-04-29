@@ -1,12 +1,12 @@
 {
-  "name": "Monsters Hunted",
+  "name": "Meisterjäger",
   "icon": "minecraft:diamond_sword",
   "category": "myth_and_magic:tasks",
   "pages": [
     {
       "type": "patchouli:quest",
-      "title": "Monsters Hunted",
-      "text": "Kill one of every hostile monster.",
+      "title": "Meisterjäger",
+      "text": "Erledige jedes Monster mindestens ein Mal.",
       "trigger": "minecraft:adventure/kill_all_mobs"
     },
     {
