@@ -106,6 +106,8 @@ public class SpellItem extends Item {
                     itemStack.decrement(1);
                 }
             }
+            // prevent spamming the grow spell to fix potential crash
+            player.getItemCooldownManager().set(this, 20);
             return TypedActionResult.success(itemStack);
         } else {
             player.sendMessage(Text.translatable("item.myth_and_magic.spell.failed"), true);
