@@ -6,7 +6,7 @@
     {
       "type": "patchouli:spotlight",
       "item": "myth_and_magic:infusion_table",
-      "text": "Tisch, der es erlaubt, Gegenstände auf Kosten von XP mit Magie zu versehen.$(br)Wird zum Erstellen von $(l:myth_and_magic:spells)Zaubersprüchen$() verwendet.$(br)Kann auch verwendet werden, um $(l:myth_and_magic:infusion/upgrading_enchantments)Verzauberungen zu verbessern$().$(br)Muss mit 20 Kerzen aktiviert werden.$(br2)$(o)Dies ist ein guter Ausgangspunkt.$()"
+      "text": "Tisch, der es erlaubt, Gegenstände auf Kosten von XP mit Magie zu versehen.$(br)Wird zum Erstellen von $(l:myth_and_magic:spells)Zaubersprüchen$() und zum $(l:myth_and_magic:infusion/upgrading_enchantments)Verbessern von Verzauberungen$() verwendet. Muss mit 20 Kerzen aktiviert werden, ähnlich wie ein Zaubertisch.$(br2)$(o)Dies ist ein guter Ausgangspunkt.$()"
     },
     {
       "type": "patchouli:crafting",

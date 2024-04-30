@@ -6,7 +6,7 @@
     {
       "type": "patchouli:spotlight",
       "item": "myth_and_magic:infusion_table",
-      "text": "Table which allows infusing objects with magic at the cost of XP.$(br)Used to create $(l:myth_and_magic:spells)spells$().$(br)Can also be used to $(l:myth_and_magic:infusion/upgrading_enchantments)upgrade enchantments$().$(br)Needs to be powered by 20 candles.$(br2)$(o)This is a good place to start.$()"
+      "text": "Table which allows infusing objects with magic at the cost of XP.$(br)Used to create $(l:myth_and_magic:spells)spells$().$(br)Can also be used to $(l:myth_and_magic:infusion/upgrading_enchantments)upgrade enchantments$().$(br)Needs to be powered by 20 candles similar to an enchanting table.$(br2)$(o)This is a good place to start.$()"
     },
     {
       "type": "patchouli:crafting",
