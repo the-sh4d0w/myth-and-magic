@@ -21,7 +21,7 @@ repositories {
     // See https://docs.gradle.org/current/userguide/declaring_repositories.html
     // for more information about repositories.
     maven {
-        url = "https://maven.terraformersmc.com/"
+        url "https://maven.terraformersmc.com/"
     }
     maven {
         url 'https://maven.blamejared.com'
@@ -57,10 +57,15 @@ dependencies {
 }
 
 processResources {
-    inputs.property "version", project.version
 
     filesMatching("fabric.mod.json") {
-        expand "version": project.version
+        expand "minecraft_version": project.minecraft_version,
+                "loader_version": project.loader_version,
+                "mod_version": project.mod_version,
+                "fabric_version": project.fabric_version,
+                "emi_version": project.emi_version,
+                "patchouli_version": project.patchouli_version,
+                "jade_version": project.jade_version
     }
 }
 

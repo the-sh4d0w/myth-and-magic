@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "myth_and_magic",
-	"version": "${version}",
+	"version": "${mod_version}",
 	"name": "Myth & Magic",
 	"description": "Adds more magic and some mythical weapons.",
 	"authors": [
@@ -36,14 +36,14 @@
 	],
 	"accessWidener": "myth_and_magic.accesswidener",
 	"depends": {
-		"fabricloader": ">=0.14.21",
-		"minecraft": "~1.20.1",
+		"fabricloader": ">=${loader_version}",
+		"minecraft": "${minecraft_version}",
 		"java": ">=17",
-		"fabric-api": "*"
+		"fabric-api": ">=${fabric_version}"
 	},
 	"recommends": {
-		"emi": ">=1.0.3",
-		"patchouli": ">=84",
-		"jade": ">=11.8"
+		"emi": ">=${emi_version}",
+		"patchouli": ">=${patchouli_version}",
+		"jade": ">=${jade_version}"
 	}
 }
