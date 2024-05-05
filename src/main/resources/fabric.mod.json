@@ -43,6 +43,7 @@
 	},
 	"recommends": {
 		"emi": ">=${emi_version}",
+		"patchouli": ">=${patchouli_version}",
 		"jade": ">=${jade_version}"
 	}
 }

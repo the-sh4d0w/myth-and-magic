@@ -1,11 +1,11 @@
 package myth_and_magic.criteria;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.Decoder;
+import com.mojang.serialization.Encoder;
 import myth_and_magic.MythAndMagic;
 import net.minecraft.advancement.AdvancementCriterion;
 import net.minecraft.advancement.criterion.AbstractCriterion;
-import net.minecraft.advancement.criterion.AbstractCriterionConditions;
-import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer;
 import net.minecraft.predicate.entity.LootContextPredicate;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
@@ -15,10 +15,6 @@ import java.util.Optional;
 public class HealRuneUsedCriterion extends AbstractCriterion<HealRuneUsedCriterion.Conditions> {
     public static final Identifier ID = new Identifier(MythAndMagic.MOD_ID, "heal_rune_used");
 
-    @Override
-    protected Conditions conditionsFromJson(JsonObject json, Optional<LootContextPredicate> playerPredicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {
-        return new Conditions();
-    }
 
     public Identifier getId() {
         return ID;
@@ -28,9 +24,16 @@ public class HealRuneUsedCriterion extends AbstractCriterion<HealRuneUsedCriteri
         trigger(player, Conditions::requirementsMet);
     }
 
-    public static class Conditions extends AbstractCriterionConditions {
+    @Override
+    public Codec<Conditions> getConditionsCodec() {
+        return Conditions.CODEC;
+    }
+
+    public static class Conditions implements AbstractCriterion.Conditions {
+        public static final Codec<Conditions> CODEC = Codec.of(Encoder.empty(), Decoder.unit(Conditions::new)).codec();
+
         public Conditions() {
-            super(Optional.empty());
+            super();
         }
 
         public static AdvancementCriterion<Conditions> create() {
@@ -39,6 +42,11 @@ public class HealRuneUsedCriterion extends AbstractCriterion<HealRuneUsedCriteri
 
         boolean requirementsMet() {
             return true;
+        }
+
+        @Override
+        public Optional<LootContextPredicate> player() {
+            return Optional.empty();
         }
     }
 }

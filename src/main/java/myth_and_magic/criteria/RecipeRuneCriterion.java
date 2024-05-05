@@ -1,13 +1,10 @@
 package myth_and_magic.criteria;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import myth_and_magic.MythAndMagic;
 import net.minecraft.advancement.AdvancementCriterion;
 import net.minecraft.advancement.criterion.AbstractCriterion;
-import net.minecraft.advancement.criterion.AbstractCriterionConditions;
-import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer;
 import net.minecraft.predicate.entity.LootContextPredicate;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
@@ -19,15 +16,6 @@ import java.util.Optional;
 public class RecipeRuneCriterion extends AbstractCriterion<RecipeRuneCriterion.Conditions> {
     public static final Identifier ID = new Identifier(MythAndMagic.MOD_ID, "recipe_rune");
 
-    @Override
-    protected Conditions conditionsFromJson(JsonObject json, Optional<LootContextPredicate> playerPredicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {
-        List<Identifier> recipeIds = new java.util.ArrayList<>(List.of());
-        for (JsonElement element : json.getAsJsonArray("recipe_ids")) {
-            recipeIds.add(new Identifier(element.getAsString()));
-        }
-        return new Conditions(recipeIds);
-    }
-
     public Identifier getId() {
         return ID;
     }
@@ -36,11 +24,23 @@ public class RecipeRuneCriterion extends AbstractCriterion<RecipeRuneCriterion.C
         trigger(player, conditions -> conditions.matches(recipeId));
     }
 
-    public static class Conditions extends AbstractCriterionConditions {
+    @Override
+    public Codec<Conditions> getConditionsCodec() {
+        return Conditions.CODEC;
+    }
+
+    public static class Conditions implements AbstractCriterion.Conditions {
+        public static final Codec<Conditions> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                Identifier.CODEC.listOf().fieldOf("recipe_ids").forGetter(Conditions::getRecipeIds)
+        ).apply(instance, Conditions::new));
         private List<Identifier> recipeIds;
 
+        public List<Identifier> getRecipeIds() {
+            return recipeIds;
+        }
+
         public Conditions(List<Identifier> recipeIds) {
-            super(Optional.empty());
+            super();
             this.recipeIds = recipeIds;
         }
 
@@ -58,14 +58,8 @@ public class RecipeRuneCriterion extends AbstractCriterion<RecipeRuneCriterion.C
         }
 
         @Override
-        public JsonObject toJson() {
-            JsonObject jsonObject = super.toJson();
-            JsonArray recipeIds = new JsonArray();
-            for (Identifier recipeId : this.recipeIds) {
-                recipeIds.add(recipeId.toString());
-            }
-            jsonObject.add("recipe_ids", recipeIds);
-            return jsonObject;
+        public Optional<LootContextPredicate> player() {
+            return Optional.empty();
         }
     }
 }

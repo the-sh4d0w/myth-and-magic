@@ -2,6 +2,7 @@ package myth_and_magic;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import myth_and_magic.block.MythAndMagicBlocks;
 import myth_and_magic.criteria.*;
 import myth_and_magic.enchantment.MovementEnchantment;
@@ -20,10 +21,8 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementEntry;
 import net.minecraft.advancement.criterion.Criteria;
-import net.minecraft.command.CommandException;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -168,8 +167,9 @@ public class MythAndMagic implements ModInitializer {
                                                                 playerState.worthiness), false);
                                                         return Command.SINGLE_SUCCESS;
                                                     } else {
-                                                        throw new CommandException(Text.translatable("command." + MOD_ID + ".value_exception",
+                                                        SimpleCommandExceptionType exception = new SimpleCommandExceptionType(Text.translatable("command." + MOD_ID + ".value_exception",
                                                                 ExcaliburSwordItem.MIN_WORTHINESS, ExcaliburSwordItem.MAX_WORTHINESS));
+                                                        throw exception.create();
                                                     }
                                                 }))))
                         .then(CommandManager.literal("get")

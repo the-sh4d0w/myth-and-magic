@@ -1,6 +1,5 @@
 package myth_and_magic.screen;
 
-import myth_and_magic.block.entity.InfusionTableBlockEntity;
 import myth_and_magic.block.entity.RuneTableBlockEntity;
 import myth_and_magic.item.MythAndMagicItems;
 import net.minecraft.block.entity.BlockEntity;

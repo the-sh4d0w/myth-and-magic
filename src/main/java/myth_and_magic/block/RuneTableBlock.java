@@ -1,5 +1,6 @@
 package myth_and_magic.block;
 
+import com.mojang.serialization.MapCodec;
 import myth_and_magic.block.entity.RuneTableBlockEntity;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -25,6 +26,11 @@ public class RuneTableBlock extends BlockWithEntity implements BlockEntityProvid
 
     public RuneTableBlock(Settings settings) {
         super(settings.strength(4).requiresTool());
+    }
+
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return null;
     }
 
     @Override

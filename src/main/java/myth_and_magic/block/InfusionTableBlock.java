@@ -1,5 +1,6 @@
 package myth_and_magic.block;
 
+import com.mojang.serialization.MapCodec;
 import myth_and_magic.block.entity.InfusionTableBlockEntity;
 import myth_and_magic.datagen.MythAndMagicBlockTagProvider;
 import net.minecraft.block.*;
@@ -37,6 +38,11 @@ public class InfusionTableBlock extends BlockWithEntity implements BlockEntityPr
 
     public InfusionTableBlock(Settings settings) {
         super(settings.strength(1));
+    }
+
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return null;
     }
 
     public static int getPower(World world, BlockPos tablePos, BlockPos providerOffset) {

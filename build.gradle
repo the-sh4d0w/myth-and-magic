@@ -24,6 +24,9 @@ repositories {
         url "https://maven.terraformersmc.com/"
     }
     maven {
+        url 'https://maven.blamejared.com'
+    }
+    maven {
         url "https://www.cursemaven.com"
     }
 }
@@ -59,6 +62,7 @@ processResources {
                 "mod_version": project.mod_version,
                 "fabric_version": project.fabric_version,
                 "emi_version": project.emi_version,
+                "patchouli_version": project.patchouli_version,
                 "jade_version": project.jade_version
     }
 }
