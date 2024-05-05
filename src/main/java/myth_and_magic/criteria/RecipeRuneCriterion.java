@@ -4,22 +4,23 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import myth_and_magic.MythAndMagic;
+import net.minecraft.advancement.AdvancementCriterion;
 import net.minecraft.advancement.criterion.AbstractCriterion;
 import net.minecraft.advancement.criterion.AbstractCriterionConditions;
 import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer;
-import net.minecraft.predicate.entity.AdvancementEntityPredicateSerializer;
 import net.minecraft.predicate.entity.LootContextPredicate;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class RecipeRuneCriterion extends AbstractCriterion<RecipeRuneCriterion.Conditions> {
-    private static final Identifier ID = new Identifier(MythAndMagic.MOD_ID, "recipe_rune");
+    public static final Identifier ID = new Identifier(MythAndMagic.MOD_ID, "recipe_rune");
 
     @Override
-    protected Conditions conditionsFromJson(JsonObject json, LootContextPredicate playerPredicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {
+    protected Conditions conditionsFromJson(JsonObject json, Optional<LootContextPredicate> playerPredicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {
         List<Identifier> recipeIds = new java.util.ArrayList<>(List.of());
         for (JsonElement element : json.getAsJsonArray("recipe_ids")) {
             recipeIds.add(new Identifier(element.getAsString()));
@@ -39,12 +40,12 @@ public class RecipeRuneCriterion extends AbstractCriterion<RecipeRuneCriterion.C
         private List<Identifier> recipeIds;
 
         public Conditions(List<Identifier> recipeIds) {
-            super(ID, LootContextPredicate.EMPTY);
+            super(Optional.empty());
             this.recipeIds = recipeIds;
         }
 
-        public static Conditions create(Identifier... recipeIds) {
-            return new Conditions(Arrays.stream(recipeIds).toList());
+        public static AdvancementCriterion<Conditions> create(Identifier... recipeIds) {
+            return MythAndMagic.RECIPE_RUNE.create(new Conditions(Arrays.stream(recipeIds).toList()));
         }
 
         boolean matches(Identifier matchRecipeId) {
@@ -57,8 +58,8 @@ public class RecipeRuneCriterion extends AbstractCriterion<RecipeRuneCriterion.C
         }
 
         @Override
-        public JsonObject toJson(AdvancementEntityPredicateSerializer predicateSerializer) {
-            JsonObject jsonObject = super.toJson(predicateSerializer);
+        public JsonObject toJson() {
+            JsonObject jsonObject = super.toJson();
             JsonArray recipeIds = new JsonArray();
             for (Identifier recipeId : this.recipeIds) {
                 recipeIds.add(recipeId.toString());

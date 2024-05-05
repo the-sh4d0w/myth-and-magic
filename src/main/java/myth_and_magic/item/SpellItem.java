@@ -89,7 +89,7 @@ public class SpellItem extends Item {
                     for (int i = -2; i < 3; i++) {
                         for (int j = -2; j < 3; j++) {
                             pos = playerPos.add(i, 0, j);
-                            while (world.getBlockState(pos).getBlock() instanceof Fertilizable && (fertilizable = (Fertilizable) world.getBlockState(pos).getBlock()).isFertilizable(world, pos, world.getBlockState(pos), world.isClient)) {
+                            while (world.getBlockState(pos).getBlock() instanceof Fertilizable && (fertilizable = (Fertilizable) world.getBlockState(pos).getBlock()).isFertilizable(world, pos, world.getBlockState(pos))) {
                                 if (world instanceof ServerWorld) {
                                     if (fertilizable.canGrow(world, world.random, pos, world.getBlockState(pos))) {
                                         fertilizable.grow((ServerWorld) world, world.random, pos, world.getBlockState(pos));

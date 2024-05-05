@@ -3,6 +3,7 @@ package myth_and_magic.util;
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.advancement.Advancement;
+import net.minecraft.advancement.AdvancementEntry;
 import net.minecraft.entity.player.PlayerEntity;
 
 public interface AdvancementGrantedCallback {
@@ -15,6 +16,6 @@ public interface AdvancementGrantedCallback {
 
     @FunctionalInterface
     interface Grant {
-        void grant(PlayerEntity player, Advancement advancement);
+        void grant(PlayerEntity player, AdvancementEntry advancement);
     }
 }

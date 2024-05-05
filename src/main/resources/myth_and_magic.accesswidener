@@ -1,5 +1,5 @@
 accessWidener v1 named
 accessible method net/minecraft/block/entity/LecternBlockEntity getCommandSource (Lnet/minecraft/entity/player/PlayerEntity;)Lnet/minecraft/server/command/ServerCommandSource;
-accessible method net/minecraft/block/BlockWithEntity checkType (Lnet/minecraft/block/entity/BlockEntityType;Lnet/minecraft/block/entity/BlockEntityType;Lnet/minecraft/block/entity/BlockEntityTicker;)Lnet/minecraft/block/entity/BlockEntityTicker;
+accessible method net/minecraft/block/BlockWithEntity validateTicker (Lnet/minecraft/block/entity/BlockEntityType;Lnet/minecraft/block/entity/BlockEntityType;Lnet/minecraft/block/entity/BlockEntityTicker;)Lnet/minecraft/block/entity/BlockEntityTicker;
 accessible method net/minecraft/entity/LivingEntity shouldAlwaysDropXp ()Z
 accessible field net/minecraft/entity/LivingEntity playerHitTimer I

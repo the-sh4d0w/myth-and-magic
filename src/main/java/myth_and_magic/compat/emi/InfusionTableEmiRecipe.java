@@ -7,6 +7,7 @@ import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 import myth_and_magic.recipe.InfusionTableRecipe;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -18,13 +19,13 @@ public class InfusionTableEmiRecipe implements EmiRecipe {
     private final List<EmiStack> output;
     private final int levelCost;
 
-    public InfusionTableEmiRecipe(InfusionTableRecipe recipe) {
+    public InfusionTableEmiRecipe(RecipeEntry<InfusionTableRecipe> recipe) {
         // this is somewhat cursed, but it works ¯\_(ツ)_/¯
-        this.id = recipe.getId();
-        this.input = List.of(EmiStack.of(recipe.getInput().getMatchingStacks()[0]
-                .setCustomName(Text.literal(recipe.getName()))));
-        this.output = List.of(EmiStack.of(recipe.getOutput(null)));
-        this.levelCost = recipe.getLevelCost();
+        this.id = recipe.id();
+        this.input = List.of(EmiStack.of(recipe.value().getInput().getMatchingStacks()[0]
+                .setCustomName(Text.literal(recipe.value().getName()))));
+        this.output = List.of(EmiStack.of(recipe.value().getResult(null)));
+        this.levelCost = recipe.value().getLevelCost();
     }
 
     @Override

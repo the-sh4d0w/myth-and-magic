@@ -4,12 +4,10 @@ import myth_and_magic.block.MythAndMagicBlocks;
 import myth_and_magic.item.MythAndMagicItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.minecraft.data.server.recipe.RecipeJsonProvider;
+import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.book.RecipeCategory;
-
-import java.util.function.Consumer;
 
 public class MythAndMagicRecipeProvider extends FabricRecipeProvider {
     public MythAndMagicRecipeProvider(FabricDataOutput dataGenerator) {
@@ -17,7 +15,7 @@ public class MythAndMagicRecipeProvider extends FabricRecipeProvider {
     }
 
     @Override
-    public void generate(Consumer<RecipeJsonProvider> exporter) {
+    public void generate(RecipeExporter exporter) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, MythAndMagicBlocks.RUNE_TABLE_BLOCK).pattern("gag")
                 .pattern(" o ").pattern("bbb").input('o', Items.OBSIDIAN).input('a', Items.AMETHYST_SHARD)
                 .input('b', Items.STONE_BRICKS).input('g', Items.GOLD_INGOT)

@@ -2,7 +2,6 @@
   "parent": "myth_and_magic:myth/claimed_excalibur",
   "criteria": {
     "myth/called_excalibur": {
-      "conditions": {},
       "trigger": "myth_and_magic:excalibur_called"
     }
   },

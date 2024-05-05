@@ -16,6 +16,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -210,12 +211,13 @@ public class RuneTableBlockEntity extends BlockEntity implements ExtendedScreenH
     }
 
     private void craftItem() {
-        Optional<RuneTableRecipe> match = getCurrentRecipe();
+        RecipeEntry<RuneTableRecipe> matchEntry = getCurrentRecipe().get();
+        RuneTableRecipe match = matchEntry.value();
         this.removeStack(INPUT_SLOT, 1);
         this.removeStack(RUNE_SLOT, 1);
-        this.removeStack(PHIAL_SLOT, match.get().getLevelCost());
-        ItemStack result = match.get().getOutput(null);
-        this.currentRecipeId = match.get().getId();
+        this.removeStack(PHIAL_SLOT, match.getLevelCost());
+        ItemStack result = match.getResult(null);
+        this.currentRecipeId = matchEntry.id();
         this.setStack(OUTPUT_SLOT, new ItemStack(result.getItem(), getStack(OUTPUT_SLOT).getCount() + result.getCount()));
     }
 
@@ -228,12 +230,12 @@ public class RuneTableBlockEntity extends BlockEntity implements ExtendedScreenH
     }
 
     private boolean hasRecipe() {
-        Optional<RuneTableRecipe> match = getCurrentRecipe();
-        return match.isPresent() && canInsertAmountIntoOutputSlot(match.get().getOutput(null))
-                && canInsertItemIntoOutputSlot(match.get().getOutput(null).getItem());
+        Optional<RecipeEntry<RuneTableRecipe>> match = getCurrentRecipe();
+        return match.isPresent() && canInsertAmountIntoOutputSlot(match.get().value().getResult(null))
+                && canInsertItemIntoOutputSlot(match.get().value().getResult(null).getItem());
     }
 
-    private Optional<RuneTableRecipe> getCurrentRecipe() {
+    private Optional<RecipeEntry<RuneTableRecipe>> getCurrentRecipe() {
         SimpleInventory inv = new SimpleInventory(this.size());
         for (int i = 0; i < this.size(); i++) {
             inv.setStack(i, this.getStack(i));

@@ -21,6 +21,7 @@ import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.advancement.Advancement;
+import net.minecraft.advancement.AdvancementEntry;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.argument.EntityArgumentType;
@@ -51,14 +52,14 @@ public class MythAndMagic implements ModInitializer {
     public static final String MOD_ID = "myth_and_magic";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     // criteria; maybe too many?
-    public static final ExcaliburClaimedCriterion EXCALIBUR_CLAIMED = Criteria.register(new ExcaliburClaimedCriterion());
-    public static final ExcaliburCalledCriterion EXCALIBUR_CALLED = Criteria.register(new ExcaliburCalledCriterion());
-    public static final TaskCompletedCriterion TASK_COMPLETED = Criteria.register(new TaskCompletedCriterion());
-    public static final EnchantmentUpgradedCriterion ENCHANTMENT_UPGRADED = Criteria.register(new EnchantmentUpgradedCriterion());
-    public static final RecipeInfusionCriterion RECIPE_INFUSION = Criteria.register(new RecipeInfusionCriterion());
-    public static final RecipeRuneCriterion RECIPE_RUNE = Criteria.register(new RecipeRuneCriterion());
-    public static final HealRuneUsedCriterion HEAL_RUNE_USED = Criteria.register(new HealRuneUsedCriterion());
-    public static final KnightProtectionCriterion KNIGHT_PROTECT = Criteria.register(new KnightProtectionCriterion());
+    public static final ExcaliburClaimedCriterion EXCALIBUR_CLAIMED = Criteria.register(ExcaliburClaimedCriterion.ID.toString(), new ExcaliburClaimedCriterion());
+    public static final ExcaliburCalledCriterion EXCALIBUR_CALLED = Criteria.register(ExcaliburCalledCriterion.ID.toString(), new ExcaliburCalledCriterion());
+    public static final TaskCompletedCriterion TASK_COMPLETED = Criteria.register(TaskCompletedCriterion.ID.toString(), new TaskCompletedCriterion());
+    public static final EnchantmentUpgradedCriterion ENCHANTMENT_UPGRADED = Criteria.register(EnchantmentUpgradedCriterion.ID.toString(), new EnchantmentUpgradedCriterion());
+    public static final RecipeInfusionCriterion RECIPE_INFUSION = Criteria.register(RecipeInfusionCriterion.ID.toString(), new RecipeInfusionCriterion());
+    public static final RecipeRuneCriterion RECIPE_RUNE = Criteria.register(RecipeRuneCriterion.ID.toString(), new RecipeRuneCriterion());
+    public static final HealRuneUsedCriterion HEAL_RUNE_USED = Criteria.register(HealRuneUsedCriterion.ID.toString(), new HealRuneUsedCriterion());
+    public static final KnightProtectionCriterion KNIGHT_PROTECT = Criteria.register(KnightProtectionCriterion.ID.toString(), new KnightProtectionCriterion());
     // network packet ids
     public static final Identifier CALL_SWORD_PACKET_ID = new Identifier(MythAndMagic.MOD_ID, "call_sword");
     public static Identifier MOVE_PACKET_ID = new Identifier(MythAndMagic.MOD_ID, "move");
@@ -134,10 +135,10 @@ public class MythAndMagic implements ModInitializer {
         AdvancementGrantedCallback.EVENT.register(((player, advancement) -> {
             PlayerData playerData = StateSaverAndLoader.getPlayerState(player.getWorld(), player.getUuid());
             int value = 0;
-            if (tasks_two.contains(advancement.getId().toString())) {
+            if (tasks_two.contains(advancement.id().toString())) {
                 value = 2;
             }
-            if (tasks_one.contains(advancement.getId().toString())) {
+            if (tasks_one.contains(advancement.id().toString())) {
                 value = 1;
             }
             playerData.worthiness += value;
@@ -209,14 +210,14 @@ public class MythAndMagic implements ModInitializer {
                                             PlayerData playerData = StateSaverAndLoader.getPlayerState(player.getWorld(), player.getUuid());
                                             playerData.worthiness = 1;
                                             for (String advancementId : tasks_two) {
-                                                Advancement advancement = player.getServer().getAdvancementLoader()
+                                                AdvancementEntry advancement = player.getServer().getAdvancementLoader()
                                                         .get(Identifier.splitOn(advancementId, ':'));
                                                 if (player.getAdvancementTracker().getProgress(advancement).isDone()) {
                                                     playerData.worthiness += 2;
                                                 }
                                             }
                                             for (String advancementId : tasks_one) {
-                                                Advancement advancement = player.getServer().getAdvancementLoader()
+                                                AdvancementEntry advancement = player.getServer().getAdvancementLoader()
                                                         .get(Identifier.splitOn(advancementId, ':'));
                                                 if (player.getAdvancementTracker().getProgress(advancement).isDone()) {
                                                     playerData.worthiness += 1;

@@ -58,11 +58,11 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_obsidian",
       "has_amethyst_shard",
       "has_stone_bricks",
-      "has_gold_ingot",
-      "has_the_recipe"
+      "has_gold_ingot"
     ]
   ],
   "rewards": {

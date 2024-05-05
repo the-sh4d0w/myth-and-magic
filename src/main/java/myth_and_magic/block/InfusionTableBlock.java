@@ -122,7 +122,7 @@ public class InfusionTableBlock extends BlockWithEntity implements BlockEntityPr
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, MythAndMagicBlocks.INFUSION_TABLE_BLOCK_ENTITY,
+        return validateTicker(type, MythAndMagicBlocks.INFUSION_TABLE_BLOCK_ENTITY,
                 (world1, pos, state1, blockEntity) -> blockEntity.tick(world1, pos, state1));
     }
 }

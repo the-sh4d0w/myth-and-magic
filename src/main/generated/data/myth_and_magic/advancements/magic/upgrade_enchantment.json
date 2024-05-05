@@ -2,7 +2,6 @@
   "parent": "myth_and_magic:magic/craft_infusion_table",
   "criteria": {
     "magic/upgrade_enchantment": {
-      "conditions": {},
       "trigger": "myth_and_magic:enchantment_upgraded"
     }
   },

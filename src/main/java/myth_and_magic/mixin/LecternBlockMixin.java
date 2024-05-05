@@ -19,7 +19,7 @@ public class LecternBlockMixin {
     @Unique
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
         // this is the only way I could get it to work; very much not optimal
-        return LecternBlock.checkType(type, BlockEntityType.LECTERN,
+        return LecternBlock.validateTicker(type, BlockEntityType.LECTERN,
                 (world1, pos, state1, blockEntity) -> {
                     if (!world.isClient() && blockEntity.hasBook() && blockEntity.getBook().isIn(MythAndMagicItemTagProvider.SPELL_BOOKS)) {
                         Random random = world.getRandom();

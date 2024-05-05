@@ -17,6 +17,7 @@ import net.minecraft.inventory.SidedInventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -218,10 +219,11 @@ public class InfusionTableBlockEntity extends BlockEntity implements ExtendedScr
     }
 
     private void craftItem() {
-        Optional<InfusionTableRecipe> match = getCurrentRecipe();
-        ItemStack result = match.get().getOutput(null);
-        this.currentRecipeId = match.get().getId();
-        this.propertyDelegate.set(0, match.get().getLevelCost());
+        RecipeEntry<InfusionTableRecipe> matchEntry = getCurrentRecipe().get();
+        InfusionTableRecipe match = matchEntry.value();
+        ItemStack result = match.getResult(null);
+        this.currentRecipeId = matchEntry.id();
+        this.propertyDelegate.set(0, match.getLevelCost());
         this.setStack(OUTPUT_SLOT, new ItemStack(result.getItem(), result.getCount()));
     }
 
@@ -233,7 +235,7 @@ public class InfusionTableBlockEntity extends BlockEntity implements ExtendedScr
         return getCurrentRecipe().isPresent();
     }
 
-    private Optional<InfusionTableRecipe> getCurrentRecipe() {
+    private Optional<RecipeEntry<InfusionTableRecipe>> getCurrentRecipe() {
         SimpleInventory inv = new SimpleInventory(this.size());
         for (int i = 0; i < this.size(); i++) {
             inv.setStack(i, this.getStack(i));

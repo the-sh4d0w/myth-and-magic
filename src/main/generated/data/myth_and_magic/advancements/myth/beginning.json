@@ -1,7 +1,6 @@
 {
   "criteria": {
     "myth/beginning": {
-      "conditions": {},
       "trigger": "myth_and_magic:task_completed"
     }
   },

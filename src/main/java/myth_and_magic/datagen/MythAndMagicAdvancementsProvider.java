@@ -7,6 +7,7 @@ import myth_and_magic.item.MythAndMagicItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancement.Advancement;
+import net.minecraft.advancement.AdvancementEntry;
 import net.minecraft.advancement.AdvancementFrame;
 import net.minecraft.advancement.criterion.InventoryChangedCriterion;
 import net.minecraft.advancement.criterion.OnKilledCriterion;
@@ -25,10 +26,10 @@ public class MythAndMagicAdvancementsProvider extends FabricAdvancementProvider 
     }
 
     @Override
-    public void generateAdvancement(Consumer<Advancement> consumer) {
+    public void generateAdvancement(Consumer<AdvancementEntry> consumer) {
         // some of this, especially the rune and infusion criteria and the wither task, is a bit cursed, but it works ¯\_(ツ)_/¯
         // myth advancements
-        Advancement myth_root = Advancement.Builder.create()
+        AdvancementEntry myth_root = Advancement.Builder.create()
                 .display(
                         MythAndMagicItems.NARCISSUS_MIRROR,
                         Text.translatable("advancements.myth_and_magic.myth.beginning"),
@@ -40,7 +41,7 @@ public class MythAndMagicAdvancementsProvider extends FabricAdvancementProvider 
                         false
                 ).criterion("myth/beginning", TaskCompletedCriterion.Conditions.create())
                 .build(consumer, new Identifier(MythAndMagic.MOD_ID, "myth/beginning").toString());
-        Advancement claimed_excalibur = Advancement.Builder.create().parent(myth_root)
+        AdvancementEntry claimed_excalibur = Advancement.Builder.create().parent(myth_root)
                 .display(
                         MythAndMagicItems.EXCALIBUR,
                         Text.translatable("advancements.myth_and_magic.myth.claimed_excalibur"),
@@ -64,7 +65,7 @@ public class MythAndMagicAdvancementsProvider extends FabricAdvancementProvider 
                         false
                 ).criterion("myth/called_excalibur", ExcaliburCalledCriterion.Conditions.create())
                 .build(consumer, new Identifier(MythAndMagic.MOD_ID, "myth/called_excalibur").toString());
-        Advancement craft_knight_statue = Advancement.Builder.create().parent(myth_root)
+        AdvancementEntry craft_knight_statue = Advancement.Builder.create().parent(myth_root)
                 .display(
                         MythAndMagicItems.KNIGHT_STATUE,
                         Text.translatable("advancements.myth_and_magic.myth.craft_knight_statue"),
@@ -90,7 +91,7 @@ public class MythAndMagicAdvancementsProvider extends FabricAdvancementProvider 
                 ).criterion("myth/knight_protect", KnightProtectionCriterion.Conditions.create())
                 .build(consumer, new Identifier(MythAndMagic.MOD_ID, "myth/knight_protect").toString());
         // magic advancements
-        Advancement magic_root = Advancement.Builder.create()
+        AdvancementEntry magic_root = Advancement.Builder.create()
                 .display(
                         Items.AMETHYST_SHARD,
                         Text.translatable("advancements.myth_and_magic.magic.beginning"),
@@ -102,7 +103,7 @@ public class MythAndMagicAdvancementsProvider extends FabricAdvancementProvider 
                         false
                 ).criterion("magic/beginning", InventoryChangedCriterion.Conditions.items(Items.AMETHYST_SHARD))
                 .build(consumer, new Identifier(MythAndMagic.MOD_ID, "magic/beginning").toString());
-        Advancement craft_rune_table = Advancement.Builder.create().parent(magic_root)
+        AdvancementEntry craft_rune_table = Advancement.Builder.create().parent(magic_root)
                 .display(
                         MythAndMagicBlocks.RUNE_TABLE_ITEM,
                         Text.translatable("advancements.myth_and_magic.magic.craft_rune_table"),
@@ -116,7 +117,7 @@ public class MythAndMagicAdvancementsProvider extends FabricAdvancementProvider 
                 .criterion("magic/craft_rune_table", RecipeCraftedCriterion.Conditions.create(
                         new Identifier(MythAndMagic.MOD_ID, "rune_table")))
                 .build(consumer, new Identifier(MythAndMagic.MOD_ID, "magic/craft_rune_table").toString());
-        Advancement got_rune = Advancement.Builder.create().parent(craft_rune_table)
+        AdvancementEntry got_rune = Advancement.Builder.create().parent(craft_rune_table)
                 .display(
                         MythAndMagicItems.FIRE_RUNE,
                         Text.translatable("advancements.myth_and_magic.magic.got_rune"),
@@ -144,7 +145,7 @@ public class MythAndMagicAdvancementsProvider extends FabricAdvancementProvider 
                 )
                 .criterion("magic/used_heal_rune", HealRuneUsedCriterion.Conditions.create())
                 .build(consumer, new Identifier(MythAndMagic.MOD_ID, "magic/used_heal_rune").toString());
-        Advancement craft_infusion_table = Advancement.Builder.create().parent(magic_root)
+        AdvancementEntry craft_infusion_table = Advancement.Builder.create().parent(magic_root)
                 .display(
                         MythAndMagicBlocks.INFUSION_TABLE_BLOCK,
                         Text.translatable("advancements.myth_and_magic.magic.craft_infusion_table"),

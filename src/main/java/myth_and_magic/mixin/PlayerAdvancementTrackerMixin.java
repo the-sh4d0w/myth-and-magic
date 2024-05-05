@@ -2,6 +2,7 @@ package myth_and_magic.mixin;
 
 import myth_and_magic.util.AdvancementGrantedCallback;
 import net.minecraft.advancement.Advancement;
+import net.minecraft.advancement.AdvancementEntry;
 import net.minecraft.advancement.PlayerAdvancementTracker;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,7 +17,7 @@ public class PlayerAdvancementTrackerMixin {
     private ServerPlayerEntity owner;
 
     @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/advancement/AdvancementRewards;apply(Lnet/minecraft/server/network/ServerPlayerEntity;)V"), method = "grantCriterion")
-    public void grantCriterion(Advancement advancement, String criterionName, CallbackInfoReturnable<Boolean> info) {
+    public void grantCriterion(AdvancementEntry advancement, String criterionName, CallbackInfoReturnable<Boolean> info) {
         AdvancementGrantedCallback.EVENT.invoker().grant(this.owner, advancement);
     }
 }

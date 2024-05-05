@@ -2,7 +2,6 @@
   "parent": "myth_and_magic:myth/craft_knight_statue",
   "criteria": {
     "myth/knight_protect": {
-      "conditions": {},
       "trigger": "myth_and_magic:knight_protect"
     }
   },

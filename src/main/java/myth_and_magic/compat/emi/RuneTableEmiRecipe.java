@@ -9,6 +9,7 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import myth_and_magic.item.MythAndMagicItems;
 import myth_and_magic.recipe.RuneTableRecipe;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
@@ -20,11 +21,11 @@ public class RuneTableEmiRecipe implements EmiRecipe {
     private final List<EmiStack> output;
     private final int levelCost;
 
-    public RuneTableEmiRecipe(RuneTableRecipe recipe) {
-        this.id = recipe.getId();
-        this.input = List.of(EmiIngredient.of(recipe.getInput()));
-        this.output = List.of(EmiStack.of(recipe.getOutput(null)));
-        this.levelCost = recipe.getLevelCost();
+    public RuneTableEmiRecipe(RecipeEntry<RuneTableRecipe> recipe) {
+        this.id = recipe.id();
+        this.input = List.of(EmiIngredient.of(recipe.value().getInput()));
+        this.output = List.of(EmiStack.of(recipe.value().getResult(null)));
+        this.levelCost = recipe.value().getLevelCost();
     }
 
     @Override

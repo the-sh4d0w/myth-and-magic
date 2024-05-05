@@ -1,7 +1,7 @@
 package myth_and_magic.util;
 
 import myth_and_magic.MythAndMagic;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.datafixer.DataFixTypes;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.PersistentState;
@@ -46,7 +46,8 @@ public class StateSaverAndLoader extends PersistentState {
 
     public static StateSaverAndLoader getServerState(MinecraftServer server) {
         PersistentStateManager persistentStateManager = server.getWorld(World.OVERWORLD).getPersistentStateManager();
-        StateSaverAndLoader state = persistentStateManager.getOrCreate(StateSaverAndLoader::createFromNbt, StateSaverAndLoader::new, MythAndMagic.MOD_ID);
+        StateSaverAndLoader state = persistentStateManager.getOrCreate(new Type<>(StateSaverAndLoader::new,
+                StateSaverAndLoader::createFromNbt, DataFixTypes.PLAYER), MythAndMagic.MOD_ID);
         state.markDirty();
         return state;
     }

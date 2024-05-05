@@ -1,17 +1,13 @@
 package myth_and_magic.recipe;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import myth_and_magic.MythAndMagic;
 import myth_and_magic.item.MythAndMagicItems;
 import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.*;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
@@ -21,10 +17,8 @@ public class RuneTableRecipe implements Recipe<SimpleInventory> {
     private final Ingredient input;
     private final ItemStack output;
     private final int levelCost;
-    private final Identifier id;
 
-    public RuneTableRecipe(Identifier id, ItemStack output, Ingredient input, int levelCost) {
-        this.id = id;
+    public RuneTableRecipe(ItemStack output, Ingredient input, int levelCost) {
         this.output = output;
         this.input = input;
         this.levelCost = levelCost;
@@ -59,13 +53,8 @@ public class RuneTableRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public ItemStack getOutput(DynamicRegistryManager registryManager) {
+    public ItemStack getResult(DynamicRegistryManager registryManager) {
         return output;
-    }
-
-    @Override
-    public Identifier getId() {
-        return id;
     }
 
     @Override
@@ -90,37 +79,32 @@ public class RuneTableRecipe implements Recipe<SimpleInventory> {
 
         public static final Serializer INSTANCE = new Serializer();
         public static final Identifier ID = new Identifier(MythAndMagic.MOD_ID, "rune_table_recipe");
+        public static final Codec<RuneTableRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                Identifier.CODEC.fieldOf("outputItem").xmap(id -> Registries.ITEM.get(id).getDefaultStack(),
+                        itemStack -> Registries.ITEM.getId(itemStack.getItem())).forGetter(r -> r.output),
+                Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("input").forGetter(RuneTableRecipe::getInput),
+                Codec.INT.fieldOf("levelCost").forGetter(RuneTableRecipe::getLevelCost)
+        ).apply(instance, RuneTableRecipe::new));
 
         @Override
-        public RuneTableRecipe read(Identifier id, JsonObject json) {
-            RuneTableRecipeJsonFormat recipeJson = new Gson().fromJson(json, RuneTableRecipeJsonFormat.class);
-            Ingredient input = Ingredient.fromJson(recipeJson.input);
-            Item outputItem = Registries.ITEM.getOrEmpty(new Identifier(recipeJson.outputItem)).get();
-            ItemStack output = new ItemStack(outputItem, 1);
-            int levelCost = recipeJson.levelCost;
-            return new RuneTableRecipe(id, output, input, levelCost);
+        public Codec<RuneTableRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public RuneTableRecipe read(Identifier id, PacketByteBuf buf) {
+        public RuneTableRecipe read(PacketByteBuf buf) {
             Ingredient input = Ingredient.fromPacket(buf);
             ItemStack output = buf.readItemStack();
             int levelCost = buf.readInt();
-            return new RuneTableRecipe(id, output, input, levelCost);
+            return new RuneTableRecipe(output, input, levelCost);
         }
 
         @Override
         public void write(PacketByteBuf buf, RuneTableRecipe recipe) {
             recipe.getInput().write(buf);
             // passing null because I don't do anything with that
-            buf.writeItemStack(recipe.getOutput(null));
+            buf.writeItemStack(recipe.getResult(null));
             buf.writeInt(recipe.getLevelCost());
         }
-    }
-
-    static class RuneTableRecipeJsonFormat {
-        JsonObject input;
-        String outputItem;
-        int levelCost;
     }
 }

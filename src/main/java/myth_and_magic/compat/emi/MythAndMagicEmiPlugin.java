@@ -10,6 +10,7 @@ import myth_and_magic.block.MythAndMagicBlocks;
 import myth_and_magic.recipe.InfusionTableRecipe;
 import myth_and_magic.recipe.RuneTableRecipe;
 import myth_and_magic.recipe.MythAndMagicRecipes;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeManager;
 import net.minecraft.util.Identifier;
 
@@ -30,12 +31,12 @@ public class MythAndMagicEmiPlugin implements EmiPlugin {
         RecipeManager manager = registry.getRecipeManager();
         registry.addCategory(RUNE_TABLE_CATEGORY);
         registry.addWorkstation(RUNE_TABLE_CATEGORY, RUNE_TABLE);
-        for (RuneTableRecipe recipe : manager.listAllOfType(MythAndMagicRecipes.RUNE_TABLE_RECIPE)) {
+        for (RecipeEntry<RuneTableRecipe> recipe : manager.listAllOfType(MythAndMagicRecipes.RUNE_TABLE_RECIPE)) {
             registry.addRecipe(new RuneTableEmiRecipe(recipe));
         }
         registry.addCategory(INFUSION_TABLE_CATEGORY);
         registry.addWorkstation(INFUSION_TABLE_CATEGORY, INFUSION_TABLE);
-        for (InfusionTableRecipe recipe : manager.listAllOfType(MythAndMagicRecipes.INFUSION_TABLE_RECIPE)) {
+        for (RecipeEntry<InfusionTableRecipe> recipe : manager.listAllOfType(MythAndMagicRecipes.INFUSION_TABLE_RECIPE)) {
             registry.addRecipe(new InfusionTableEmiRecipe(recipe));
         }
     }
