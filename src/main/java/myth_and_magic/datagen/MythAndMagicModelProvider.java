@@ -36,5 +36,6 @@ public class MythAndMagicModelProvider extends FabricModelProvider {
         itemModelGenerator.register(MythAndMagicItems.GLASS_PHIAL, Models.GENERATED);
         itemModelGenerator.register(MythAndMagicItems.LEVEL_PHIAL, Models.GENERATED);
         itemModelGenerator.register(MythAndMagicItems.KNIGHT_STATUE, Models.GENERATED);
+        itemModelGenerator.register(MythAndMagicItems.TARNKAPPE, Models.GENERATED);
     }
 }

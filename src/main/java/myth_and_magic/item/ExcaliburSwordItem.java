@@ -5,6 +5,7 @@ import myth_and_magic.item.materials.MagicAlloyToolMaterial;
 import myth_and_magic.util.PlayerData;
 import myth_and_magic.util.StateSaverAndLoader;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
@@ -17,6 +18,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 public class ExcaliburSwordItem extends SwordItem {
     public static final int MIN_WORTHINESS = 0;
@@ -86,6 +88,16 @@ public class ExcaliburSwordItem extends SwordItem {
             }
             tooltip.add(Text.translatable("item.myth_and_magic.excalibur.tooltip_bound").append(
                     Text.literal(itemStack.getOrCreateNbt().getString("player_name")).formatted(Formatting.GOLD)));
+        }
+    }
+
+    @Override
+    public void onItemEntityDestroyed(ItemEntity entity) {
+        if (entity.getStack().getOrCreateNbt().contains("owner")) {
+            UUID uuid = entity.getStack().getOrCreateNbt().getUuid("owner");
+            PlayerData playerData = StateSaverAndLoader.getPlayerState(entity.getWorld(), uuid);
+            playerData.swordDestroyed = true;
+            playerData.data = entity.getStack().getNbt();
         }
     }
 }

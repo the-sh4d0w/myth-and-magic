@@ -24,12 +24,6 @@ import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.argument.EntityArgumentType;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttributeInstance;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -101,6 +95,7 @@ public class MythAndMagic implements ModInitializer {
                     entries.add(MythAndMagicItems.NARCISSUS_MIRROR);
                     entries.add(MythAndMagicItems.MAGE_STAFF);
                     entries.add(MythAndMagicItems.GOLDEN_MAGE_STAFF);
+                    entries.add(MythAndMagicItems.TARNKAPPE);
                 })).build();
         Registry.register(Registries.ITEM_GROUP, new Identifier(MOD_ID, "item_group"), ITEM_GROUP);
 
@@ -115,20 +110,7 @@ public class MythAndMagic implements ModInitializer {
                  PacketSender responseSender) -> MovementEnchantment.move(player));
 
         // change health on (un)equip of Tarnkappe
-        ServerEntityEvents.EQUIPMENT_CHANGE.register((LivingEntity user, EquipmentSlot slot, ItemStack previous, ItemStack current) -> {
-            if (slot.isArmorSlot() && user.isAlive() && !previous.getItem().equals(current.getItem())) {
-                EntityAttributeInstance attribute = user.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
-                if (current.getItem().equals(MythAndMagicItems.TARNKAPPE)) {
-                    attribute.setBaseValue(TarnkappeArmorItem.REDUCED_HEALTH);
-                    user.setHealth(TarnkappeArmorItem.REDUCED_HEALTH);
-                    user.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, -1, 0, false, false));
-                } else if (previous.getItem().equals(MythAndMagicItems.TARNKAPPE)) {
-                    attribute.setBaseValue(TarnkappeArmorItem.NORMAL_HEALTH);
-                    user.setHealth(TarnkappeArmorItem.NORMAL_HEALTH);
-                    user.removeStatusEffect(StatusEffects.INVISIBILITY);
-                }
-            }
-        });
+        ServerEntityEvents.EQUIPMENT_CHANGE.register(TarnkappeArmorItem::changeHealthIfTarnkappe);
 
         // add worthiness on advancement granted
         AdvancementGrantedCallback.EVENT.register(((player, advancement) -> {

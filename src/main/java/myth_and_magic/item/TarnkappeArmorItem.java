@@ -1,8 +1,13 @@
 package myth_and_magic.item;
 
-import myth_and_magic.MythAndMagic;
 import myth_and_magic.item.materials.MagicAlloyArmorMaterial;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
@@ -26,7 +31,22 @@ public class TarnkappeArmorItem extends ArmorItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
-        tooltip.add(Text.translatable("item." + MythAndMagic.MOD_ID + ".tarnkappe.tooltip"));
+    public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
+        tooltip.add(Text.translatable("item.myth_and_magic.tarnkappe.tooltip"));
+    }
+
+    public static void changeHealthIfTarnkappe(LivingEntity user, EquipmentSlot slot, ItemStack previous, ItemStack current) {
+        if (slot.isArmorSlot() && user.isAlive() && !previous.getItem().equals(current.getItem())) {
+            EntityAttributeInstance attribute = user.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
+            if (current.getItem().equals(MythAndMagicItems.TARNKAPPE)) {
+                attribute.setBaseValue(TarnkappeArmorItem.REDUCED_HEALTH);
+                user.setHealth(TarnkappeArmorItem.REDUCED_HEALTH);
+                user.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, -1, 0, false, false));
+            } else if (previous.getItem().equals(MythAndMagicItems.TARNKAPPE)) {
+                attribute.setBaseValue(TarnkappeArmorItem.NORMAL_HEALTH);
+                user.setHealth(TarnkappeArmorItem.NORMAL_HEALTH);
+                user.removeStatusEffect(StatusEffects.INVISIBILITY);
+            }
+        }
     }
 }

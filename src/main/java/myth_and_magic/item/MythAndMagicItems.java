@@ -14,7 +14,6 @@ public class MythAndMagicItems {
     public static final Item NARCISSUS_MIRROR = register("narcissus_mirror", new NarcissusMirrorItem(new FabricItemSettings()));
     public static final Item MAGE_STAFF = register("mage_staff", new MageStaffItem(new FabricItemSettings(), 100));
     public static final Item GOLDEN_MAGE_STAFF = register("golden_mage_staff", new MageStaffItem(new FabricItemSettings(), 300));
-    public static final Item TARNKAPPE = register("tarnkappe", new TarnkappeArmorItem(new FabricItemSettings()));
     public static final Item RUNE = register("rune", new Item(new FabricItemSettings()));
     public static final Item FIRE_RUNE = register("fire_rune", new Item(new FabricItemSettings()));
     public static final Item ICE_RUNE = register("ice_rune", new Item(new FabricItemSettings()));
@@ -26,6 +25,7 @@ public class MythAndMagicItems {
     public static final Item GLASS_PHIAL = register("glass_phial", new Item(new FabricItemSettings()));
     public static final Item LEVEL_PHIAL = register("level_phial", new LevelPhialItem(new FabricItemSettings().food(LEVEL_PHIAL_FOOD)));
     public static final Item KNIGHT_STATUE = register("knight_statue", new KnightStatueItem(new FabricItemSettings()));
+    public static final Item TARNKAPPE = register("tarnkappe", new TarnkappeArmorItem(new FabricItemSettings()));
     public static final Item MAGIC_ALLOY_INGOT = register("magic_alloy_ingot", new Item(new FabricItemSettings()));
 
     private static Item register(String name, Item item) {
