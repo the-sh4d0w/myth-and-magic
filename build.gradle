@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.10-SNAPSHOT'
+    id 'fabric-loom' version "${loom_version}"
     id 'maven-publish'
 }
 
@@ -62,6 +62,7 @@ processResources {
         expand "minecraft_version": project.minecraft_version,
                 "loader_version": project.loader_version,
                 "mod_version": project.mod_version,
+                "loom_version": project.loom_version,
                 "fabric_version": project.fabric_version,
                 "emi_version": project.emi_version,
                 "patchouli_version": project.patchouli_version,
